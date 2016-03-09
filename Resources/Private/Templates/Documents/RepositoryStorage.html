@@ -13,23 +13,8 @@
 			<div class="container">
 				{parts.breadcrumb -> f:format.raw()}
 				<div class="container">
-					<a href="{vendorUri}" class="btn btn-primary pull-right" type="button">
-						Other package by the same vendor <span class="badge">{packageCount}</span>
-					</a>
-					<h1>{content.packageName}</h1>
-					<f:if condition="{content.description}">
-						<p><strong>{content.description}</strong></p>
-					</f:if>
-					{content.main -> f:format.raw()}
-					<hr>
-					<div class="row">
-						<div class="col-sm-9">
-							{versions -> f:format.raw()}
-						</div>
-						<div class="col-sm-3">
-							{versionMenu -> f:format.raw()}
-						</div>
-					</div>
+					<h1>Package Repository</h1>
+					{search -> f:format.raw()}
 				</div>
 			</div>
 

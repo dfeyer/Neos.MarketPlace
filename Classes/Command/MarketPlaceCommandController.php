@@ -49,6 +49,7 @@ class MarketPlaceCommandController extends CommandController
         } else {
             $client = new Client();
             $package = $client->get($package);
+            \TYPO3\Flow\var_dump($package);
             $this->importer->process($package, $storage);
             $this->outputLine(sprintf('Package "%s" imported with success', $package->getName()));
         }

@@ -1,0 +1,27 @@
+prototype(Neos.MarketPlace:PackageMenu) >
+prototype(Neos.MarketPlace:PackageMenu) < prototype(TYPO3.TypoScript:Tag) {
+    tagName = 'ul'
+    attributes {
+        class = 'nav nav--vertical'
+    }
+    content = TYPO3.TypoScript:Collection {
+        collection = ${q(documentNode).find('[instanceof Neos.MarketPlace:Package]')}
+        itemRenderer = Neos.MarketPlace:PackageMenuItem
+        itemName = 'package'
+    }
+}
+
+prototype(Neos.MarketPlace:PackageMenuItem) >
+prototype(Neos.MarketPlace:PackageMenuItem) < prototype(Neos.MarketPlace:Content) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/PackageMenuItem.html'
+    attributes {
+        class = 'nav__item'
+    }
+    @context.package = ${package}
+
+    name = ${q(package).property('title')}
+
+    uri = TYPO3.Neos:NodeUri {
+        node = ${package}
+    }
+}

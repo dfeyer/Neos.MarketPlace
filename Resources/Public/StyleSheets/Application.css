@@ -1,0 +1,52 @@
+.pm-search {
+    text-align: center;
+}
+
+.pm-form {
+    display: flex;
+}
+
+.pm-form-input,
+.pm-form-submit {
+    display: inline-block;
+    border: 1px solid #999;
+    box-sizing: border-box;
+}
+
+.pm-form-input {
+    display: inline-block;
+    flex: 1;
+    padding: .5em 1em;
+    font-size: 16px;
+    height: 40px;
+}
+
+.pm-form-submit {
+    width: 80px;
+    margin-left: -1px;
+}
+
+.pm-search-results {
+    padding: 0;
+    margin-top: 2em;
+    text-align: left;
+}
+
+.pm-search-results > li {
+    list-style: none;
+    border-bottom: 1px solid #999;
+    padding: .5em 1em;
+}
+
+.typo3-widget-paginator {
+    display: flex;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.typo3-widget-paginator > li {
+    list-style: none;
+    align-items: center;
+    margin: 0 1em;
+}

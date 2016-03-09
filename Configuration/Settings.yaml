@@ -2,10 +2,19 @@
 Neos:
   MarketPlace:
     types:
+      'typo3-flow-plugin': TRUE
+      'neos-plugin': TRUE
+      'typo3-flow-build': TRUE
+      'neos-build': TRUE
+      'typo3-flow-boilerplate': TRUE
+      'neos-boilerplate': TRUE
+      'typo3-flow-site': TRUE
+      'neos-site': TRUE
       'typo3-flow-package': TRUE
       'neos-package': TRUE
       'typo3-flow-framework': TRUE
       'neos-framework': TRUE
+
     repository:
       identifier: '1032567d-36ef-4c8e-87c1-18907a51f829'
 

@@ -6,6 +6,10 @@ prototype(Neos.MarketPlace:Document) < prototype(TYPO3.Neos:Page) {
                 sectionName = 'stylesheets'
                 node = ${node}
             }
+            marketplace = Neos.MarketPlace:StyleSheet {
+                @position = 'after site'
+                path = 'resource://Neos.MarketPlace/Public/StyleSheets/Application.css'
+            }
         }
 
         metadata = TYPO3.TypoScript:Template {

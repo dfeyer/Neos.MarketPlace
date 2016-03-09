@@ -1,0 +1,32 @@
+<div{attributes -> f:format.raw()}>
+    <a name="{version.version}"></a>
+    <h3>{version.version}</h3>
+    <dl>
+        <dt>Source</dt>
+        <dd><a href="{source.url}">{source.url}</a></dd>
+        <f:if condition="{dist}">
+            <dt>Download</dt>
+            <dd><a href="{dist.url}">{dist.type}</a></dd>
+        </f:if>
+        <dt>Reference</dt>
+        <dd>{source.reference}</dd>
+        <dt>Licenses</dt>
+        <dd>{license}</dd>
+        <dt>Type</dt>
+        <dd>{type}</dd>
+    </dl>
+
+    <f:render section="require" arguments="{require: require, title: 'require'}" />
+    <f:render section="require" arguments="{require: requireDev, title: 'require-dev'}" />
+</div>
+
+<f:section name="require">
+    <f:if condition="{require -> f:count()}">
+        <h4>{title}</h4>
+        <ul>
+            <f:for each="{require}" key="package" as="version">
+                <li><a href="https://packagist.org/packages/{package}">{package} <small>{version}</small></a></li>
+            </f:for>
+        </ul>
+    </f:if>
+</f:section>

@@ -1,0 +1,21 @@
+prototype(Neos.MarketPlace:VersionMenu) >
+prototype(Neos.MarketPlace:VersionMenu) < prototype(TYPO3.TypoScript:Tag) {
+    tagName = 'ul'
+    attributes {
+        class = 'nav nav--vertical'
+    }
+    content = TYPO3.TypoScript:Collection {
+        collection = ${package.versions}
+        itemRenderer = Neos.MarketPlace:VersionMenuItem
+        itemName = 'version'
+    }
+}
+
+prototype(Neos.MarketPlace:VersionMenuItem) >
+prototype(Neos.MarketPlace:VersionMenuItem) < prototype(Neos.MarketPlace:Content) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/VersionMenuItem.html'
+    attributes {
+        class = 'nav__item'
+    }
+    version = ${version}
+}

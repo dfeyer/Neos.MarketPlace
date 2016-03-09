@@ -1,0 +1,12 @@
+prototype(Neos.MarketPlace:StyleSheet) >
+prototype(Neos.MarketPlace:StyleSheet) < prototype(TYPO3.TypoScript:Tag) {
+    @context.path = ${this.path}
+    tagName = 'link'
+    selfClosingTag = TRUE
+    attributes {
+        rel = 'stylesheet'
+        href = TYPO3.TypoScript:ResourceUri {
+            path = ${path}
+        }
+    }
+}

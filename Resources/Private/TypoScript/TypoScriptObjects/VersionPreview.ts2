@@ -1,0 +1,25 @@
+prototype(Neos.MarketPlace:VersionPreview) >
+prototype(Neos.MarketPlace:VersionPreview) < prototype(Neos.MarketPlace:VersionMenu) {
+    tagName = 'section'
+    attributes {
+        class = 'block block--versions'
+    }
+    content {
+        itemRenderer = Neos.MarketPlace:VersionPreviewItem
+    }
+}
+
+prototype(Neos.MarketPlace:VersionPreviewItem) >
+prototype(Neos.MarketPlace:VersionPreviewItem) < prototype(Neos.MarketPlace:VersionMenuItem) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/VersionPreviewItem.html'
+    attributes {
+        class = 'box box--version'
+    }
+
+    source = ${version.source}
+    dist = ${version.dist}
+    type = ${version.type}
+    require = ${version.require}
+    requireDev = ${version.requireDev}
+    license = ${Array.isEmpty(version.license) ? 'unknow' : Array.join(version.license, ', ')}
+}

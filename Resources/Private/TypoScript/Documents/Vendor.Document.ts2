@@ -2,6 +2,8 @@ prototype(Neos.MarketPlace:Vendor.Document) < prototype(Neos.MarketPlace:Documen
     body {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Vendor.html'
 
+        packages = Neos.MarketPlace:PackageMenu
+
         content {
             vendorName = ${q(documentNode).property('title')}
         }

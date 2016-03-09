@@ -1,0 +1,3 @@
+prototype(Neos.MarketPlace:PackageSearchResult) < prototype(TYPO3.Neos:DocumentSearchResult) {
+    title.@process.prefix = ${'Package: ' + value}
+}

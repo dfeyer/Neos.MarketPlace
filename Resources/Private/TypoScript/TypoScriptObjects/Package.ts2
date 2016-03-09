@@ -1,0 +1,6 @@
+prototype(Neos.MarketPlace:Package) >
+prototype(Neos.MarketPlace:Package) {
+    @class = 'Neos\\MarketPlace\\TypoScriptObjects\\PackageImplementation'
+
+    name = 'valid/composer-package-name'
+}
