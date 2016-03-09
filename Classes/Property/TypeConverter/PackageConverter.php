@@ -19,8 +19,6 @@ use TYPO3\Flow\Property\Exception\InvalidPropertyMappingConfigurationException;
 use TYPO3\Flow\Property\Exception\TypeConverterException;
 use TYPO3\Flow\Property\PropertyMappingConfigurationInterface;
 use TYPO3\Flow\Property\TypeConverter\AbstractTypeConverter;
-use TYPO3\Flow\Reflection\ObjectAccess;
-use TYPO3\Flow\Utility\Arrays;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
 use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
@@ -91,7 +89,7 @@ class PackageConverter extends AbstractTypeConverter
         $time = \DateTime::createFromFormat(\DateTime::ATOM, $package->getTime());
         $nodeTemplate->setName($name);
         $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Package'));
-        $nodeTemplate->setProperty('uriPathSegment',$name);
+        $nodeTemplate->setProperty('uriPathSegment', $name);
         $nodeTemplate->setProperty('title', $package->getName());
         $nodeTemplate->setProperty('description', $package->getDescription());
         $nodeTemplate->setProperty('time', $time);
@@ -107,8 +105,45 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function update(Package $package, NodeInterface $node)
     {
-        foreach (['description', 'time', 'type', 'repository', 'favers'] as $propertyName) {
-            $this->updateNodeProperty($node, $propertyName, ObjectAccess::getPropertyPath($package, $propertyName));
+        $this->updateNodeProperties($node, [
+            'description' => $package->getDescription(),
+            'time' => \DateTime::createFromFormat(\DateTime::ATOM, $package->getTime()),
+            'type' => $package->getType(),
+            'repository' => $package->getRepository(),
+            'favers' => $package->getFavers()
+        ]);
+        $maintainerStorage = $node->getNode('maintainers');
+        foreach ($package->getMaintainers() as $maintainer) {
+            /** @var Package\Maintainer $maintainer */
+            $name = Slug::create($maintainer->getName());
+            $node = $maintainerStorage->getNode($name);
+            if ($node === null) {
+                $nodeTemplate = new NodeTemplate();
+                $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Maintainer'));
+                $nodeTemplate->setName($name);
+                $nodeTemplate->setProperty('uriPathSegment', $name);
+                $nodeTemplate->setProperty('title', $maintainer->getName());
+                $nodeTemplate->setProperty('email', $maintainer->getEmail());
+                $nodeTemplate->setProperty('homepage', $maintainer->getHomepage());
+                $maintainerStorage->createNodeFromTemplate($nodeTemplate);
+            } else {
+                $this->updateNodeProperties($node, [
+                    'title' => $maintainer->getName(),
+                    'email' => $maintainer->getEmail(),
+                    'homepage' => $maintainer->getHomepage()
+                ]);
+            }
+        }
+    }
+
+    /**
+     * @param NodeInterface $node
+     * @param array $data
+     */
+    protected function updateNodeProperties(NodeInterface $node, array $data)
+    {
+        foreach ($data as $propertyName => $propertyValue) {
+            $this->updateNodeProperty($node, $propertyName, $propertyValue);
         }
     }
 
