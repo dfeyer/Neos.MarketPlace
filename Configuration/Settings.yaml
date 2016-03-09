@@ -1,0 +1,21 @@
+---
+Neos:
+  MarketPlace:
+    types:
+      'typo3-flow-package': TRUE
+      'neos-package': TRUE
+      'typo3-flow-framework': TRUE
+      'neos-framework': TRUE
+    repository:
+      identifier: '1032567d-36ef-4c8e-87c1-18907a51f829'
+
+TYPO3:
+  Neos:
+    typoScript:
+      autoInclude:
+        'Neos.MarketPlace': TRUE
+
+    userInterface:
+      translation:
+        autoInclude:
+          'Neos.MarketPlace': ['NodeTypes/*']

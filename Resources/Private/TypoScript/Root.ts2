@@ -1,0 +1,9 @@
+include: Documents/**/*
+
+root {
+    neosMarketPlaceDocument {
+        type = ${q(node).property('_nodeType') + '.Document'}
+        condition = ${q(node).is('[instanceof Neos.MarketPlace:Document]')}
+        renderPath >
+    }
+}

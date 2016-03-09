@@ -1,0 +1,364 @@
+'Neos.MarketPlace:Document':
+  abstract: TRUE
+  ui:
+    inspector:
+      groups:
+        document:
+          label: i18n
+  childNodes:
+    main:
+      type: 'TYPO3.Neos:ContentCollection'
+  superTypes:
+    'TYPO3.Neos:Document': TRUE
+    'TYPO3.Neos.Seo:TitleTagMixin': FALSE
+    'TYPO3.Neos.Seo:SeoMetaTagsMixin': FALSE
+    'TYPO3.Neos.Seo:TwitterCardMixin': FALSE
+    'TYPO3.Neos.Seo:CanonicalLinkMixin': FALSE
+    'TYPO3.Neos.Seo:OpenGraphMixin': FALSE
+    'TYPO3.Neos.Seo:XmlSitemapMixin': FALSE
+
+# Repository
+'Neos.MarketPlace:RepositoryStorage':
+  superTypes:
+    'Neos.MarketPlace:Document': TRUE
+  ui:
+    label: i18n
+    icon: 'icon-search'
+
+# Vendor
+'Neos.MarketPlace:Vendor':
+  superTypes:
+    'Neos.MarketPlace:Document': TRUE
+  ui:
+    label: i18n
+    icon: 'icon-building'
+  properties:
+    title:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+          position: 1
+
+# Package
+'Neos.MarketPlace:Package':
+  superTypes:
+    'Neos.MarketPlace:Document': TRUE
+  ui:
+    label: i18n
+    icon: 'icon-gift'
+  properties:
+    title:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+          position: 1
+    description:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    time:
+      type: DateTime
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    type:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    repository:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    repository:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    favers:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+
+# Maintainer
+'Neos.MarketPlace:Maintainer':
+  superTypes:
+    'TYPO3.Neos:Content': TRUE
+  ui:
+    label: i18n
+    icon: 'icon-user'
+  properties:
+    name:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    email:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    homepage:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+
+# Version
+'Neos.MarketPlace:Version':
+  superTypes:
+    'TYPO3.Neos:Content': TRUE
+  ui:
+    label: i18n
+    icon: 'icon-file-o'
+  properties:
+    name:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    description:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    keywords:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    homepage:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    version:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    version:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    versionNormalized:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    license:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+#    authors:
+#      type: string
+#      ui:
+#        label: i18n
+#        reloadIfChanged: TRUE
+#        inspector:
+#          group: document
+    license:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    type:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    time:
+      type: DateTime
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+#    autoload:
+#      type: string
+#      ui:
+#        label: i18n
+#        reloadIfChanged: TRUE
+#        inspector:
+#          group: document
+#    extra:
+#      type: string
+#      ui:
+#        label: i18n
+#        reloadIfChanged: TRUE
+#        inspector:
+#          group: document
+#    require:
+#      type: string
+#      ui:
+#        label: i18n
+#        reloadIfChanged: TRUE
+#        inspector:
+#          group: document
+#    requireDev:
+#      type: string
+#      ui:
+#        label: i18n
+#        reloadIfChanged: TRUE
+#        inspector:
+#          group: document
+    conflict:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    provide:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    replace:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    bin:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+#    suggest:
+#      type: string
+#      ui:
+#        label: i18n
+#        reloadIfChanged: TRUE
+#        inspector:
+#          group: document
+
+# Source
+'Neos.MarketPlace:Source':
+  superTypes:
+    'TYPO3.Neos:Content': TRUE
+  ui:
+    label: i18n
+    icon: 'icon-code-fork'
+  properties:
+    type:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    url:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    reference:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+
+# Dist
+'Neos.MarketPlace:Dist':
+  superTypes:
+    'Neos.MarketPlace:Source': TRUE
+  ui:
+    label: i18n
+    icon: 'icon-code-fork'
+  properties:
+    shasum:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+
+# Downloads
+'Neos.MarketPlace:Downloads':
+  superTypes:
+    'TYPO3.Neos:Content': TRUE
+  ui:
+    label: i18n
+    icon: 'icon-download'
+  properties:
+    total:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    monthly:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document
+    daily:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: document

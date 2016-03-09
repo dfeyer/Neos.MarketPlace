@@ -1,0 +1,10 @@
+prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:Document) {
+    body {
+        templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Package.html'
+
+        content {
+            packageName = ${q(documentNode).property('title')}
+            description = ${q(documentNode).property('description')}
+        }
+    }
+}
