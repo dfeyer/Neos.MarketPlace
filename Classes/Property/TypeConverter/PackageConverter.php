@@ -75,6 +75,8 @@ class PackageConverter extends AbstractTypeConverter
         } else {
             $node = $this->update($package, $packageNode);
         }
+        $this->createOrUpdateMaintainers($package, $node);
+        $this->createOrUpdateVersions($package, $node);
         return $node;
     }
 
@@ -90,15 +92,17 @@ class PackageConverter extends AbstractTypeConverter
         $time = \DateTime::createFromFormat(\DateTime::ATOM, $package->getTime());
         $nodeTemplate->setName($name);
         $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Package'));
-        $nodeTemplate->setProperty('uriPathSegment', $name);
-        $nodeTemplate->setProperty('title', $package->getName());
-        $nodeTemplate->setProperty('description', $package->getDescription());
-        $nodeTemplate->setProperty('time', $time);
-        $nodeTemplate->setProperty('type', $package->getType());
-        $nodeTemplate->setProperty('repository', $package->getRepository());
-        $nodeTemplate->setProperty('favers', $package->getFavers());
+        $data = [
+            'uriPathSegment' => $name,
+            'title' => $package->getName(),
+            'description' => $package->getDescription(),
+            'time' => $time,
+            'type' => $package->getType(),
+            'repository' => $package->getRepository(),
+            'favers' => $package->getFavers()
+        ];
+        $this->setNodeTemplateProperties($nodeTemplate, $data);
         $node = $parentNode->createNodeFromTemplate($nodeTemplate);
-        $this->createOrUpdateMaintainers($package, $node);
         return $node;
     }
 
@@ -116,7 +120,6 @@ class PackageConverter extends AbstractTypeConverter
             'repository' => $package->getRepository(),
             'favers' => $package->getFavers()
         ]);
-        $this->createOrUpdateMaintainers($package, $node);
         return $node;
     }
 
@@ -131,21 +134,69 @@ class PackageConverter extends AbstractTypeConverter
             /** @var Package\Maintainer $maintainer */
             $name = Slug::create($maintainer->getName());
             $node = $maintainerStorage->getNode($name);
+            $data = [
+                'title' => $maintainer->getName(),
+                'email' => $maintainer->getEmail(),
+                'homepage' => $maintainer->getHomepage()
+            ];
             if ($node === null) {
                 $nodeTemplate = new NodeTemplate();
                 $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Maintainer'));
                 $nodeTemplate->setName($name);
-                $nodeTemplate->setProperty('title', $maintainer->getName());
-                $nodeTemplate->setProperty('email', $maintainer->getEmail());
-                $nodeTemplate->setProperty('homepage', $maintainer->getHomepage());
+                $this->setNodeTemplateProperties($nodeTemplate, $data);
                 $maintainerStorage->createNodeFromTemplate($nodeTemplate);
             } else {
-                $this->updateNodeProperties($node, [
-                    'title' => $maintainer->getName(),
-                    'email' => $maintainer->getEmail(),
-                    'homepage' => $maintainer->getHomepage()
-                ]);
+                $this->updateNodeProperties($node, $data);
             }
+        }
+    }
+
+    /**
+     * @param Package $package
+     * @param NodeInterface $node
+     */
+    protected function createOrUpdateVersions(Package $package, NodeInterface $node)
+    {
+        $maintainerStorage = $node->getNode('versions');
+        foreach ($package->getVersions() as $version) {
+            /** @var Package\Version $version */
+            $name = Slug::create($version->getVersion());
+            $node = $maintainerStorage->getNode($name);
+            $data = [
+                'title' => $version->getVersion(),
+                'description' => $version->getDescription(),
+                'keywords' => $version->getKeywords(),
+                'homepage' => $version->getHomepage(),
+                'version' => $version->getVersion(),
+                'versionNormalized' => $version->getVersionNormalized(),
+                'license' => $version->getLicense(),
+                'type' => $version->getType(),
+                'time' => \DateTime::createFromFormat(\DateTime::ATOM, $version->getType()),
+                'provide' => $version->getProvide(),
+                'conflict' => $version->getConflict(),
+                'replace' => $version->getReplace(),
+                'bin' => $version->getBin(),
+            ];
+            if ($node === null) {
+                $nodeTemplate = new NodeTemplate();
+                $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Version'));
+                $nodeTemplate->setName($name);
+                $this->setNodeTemplateProperties($nodeTemplate, $data);
+                $maintainerStorage->createNodeFromTemplate($nodeTemplate);
+            } else {
+                $this->updateNodeProperties($node, $data);
+            }
+        }
+    }
+
+    /**
+     * @param NodeTemplate $template
+     * @param array $data
+     */
+    protected function setNodeTemplateProperties(NodeTemplate $template, array $data)
+    {
+        foreach ($data as $propertyName => $propertyValue) {
+            $template->setProperty($propertyName, $propertyValue);
         }
     }
 
