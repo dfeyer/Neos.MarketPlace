@@ -71,16 +71,17 @@ class PackageConverter extends AbstractTypeConverter
         $vendorNode = $storage->createVendor($vendor);
         $packageNode = $vendorNode->getNode($identifier);
         if ($packageNode === null) {
-            $this->create($package, $vendorNode);
+            $node = $this->create($package, $vendorNode);
         } else {
-            $this->update($package, $packageNode);
+            $node = $this->update($package, $packageNode);
         }
+        return $node;
     }
 
     /**
      * @param Package $package
      * @param NodeInterface $parentNode
-     * @return void
+     * @return NodeInterface
      */
     protected function create(Package $package, NodeInterface $parentNode)
     {
@@ -96,12 +97,15 @@ class PackageConverter extends AbstractTypeConverter
         $nodeTemplate->setProperty('type', $package->getType());
         $nodeTemplate->setProperty('repository', $package->getRepository());
         $nodeTemplate->setProperty('favers', $package->getFavers());
-        $parentNode->createNodeFromTemplate($nodeTemplate);
+        $node = $parentNode->createNodeFromTemplate($nodeTemplate);
+        $this->createOrUpdateMaintainers($package, $node);
+        return $node;
     }
 
     /**
      * @param Package $package
      * @param NodeInterface $node
+     * @return NodeInterface
      */
     protected function update(Package $package, NodeInterface $node)
     {
@@ -112,6 +116,16 @@ class PackageConverter extends AbstractTypeConverter
             'repository' => $package->getRepository(),
             'favers' => $package->getFavers()
         ]);
+        $this->createOrUpdateMaintainers($package, $node);
+        return $node;
+    }
+
+    /**
+     * @param Package $package
+     * @param NodeInterface $node
+     */
+    protected function createOrUpdateMaintainers(Package $package, NodeInterface $node)
+    {
         $maintainerStorage = $node->getNode('maintainers');
         foreach ($package->getMaintainers() as $maintainer) {
             /** @var Package\Maintainer $maintainer */
