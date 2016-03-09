@@ -11,8 +11,10 @@ namespace Neos\MarketPlace\TypoScriptObjects;
  * source code.
  */
 
+use TYPO3\Flow\Annotations as Flow;
 use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
+use TYPO3\Flow\Log\SystemLoggerInterface;
 use TYPO3\TypoScript\TypoScriptObjects\AbstractArrayTypoScriptObject;
 
 /**
@@ -22,6 +24,11 @@ use TYPO3\TypoScript\TypoScriptObjects\AbstractArrayTypoScriptObject;
  */
 class PackageImplementation extends AbstractArrayTypoScriptObject
 {
+    /**
+     * @var SystemLoggerInterface
+     * @Flow\Inject
+     */
+    protected $systemLogger;
 
     /**
      * @return string
@@ -34,11 +41,16 @@ class PackageImplementation extends AbstractArrayTypoScriptObject
     /**
      * Evaluate this TypoScript object and return the result
      *
-     * @return mixed
+     * @return Package|null
      */
     public function evaluate()
     {
-        $client = new Client();
-        return $client->get($this->getName());
+        try {
+            $client = new Client();
+            return $client->get($this->getName());
+        } catch (\Exception $exception) {
+            $this->systemLogger->logException($exception);
+            return null;
+        }
     }
 }
