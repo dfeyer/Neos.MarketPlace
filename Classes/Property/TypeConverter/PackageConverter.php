@@ -135,7 +135,6 @@ class PackageConverter extends AbstractTypeConverter
                 $nodeTemplate = new NodeTemplate();
                 $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Maintainer'));
                 $nodeTemplate->setName($name);
-                $nodeTemplate->setProperty('uriPathSegment', $name);
                 $nodeTemplate->setProperty('title', $maintainer->getName());
                 $nodeTemplate->setProperty('email', $maintainer->getEmail());
                 $nodeTemplate->setProperty('homepage', $maintainer->getHomepage());
