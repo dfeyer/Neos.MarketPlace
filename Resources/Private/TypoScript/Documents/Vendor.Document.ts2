@@ -4,6 +4,10 @@ prototype(Neos.MarketPlace:Vendor.Document) < prototype(Neos.MarketPlace:Documen
 
         packages = Neos.MarketPlace:PackageMenu
 
+        search = Neos.MarketPlace:Search {
+            actionNode = Neos.MarketPlace:ClosestRepositoryStorageNode
+        }
+
         content {
             vendorName = ${q(documentNode).property('title')}
         }

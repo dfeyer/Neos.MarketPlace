@@ -1,20 +1,7 @@
 prototype(Neos.MarketPlace:RepositoryStorage.Document) < prototype(Neos.MarketPlace:Document) {
-    prototype(Flowpack.SearchPlugin:Search.Form) {
-        templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Search.Form.html'
-    }
-    prototype(Flowpack.SearchPlugin:Search) {
-        attributes {
-            class = 'pm-search'
-        }
-        searchResultRenderer {
-            attributes {
-                class = 'pm-search-results'
-            }
-        }
-    }
     body {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/RepositoryStorage.html'
 
-        search = Flowpack.SearchPlugin:Search
+        search = Neos.MarketPlace:Search
     }
 }

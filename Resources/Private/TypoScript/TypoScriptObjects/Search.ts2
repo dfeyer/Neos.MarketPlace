@@ -1,0 +1,23 @@
+prototype(Neos.MarketPlace:Search) >
+prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
+    actionNode = ${documentNode}
+    @context.actionNode = ${this.actionNode}
+
+    prototype(Flowpack.SearchPlugin:Search.Form) {
+        templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Search.Form.html'
+
+        actionUri = TYPO3.Neos:NodeUri {
+            node = ${actionNode}
+        }
+    }
+
+    attributes {
+        class = 'pm-search'
+    }
+
+    searchResultRenderer {
+        attributes {
+            class = 'pm-search-results'
+        }
+    }
+}
