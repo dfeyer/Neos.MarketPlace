@@ -4,7 +4,7 @@
     "type": "neos-package",
     "require": {
         "typo3/flow": "*",
-        "flowpack/searchplugin": "^1.3",
+        "flowpack/searchplugin": "*",
         "knplabs/packagist-api": "^1.3"
     },
     "autoload": {
