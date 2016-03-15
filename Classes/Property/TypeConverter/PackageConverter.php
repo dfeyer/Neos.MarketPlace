@@ -213,7 +213,7 @@ class PackageConverter extends AbstractTypeConverter
                 $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Version'));
                 $nodeTemplate->setName($name);
                 $this->setNodeTemplateProperties($nodeTemplate, $data);
-                $versionStorage->createNodeFromTemplate($nodeTemplate);
+                $node = $versionStorage->createNodeFromTemplate($nodeTemplate);
             } else {
                 $this->updateNodeProperties($node, $data);
             }
