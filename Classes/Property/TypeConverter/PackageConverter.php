@@ -218,7 +218,7 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function updateNodeProperty(NodeInterface $node, $propertyName, $propertyValue)
     {
-        if ($node->getProperties()[$propertyName] === $propertyValue) {
+        if (isset($node->getProperties()[$propertyName]) && $node->getProperties()[$propertyName] === $propertyValue) {
             return;
         }
         $node->setProperty($propertyName, $propertyValue);
