@@ -1,3 +1,0 @@
-prototype(Neos.MarketPlace:ClosestRepositoryStorageNode) < prototype(TypoScript:Value) {
-    value = ${q(node).closest('[instanceof Neos.MarketPlace:RepositoryStorage]').get(0)}
-}

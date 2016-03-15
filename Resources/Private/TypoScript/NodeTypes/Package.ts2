@@ -11,10 +11,6 @@ prototype(Neos.MarketPlace:Package) {
         node = ${vendor}
     }
 
-    search = Neos.MarketPlace:Search {
-        actionNode = Neos.MarketPlace:ClosestRepositoryStorageNode
-    }
-
     packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
 
     versionMenu = Neos.MarketPlace:VersionMenu

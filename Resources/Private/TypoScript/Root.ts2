@@ -3,6 +3,7 @@ namespace: Neos=TYPO3.Neos
 
 include: Documents/**/*
 include: NodeTypes/**/*
+include: Query/**/*
 include: TypoScriptObjects/**/*
 
 root {

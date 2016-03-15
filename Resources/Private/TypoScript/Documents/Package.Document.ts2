@@ -3,5 +3,9 @@ prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:Docume
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Package.html'
 
         package = Neos.MarketPlace:Package
+
+        search = Neos.MarketPlace:Search {
+            actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
+        }
     }
 }
