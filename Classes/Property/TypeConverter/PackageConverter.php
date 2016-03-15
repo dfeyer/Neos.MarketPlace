@@ -157,11 +157,11 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function createOrUpdateVersions(Package $package, NodeInterface $node)
     {
-        $maintainerStorage = $node->getNode('versions');
+        $versionStorage = $node->getNode('versions');
         foreach ($package->getVersions() as $version) {
             /** @var Package\Version $version */
             $name = Slug::create($version->getVersion());
-            $node = $maintainerStorage->getNode($name);
+            $node = $versionStorage->getNode($name);
             $data = [
                 'name' => $version->getVersion(),
                 'description' => $version->getDescription(),
@@ -182,25 +182,29 @@ class PackageConverter extends AbstractTypeConverter
                 $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Version'));
                 $nodeTemplate->setName($name);
                 $this->setNodeTemplateProperties($nodeTemplate, $data);
-                $maintainerStorage->createNodeFromTemplate($nodeTemplate);
+                $versionStorage->createNodeFromTemplate($nodeTemplate);
             } else {
                 $this->updateNodeProperties($node, $data);
             }
 
-            $source = $node->getNode('source');
-            $this->updateNodeProperties($source, [
-                'type' => $version->getSource()->getType(),
-                'reference' => $version->getSource()->getReference(),
-                'url' => $version->getSource()->getUrl(),
-            ]);
+            if ($version->getSource()) {
+                $source = $node->getNode('source');
+                $this->updateNodeProperties($source, [
+                    'type' => $version->getSource()->getType(),
+                    'reference' => $version->getSource()->getReference(),
+                    'url' => $version->getSource()->getUrl(),
+                ]);
+            }
 
-            $dist = $node->getNode('dist');
-            $this->updateNodeProperties($dist, [
-                'type' => $version->getDist()->getType(),
-                'reference' => $version->getDist()->getReference(),
-                'url' => $version->getDist()->getUrl(),
-                'shasum' => $version->getDist()->getShasum(),
-            ]);
+            if ($version->getDist()) {
+                $dist = $node->getNode('dist');
+                $this->updateNodeProperties($dist, [
+                    'type' => $version->getDist()->getType(),
+                    'reference' => $version->getDist()->getReference(),
+                    'url' => $version->getDist()->getUrl(),
+                    'shasum' => $version->getDist()->getShasum(),
+                ]);
+            }
         }
     }
 
