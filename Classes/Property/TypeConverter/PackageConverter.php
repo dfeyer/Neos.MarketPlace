@@ -147,7 +147,20 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function createOrUpdateMaintainers(Package $package, NodeInterface $node)
     {
+        $upstreamMaintainers = array_map(function (Package\Maintainer $maintainer) {
+            return $maintainer->getName();
+        }, $package->getMaintainers());
         $maintainerStorage = $node->getNode('maintainers');
+        $maintainers = new FlowQuery([$maintainerStorage]);
+        $maintainers = $maintainers->children('[instanceof Neos.MarketPlace:Maintainer]');
+        foreach ($maintainers as $maintainer) {
+            /** @var NodeInterface $maintainer */
+            if (in_array($maintainer->getProperty('title'), $upstreamMaintainers)) {
+                continue;
+            }
+            $maintainer->remove();
+        }
+
         foreach ($package->getMaintainers() as $maintainer) {
             /** @var Package\Maintainer $maintainer */
             $name = Slug::create($maintainer->getName());
