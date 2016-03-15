@@ -5,7 +5,7 @@ prototype(Neos.MarketPlace:VersionPreview) < prototype(TYPO3.TypoScript:Tag) {
         class = 'block block--versions'
     }
     content = TYPO3.TypoScript:Collection {
-        collection = ${q(documentNode).find('versions').find('[instanceof Neos.MarketPlace:Version]')}
+        collection = Neos.MarketPlace:VersionsQuery
         itemRenderer = Neos.MarketPlace:Version
         itemName = 'node'
     }
