@@ -1,13 +1,20 @@
 prototype(Neos.MarketPlace:Version) {
 
     dist = ${q(node).find('dist').first()}
+
     distType = ${this.dist.property('type')}
     distUrl = ${this.dist.property('url')}
     distReference = ${this.dist.property('reference')}
     distShaSum = ${this.dist.property('shasum')}
 
     source = ${q(node).find('source').first()}
+
     sourceType = ${this.source.property('type')}
     sourceUrl = ${this.source.property('url')}
     sourceReference = ${this.source.property('reference')}
+
+    require = ${Json.parse(q(node).property('require'))}
+    requireDev = ${Json.parse(q(node).property('requireDev'))}
+    suggest = ${Json.parse(q(node).property('suggest'))}
+    replace = ${Json.parse(q(node).property('replace'))}
 }

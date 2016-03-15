@@ -173,9 +173,12 @@ class PackageConverter extends AbstractTypeConverter
                 'type' => $version->getType(),
                 'time' => \DateTime::createFromFormat(\DateTime::ISO8601, $version->getTime()),
                 'provide' => $version->getProvide(),
-                'conflict' => $version->getConflict(),
-                'replace' => $version->getReplace(),
-                'bin' => $version->getBin(),
+                'bin' => $this->arrayToJsonCaster($version->getBin()),
+                'require' => $this->arrayToJsonCaster($version->getRequire()),
+                'requireDev' => $this->arrayToJsonCaster($version->getRequireDev()),
+                'suggest' => $this->arrayToJsonCaster($version->getSuggest()),
+                'conflict' => $this->arrayToJsonCaster($version->getConflict()),
+                'replace' => $this->arrayToJsonCaster($version->getReplace()),
             ];
             if ($node === null) {
                 $nodeTemplate = new NodeTemplate();
@@ -270,5 +273,13 @@ class PackageConverter extends AbstractTypeConverter
     protected function arrayToStringCaster($value) {
         $value = $value ?: [];
         return implode(', ', $value);
+    }
+
+    /**
+     * @param array $value
+     * @return string
+     */
+    protected function arrayToJsonCaster($value) {
+        return $value ? json_encode($value, JSON_PRETTY_PRINT) : null;
     }
 }

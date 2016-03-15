@@ -13,7 +13,7 @@
             <dt>Requires</dt>
             <f:if condition="{require}">
                 <f:then>
-                    <dd>{require}</dd>
+                    <dd><f:render section="packageRequirement" arguments="{packages: require}" /></dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -22,7 +22,7 @@
             <dt>Requires (dev)</dt>
             <f:if condition="{requireDev}">
                 <f:then>
-                    <dd>{requireDev}</dd>
+                    <dd><f:render section="packageRequirement" arguments="{packages: requireDev}" /></dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -31,7 +31,7 @@
             <dt>Suggest</dt>
             <f:if condition="{suggest}">
                 <f:then>
-                    <dd>{suggest}</dd>
+                    <dd><f:render section="packageSuggestion" arguments="{packages: suggest}" /></dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -40,7 +40,7 @@
             <dt>Provides</dt>
             <f:if condition="{provide}">
                 <f:then>
-                    <dd>{provide}</dd>
+                    <dd><f:render section="packageRequirement" arguments="{packages: provide}" /></dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -49,7 +49,7 @@
             <dt>Conflicts</dt>
             <f:if condition="{conflict}">
                 <f:then>
-                    <dd>{conflict}</dd>
+                    <dd><f:render section="packageRequirement" arguments="{packages: conflict}" /></dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -58,7 +58,7 @@
             <dt>Replaces</dt>
             <f:if condition="{replace}">
                 <f:then>
-                    <dd>{replace}</dd>
+                    <dd><f:render section="packageRequirement" arguments="{packages: suggest}" /></dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -89,8 +89,8 @@
                 <dd>{type}</dd>
             </f:if>
             <f:if condition="{time}">
-                <dt>Time</dt>
-                <dd>{time -> f:format.date()}</dd>
+                <dt>Release Date</dt>
+                <dd>{time -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "full", forceLocale: true)}</dd>
             </f:if>
             <dt>Source</dt>
             <dd><a href="{sourceUrl}">{sourceType}</a> <small>{sourceReference}</small></dd>
@@ -100,3 +100,23 @@
     </div>
 </div>
 </div>
+
+<f:section name="packageSuggestion">
+    <f:if condition="{packages -> f:count()}">
+        <ul>
+            <f:for each="{packages}" as="value" key="package">
+                <li>{package}: {value}</li>
+            </f:for>
+        </ul>
+    </f:if>
+</f:section>
+
+<f:section name="packageRequirement">
+    <f:if condition="{packages -> f:count()}">
+        <ul>
+            <f:for each="{packages}" as="value" key="package">
+                <li>{package}: {value}</li>
+            </f:for>
+        </ul>
+    </f:if>
+</f:section>
