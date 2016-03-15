@@ -14,6 +14,7 @@ namespace Neos\MarketPlace\Property\TypeConverter;
 use Neos\MarketPlace\Domain\Model\Slug;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Packagist\Api\Result\Package;
+use TYPO3\Eel\FlowQuery\FlowQuery;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Property\Exception\InvalidPropertyMappingConfigurationException;
 use TYPO3\Flow\Property\Exception\TypeConverterException;
@@ -174,7 +175,17 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function createOrUpdateVersions(Package $package, NodeInterface $node)
     {
+        $upstreamVersion = array_keys($package->getVersions());
         $versionStorage = $node->getNode('versions');
+        $versions = new FlowQuery([$versionStorage]);
+        $versions = $versions->children('[instanceof Neos.MarketPlace:Version]');
+        foreach ($versions as $version) {
+            /** @var NodeInterface $version */
+            if (!in_array($version->getName(), $upstreamVersion)) {
+                $version->remove();
+            }
+        }
+
         foreach ($package->getVersions() as $version) {
             /** @var Package\Version $version */
             $name = Slug::create($version->getVersion());
