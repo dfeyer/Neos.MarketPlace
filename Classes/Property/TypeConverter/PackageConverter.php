@@ -89,7 +89,7 @@ class PackageConverter extends AbstractTypeConverter
     {
         $name = Slug::create($package->getName());
         $nodeTemplate = new NodeTemplate();
-        $time = \DateTime::createFromFormat(\DateTime::ATOM, $package->getTime());
+        $time = \DateTime::createFromFormat(\DateTime::ISO8601, $package->getTime());
         $nodeTemplate->setName($name);
         $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Package'));
         $data = [
@@ -115,7 +115,7 @@ class PackageConverter extends AbstractTypeConverter
     {
         $this->updateNodeProperties($node, [
             'description' => $package->getDescription(),
-            'time' => \DateTime::createFromFormat(\DateTime::ATOM, $package->getTime()),
+            'time' => \DateTime::createFromFormat(\DateTime::ISO8601, $package->getTime()),
             'type' => $package->getType(),
             'repository' => $package->getRepository(),
             'favers' => $package->getFavers()
@@ -171,7 +171,7 @@ class PackageConverter extends AbstractTypeConverter
                 'versionNormalized' => $version->getVersionNormalized(),
                 'license' => $this->arrayToStringCaster($version->getLicense()),
                 'type' => $version->getType(),
-                'time' => \DateTime::createFromFormat(\DateTime::ATOM, $version->getType()),
+                'time' => \DateTime::createFromFormat(\DateTime::ISO8601, $version->getTime()),
                 'provide' => $version->getProvide(),
                 'conflict' => $version->getConflict(),
                 'replace' => $version->getReplace(),
