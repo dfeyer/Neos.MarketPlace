@@ -5,17 +5,8 @@ prototype(Neos.MarketPlace:VersionMenu) < prototype(TYPO3.TypoScript:Tag) {
         class = 'nav nav--vertical'
     }
     content = TYPO3.TypoScript:Collection {
-        collection = ${package.versions}
+        collection = ${q(documentNode).find('versions').find('[instanceof Neos.MarketPlace:Version]')}
         itemRenderer = Neos.MarketPlace:VersionMenuItem
-        itemName = 'version'
+        itemName = 'node'
     }
-}
-
-prototype(Neos.MarketPlace:VersionMenuItem) >
-prototype(Neos.MarketPlace:VersionMenuItem) < prototype(Neos.MarketPlace:Content) {
-    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/VersionMenuItem.html'
-    attributes {
-        class = 'nav__item'
-    }
-    version = ${version}
 }

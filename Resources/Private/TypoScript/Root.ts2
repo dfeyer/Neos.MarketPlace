@@ -2,6 +2,7 @@ namespace: TypoScript=TYPO3.TypoScript
 namespace: Neos=TYPO3.Neos
 
 include: Documents/**/*
+include: NodeTypes/**/*
 include: TypoScriptObjects/**/*
 
 root {

@@ -163,13 +163,13 @@ class PackageConverter extends AbstractTypeConverter
             $name = Slug::create($version->getVersion());
             $node = $maintainerStorage->getNode($name);
             $data = [
-                'title' => $version->getVersion(),
+                'name' => $version->getVersion(),
                 'description' => $version->getDescription(),
-                'keywords' => $version->getKeywords(),
+                'keywords' => $this->arrayToStringCaster($version->getKeywords()),
                 'homepage' => $version->getHomepage(),
                 'version' => $version->getVersion(),
                 'versionNormalized' => $version->getVersionNormalized(),
-                'license' => $version->getLicense(),
+                'license' => $this->arrayToStringCaster($version->getLicense()),
                 'type' => $version->getType(),
                 'time' => \DateTime::createFromFormat(\DateTime::ATOM, $version->getType()),
                 'provide' => $version->getProvide(),
@@ -186,6 +186,21 @@ class PackageConverter extends AbstractTypeConverter
             } else {
                 $this->updateNodeProperties($node, $data);
             }
+
+            $source = $node->getNode('source');
+            $this->updateNodeProperties($source, [
+                'type' => $version->getSource()->getType(),
+                'reference' => $version->getSource()->getReference(),
+                'url' => $version->getSource()->getUrl(),
+            ]);
+
+            $dist = $node->getNode('dist');
+            $this->updateNodeProperties($dist, [
+                'type' => $version->getDist()->getType(),
+                'reference' => $version->getDist()->getReference(),
+                'url' => $version->getDist()->getUrl(),
+                'shasum' => $version->getDist()->getShasum(),
+            ]);
         }
     }
 
@@ -242,5 +257,14 @@ class PackageConverter extends AbstractTypeConverter
             throw new InvalidPropertyMappingConfigurationException('Storage must be a NodeInterface instances', 1457516377);
         }
         return $storage;
+    }
+
+    /**
+     * @param array $value
+     * @return string
+     */
+    protected function arrayToStringCaster($value) {
+        $value = $value ?: [];
+        return implode(', ', $value);
     }
 }

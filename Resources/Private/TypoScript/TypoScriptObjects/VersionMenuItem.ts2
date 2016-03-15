@@ -1,0 +1,9 @@
+prototype(Neos.MarketPlace:VersionMenuItem) >
+prototype(Neos.MarketPlace:VersionMenuItem) < prototype(Neos.MarketPlace:Version) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/VersionMenuItem.html'
+    attributes {
+        class = 'nav__item'
+    }
+
+    @process.contentElementWrapping >
+}
