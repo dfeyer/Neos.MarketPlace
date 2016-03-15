@@ -181,7 +181,7 @@ class PackageConverter extends AbstractTypeConverter
         $versions = $versions->children('[instanceof Neos.MarketPlace:Version]');
         foreach ($versions as $version) {
             /** @var NodeInterface $version */
-            if (in_array($version->getName(), $upstreamVersions)) {
+            if (in_array($version->getProperty('version'), $upstreamVersions)) {
                 continue;
             }
             $version->remove();
