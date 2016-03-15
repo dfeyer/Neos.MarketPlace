@@ -131,16 +131,11 @@
         inspector:
           group: document
 
-# Maintainer
-'Neos.MarketPlace:Maintainer':
+# People
+'Neos.MarketPlace:People':
+  abstract: TRUE
   superTypes:
     'TYPO3.Neos:Content': TRUE
-  search:
-    fulltext:
-      enable: false
-  ui:
-    label: i18n
-    icon: 'icon-user'
   properties:
     title:
       type: string
@@ -163,6 +158,17 @@
         reloadIfChanged: TRUE
         inspector:
           group: document
+
+# Maintainer
+'Neos.MarketPlace:Maintainer':
+  superTypes:
+    'Neos.MarketPlace:People': TRUE
+  search:
+    fulltext:
+      enable: false
+  ui:
+    label: i18n
+    icon: 'icon-user'
 
 # Version
 'Neos.MarketPlace:Version':

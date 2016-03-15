@@ -25,6 +25,10 @@ prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:Docume
         versionMenu = Neos.MarketPlace:VersionMenu
         versions = Neos.MarketPlace:VersionPreview
 
+        maintainerMenu = Neos.MarketPlace:PeopleMenu {
+            path = 'maintainers'
+        }
+
         content {
             packageName = ${q(documentNode).property('title')}
             description = ${q(documentNode).property('description')}
