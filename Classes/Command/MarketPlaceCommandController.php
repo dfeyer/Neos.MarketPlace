@@ -19,6 +19,7 @@ use Packagist\Api\Result\Package;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
 use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TYPO3CR\Search\Indexer\NodeIndexingManager;
 
 /**
@@ -94,7 +95,9 @@ class MarketPlaceCommandController extends CommandController
     {
         $this->outputLine();
         $this->outputLine('Cleanup packages ...');
-        $count = $this->importer->cleanupPackages($storage);
+        $count = $this->importer->cleanupPackages($storage, function (NodeInterface $package) {
+            $this->outputLine(sprintf('%s deleted', $package->getLabel()));
+        });
         if ($count > 0) {
             $this->outputLine(sprintf('  Deleted %d package(s)', $count));
         }
@@ -107,7 +110,9 @@ class MarketPlaceCommandController extends CommandController
     {
         $this->outputLine();
         $this->outputLine('Cleanup vendors ...');
-        $count = $this->importer->cleanupVendors($storage);
+        $count = $this->importer->cleanupVendors($storage, function (NodeInterface $vendor) {
+            $this->outputLine(sprintf('%s deleted', $vendor->getLabel()));
+        });
         if ($count > 0) {
             $this->outputLine(sprintf('  Deleted %d vendor(s)', $count));
         }

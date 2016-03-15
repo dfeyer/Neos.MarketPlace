@@ -41,15 +41,17 @@ interface PackageImporterInterface
      * Remove local package not preset in the processed packages list
      *
      * @param Storage $storage
+     * @param callable $callback function called after the package removal
      * @return integer
      */
-    public function cleanupPackages(Storage $storage);
+    public function cleanupPackages(Storage $storage, callable $callback = null);
 
     /**
      * Remove vendors without packages
      *
      * @param Storage $storage
+     * @param callable $callback function called after the vendor removal
      * @return integer
      */
-    public function cleanupVendors(Storage $storage);
+    public function cleanupVendors(Storage $storage, callable $callback = null);
 }

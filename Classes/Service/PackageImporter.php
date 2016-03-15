@@ -74,9 +74,10 @@ class PackageImporter implements PackageImporterInterface
      * Remove local package not preset in the processed packages list
      *
      * @param Storage $storage
+     * @param callable $callback function called after the package removal
      * @return integer
      */
-    public function cleanupPackages(Storage $storage)
+    public function cleanupPackages(Storage $storage, callable $callback = null)
     {
         $count = 0;
         $storageNode = $storage->node();
@@ -89,6 +90,9 @@ class PackageImporter implements PackageImporterInterface
                 continue;
             }
             $package->remove();
+            if ($callback !== null) {
+                $callback($package);
+            }
             $this->emitPackageDeleted($package);
             $count++;
         }
@@ -99,9 +103,10 @@ class PackageImporter implements PackageImporterInterface
      * Remove vendors without packages
      *
      * @param Storage $storage
+     * @param callable $callback function called after the vendor removal
      * @return integer
      */
-    public function cleanupVendors(Storage $storage)
+    public function cleanupVendors(Storage $storage, callable $callback = null)
     {
         $count = 0;
         $storageNode = $storage->node();
@@ -115,6 +120,9 @@ class PackageImporter implements PackageImporterInterface
                 continue;
             }
             $vendor->remove();
+            if ($callback !== null) {
+                $callback($vendor);
+            }
             $this->emitVendorDeleted($vendor);
             $count++;
         }
