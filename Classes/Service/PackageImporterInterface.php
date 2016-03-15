@@ -26,4 +26,30 @@ interface PackageImporterInterface
      * @param Storage $storage
      */
     public function process(Package $package, Storage $storage);
+
+    /**
+     * @return array
+     */
+    public function getProcessedPackages();
+
+    /**
+     * @return integer
+     */
+    public function getProcessedPackagesCount();
+
+    /**
+     * Remove local package not preset in the processed packages list
+     *
+     * @param Storage $storage
+     * @return integer
+     */
+    public function cleanupPackages(Storage $storage);
+
+    /**
+     * Remove vendors without packages
+     *
+     * @param Storage $storage
+     * @return integer
+     */
+    public function cleanupVendors(Storage $storage);
 }

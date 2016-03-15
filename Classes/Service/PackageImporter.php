@@ -15,6 +15,7 @@ use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Domain\Repository\PackageRepository;
 use Neos\MarketPlace\Property\TypeConverter\PackageConverter;
 use Packagist\Api\Result\Package;
+use TYPO3\Eel\FlowQuery\FlowQuery;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Property\PropertyMapper;
 use TYPO3\Flow\Property\PropertyMappingConfigurationBuilder;
@@ -47,6 +48,11 @@ class PackageImporter implements PackageImporterInterface
     protected $propertyMapper;
 
     /**
+     * @var array
+     */
+    protected $processedPackages = [];
+
+    /**
      * @param Package $package
      * @param Storage $storage
      * @return NodeInterface
@@ -60,6 +66,94 @@ class PackageImporter implements PackageImporterInterface
             $storage
         );
         $node = $this->propertyMapper->convert($package, NodeInterface::class, $configuration);
+        $this->processedPackages[$package->getName()] = true;
         return $node;
+    }
+
+    /**
+     * Remove local package not preset in the processed packages list
+     *
+     * @param Storage $storage
+     * @return integer
+     */
+    public function cleanupPackages(Storage $storage)
+    {
+        $count = 0;
+        $storageNode = $storage->node();
+        $query = new FlowQuery([$storageNode]);
+        $query = $query->find('[instanceof Neos.MarketPlace:Package]');
+        $upstreamPackages = $this->getProcessedPackages();
+        foreach ($query as $package) {
+            /** @var NodeInterface $package */
+            if (in_array($package->getProperty('title'), $upstreamPackages)) {
+                continue;
+            }
+            $package->remove();
+            $this->emitPackageDeleted($package);
+            $count++;
+        }
+        return $count;
+    }
+
+    /**
+     * Remove vendors without packages
+     *
+     * @param Storage $storage
+     * @return integer
+     */
+    public function cleanupVendors(Storage $storage)
+    {
+        $count = 0;
+        $storageNode = $storage->node();
+        $query = new FlowQuery([$storageNode]);
+        $query = $query->find('[instanceof Neos.MarketPlace:Vendor]');
+        foreach ($query as $vendor) {
+            /** @var NodeInterface $vendor */
+            $hasPackageQuery = new FlowQuery([$vendor]);
+            $packageCount = $hasPackageQuery->find('[instanceof Neos.MarketPlace:Package]')->count();
+            if ($packageCount > 0) {
+                continue;
+            }
+            $vendor->remove();
+            $this->emitVendorDeleted($vendor);
+            $count++;
+        }
+        return $count;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProcessedPackages() {
+        return array_keys(array_filter($this->processedPackages));
+    }
+
+    /**
+     * @return integer
+     */
+    public function getProcessedPackagesCount() {
+        return count($this->getProcessedPackages());
+    }
+
+    /**
+     * Signals that a package node was deleted.
+     *
+     * @Flow\Signal
+     * @param NodeInterface $node
+     * @return void
+     */
+    protected function emitPackageDeleted(NodeInterface $node)
+    {
+    }
+
+    /**
+     * Signals that a package node was deleted.
+     *
+     * @Flow\Signal
+     * @param NodeInterface $node
+     * @return void
+     */
+    protected function emitVendorDeleted(NodeInterface $node)
+    {
     }
 }

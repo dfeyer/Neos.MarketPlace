@@ -11,13 +11,15 @@ namespace Neos\MarketPlace\Command;
  * source code.
  */
 
-use Neos\MarketPlace\Domain\Model\PackageTree;
+use Neos\MarketPlace\Domain\Model\Packages;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Service\PackageImporterInterface;
 use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
+use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use TYPO3\TYPO3CR\Search\Indexer\NodeIndexingManager;
 
 /**
  * MarketPlace Command Controller
@@ -31,27 +33,83 @@ class MarketPlaceCommandController extends CommandController
     protected $importer;
 
     /**
+     * @var PersistenceManagerInterface
+     * @Flow\Inject
+     */
+    protected $persistenceManager;
+
+    /**
+     * @var NodeIndexingManager
+     * @Flow\Inject
+     */
+    protected $nodeIndexingManager;
+
+    /**
      * @param string $package
+     * @param boolean $disableIndexing
      * @return void
      */
-    public function syncCommand($package = null)
+    public function syncCommand($package = null, $disableIndexing = false)
     {
-        $storage = new Storage();
-        if ($package === null) {
-            $packageTree = new PackageTree();
+        $sync = function() use ($package) {
+            $count = 0;
             $this->outputLine('Synchronize with Packagist ...');
-            foreach ($packageTree->packages() as $package) {
-                $this->outputLine(sprintf('  - %s (%s)', $package->getName(), $package->getTime()));
+            $storage = new Storage();
+            $process = function (Package $package) use ($storage, &$count) {
+                $count++;
+                $this->outputLine(sprintf('  %d/ %s (%s)', $count, $package->getName(), $package->getTime()));
                 $this->importer->process($package, $storage);
+                if ($count % 10 === 0) {
+                    $this->persistenceManager->clearState();
+                }
+            };
+            if ($package === null) {
+                $packages = new Packages();
+                foreach ($packages->packages() as $package) {
+                    $process($package);
+                }
+                $this->cleanupPackages($storage);
+                $this->cleanupVendors($storage);
+            } else {
+                $client = new Client();
+                $package = $client->get($package);
+                $process($package);
             }
+
             $this->outputLine();
-            $this->outputLine(sprintf('%d packages imported with success', $packageTree->count()));
+            $this->outputLine(sprintf('%d package(s) imported with success', $this->importer->getProcessedPackagesCount()));
+        };
+
+        if ($disableIndexing === true) {
+            $this->nodeIndexingManager->withoutIndexing($sync);
         } else {
-            $client = new Client();
-            $package = $client->get($package);
-            $this->importer->process($package, $storage);
-            $this->outputLine(sprintf('Package "%s" imported with success', $package->getName()));
+            $sync();
         }
     }
 
+    /**
+     * @param Storage $storage
+     */
+    protected function cleanupPackages(Storage $storage)
+    {
+        $this->outputLine();
+        $this->outputLine('Cleanup packages ...');
+        $count = $this->importer->cleanupPackages($storage);
+        if ($count > 0) {
+            $this->outputLine(sprintf('  Deleted %d package(s)', $count));
+        }
+    }
+
+    /**
+     * @param Storage $storage
+     */
+    protected function cleanupVendors(Storage $storage)
+    {
+        $this->outputLine();
+        $this->outputLine('Cleanup vendors ...');
+        $count = $this->importer->cleanupVendors($storage);
+        if ($count > 0) {
+            $this->outputLine(sprintf('  Deleted %d vendor(s)', $count));
+        }
+    }
 }
