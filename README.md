@@ -13,14 +13,15 @@ Features
 
 - [x] Import / Update packages and versions from Packagist
 - [x] Import / Update maintainers from Packagist
-- [ ] Handle deleted / abandonned packages
+- [x] Handle abandonned packages
 - [x] Basic integration with ElasticSearch
-- [ ] ElasticSearch Aggregation support
-- [ ] More advanced search configuration
 - [x] Listing of packages
 - [x] Vendor detail page
 - [x] Package detail page
 - [ ] Some utility NodeType to show case specific packages in neos.io
+- [ ] More advanced search configuration
+- [ ] ElasticSearch Aggregation support
+- [ ] Handle deleted packages
 
 Currently the templating is done on top of the [Neos Demo Package](https://github.com/neos/neosdemotypo3org).
 
