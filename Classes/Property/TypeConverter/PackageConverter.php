@@ -77,7 +77,24 @@ class PackageConverter extends AbstractTypeConverter
         }
         $this->createOrUpdateMaintainers($package, $node);
         $this->createOrUpdateVersions($package, $node);
+        $this->handleAbandonedPackageOrVersion($package, $node);
         return $node;
+    }
+
+    /**
+     * @param Package $package
+     * @param NodeInterface $node
+     */
+    protected function handleAbandonedPackageOrVersion(Package $package, NodeInterface $node)
+    {
+        if (isset($package->abandoned) && trim($package->abandoned) !== '') {
+            if (trim($node->getProperty('abandoned')) === '') {
+                $node->setProperty('abandoned', $package->abandoned);
+                $this->emitPackageAbandoned($node);
+            } else {
+                $node->setProperty('abandoned', $package->abandoned);
+            }
+        }
     }
 
     /**
@@ -208,6 +225,8 @@ class PackageConverter extends AbstractTypeConverter
                     'shasum' => $version->getDist()->getShasum(),
                 ]);
             }
+
+            $this->handleAbandonedPackageOrVersion($package, $node);
         }
     }
 
@@ -281,5 +300,16 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function arrayToJsonCaster($value) {
         return $value ? json_encode($value, JSON_PRETTY_PRINT) : null;
+    }
+
+    /**
+     * Signals that a node was abandoned.
+     *
+     * @Flow\Signal
+     * @param NodeInterface $node
+     * @return void
+     */
+    protected function emitPackageAbandoned(NodeInterface $node)
+    {
     }
 }

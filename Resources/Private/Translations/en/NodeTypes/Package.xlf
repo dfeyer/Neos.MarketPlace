@@ -23,6 +23,9 @@
 			<trans-unit id="properties.favers" xml:space="preserve">
 				<source>Favers</source>
 			</trans-unit>
+			<trans-unit id="properties.abandoned" xml:space="preserve">
+				<source>Abandoned</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

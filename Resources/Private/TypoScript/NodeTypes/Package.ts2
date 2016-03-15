@@ -1,0 +1,39 @@
+prototype(Neos.MarketPlace:Package) {
+    @context.package = Neos.MarketPlace:Packagist.Package {
+        name = ${q(documentNode).property('title')}
+    }
+
+    vendor = ${q(node).closest('[instanceof Neos.MarketPlace:Vendor]').get(0)}
+    @context.vendor = ${this.vendor}
+
+    vendorName = ${q(this.vendor).property('title')}
+    vendorUri = TYPO3.Neos:NodeUri {
+        node = ${vendor}
+    }
+
+    search = Neos.MarketPlace:Search {
+        actionNode = Neos.MarketPlace:ClosestRepositoryStorageNode
+    }
+
+    packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
+
+    versionMenu = Neos.MarketPlace:VersionMenu
+    versions = Neos.MarketPlace:VersionPreview
+
+    maintainerMenu = Neos.MarketPlace:PeopleMenu {
+        path = 'maintainers'
+    }
+
+    main = ContentCollection {
+        nodePath = 'main'
+    }
+
+    isAbandoned = ${q(documentNode).property('abandoned') ? true : false}
+    abandoned = ${q(documentNode).property('abandoned')}
+
+    packageName = ${q(documentNode).property('title')}
+    packageTime = ${q(documentNode).property('time')}
+    description = ${q(documentNode).property('description')}
+
+    @process.contentElementWrapping >
+}

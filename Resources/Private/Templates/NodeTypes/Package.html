@@ -1,0 +1,32 @@
+<article{attributes -> f:format.raw()}>
+<a href="{vendorUri}" class="btn btn-primary pull-right" type="button">
+    The same vendor provide <span class="badge">{packageCount}</span> package(s)
+</a>
+<header>
+    <h1>{packageName}</h1>
+</header>
+<f:if condition="{isAbandoned}">
+    <p>This package is abandoned and no longer maintained. The author suggests using the <strong>{abandoned}</strong> package instead.</p>
+    <hr>
+</f:if>
+
+<f:if condition="{description}">
+    <p><strong>{description}</strong></p>
+</f:if>
+{main -> f:format.raw()}
+<hr>
+<div class="row">
+    <div class="col-sm-9">
+        {versions -> f:format.raw()}
+    </div>
+    <div class="col-sm-3">
+        <h4>Maintainers</h4>
+        {maintainerMenu -> f:format.raw()}
+        <hr>
+
+        <h4>Versions</h4>
+        {versionMenu -> f:format.raw()}
+        <hr>
+    </div>
+</div>
+</article>

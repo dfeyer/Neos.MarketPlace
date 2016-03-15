@@ -1,6 +1,12 @@
-<div{attributes -> f:format.raw()}>
-<a name="{version}"></a>
-<h2>{name}</h2>
+<article{attributes -> f:format.raw()}>
+<header>
+    <a name="{version}"></a>
+    <h2>{name}</h2>
+</header>
+<f:if condition="{isAbandoned}">
+    <p>This version is abandoned and no longer maintained. The author suggests using the <strong>{abandoned}</strong> package instead.</p>
+    <hr>
+</f:if>
 <f:if condition="{description}">
     <p>{description}</p>
 </f:if>
@@ -99,7 +105,7 @@
         </dl>
     </div>
 </div>
-</div>
+</article>
 
 <f:section name="packageSuggestion">
     <f:if condition="{packages -> f:count()}">

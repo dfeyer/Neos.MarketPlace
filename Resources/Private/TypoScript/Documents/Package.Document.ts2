@@ -2,36 +2,6 @@ prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:Docume
     body {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Package.html'
 
-        @context.package = Neos.MarketPlace:Package {
-            name = ${q(documentNode).property('title')}
-        }
-
-        vendor = ${q(node).closest('[instanceof Neos.MarketPlace:Vendor]').get(0)}
-        @context.vendor = ${this.vendor}
-
-        vendorName = ${q(this.vendor).property('title')}
-        vendorUri = TYPO3.Neos:NodeUri {
-            node = ${vendor}
-        }
-
-        search = Neos.MarketPlace:Search {
-            actionNode = Neos.MarketPlace:ClosestRepositoryStorageNode
-        }
-
-        isOfficialPackage = ${this.}
-
-        packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
-
-        versionMenu = Neos.MarketPlace:VersionMenu
-        versions = Neos.MarketPlace:VersionPreview
-
-        maintainerMenu = Neos.MarketPlace:PeopleMenu {
-            path = 'maintainers'
-        }
-
-        content {
-            packageName = ${q(documentNode).property('title')}
-            description = ${q(documentNode).property('description')}
-        }
+        package = Neos.MarketPlace:Package
     }
 }

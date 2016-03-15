@@ -17,4 +17,7 @@ prototype(Neos.MarketPlace:Version) {
     requireDev = ${Json.parse(q(node).property('requireDev'))}
     suggest = ${Json.parse(q(node).property('suggest'))}
     replace = ${Json.parse(q(node).property('replace'))}
+
+    isAbandoned = ${q(documentNode).property('abandoned') ? true : false}
+    abandoned = ${q(documentNode).property('abandoned')}
 }

@@ -17,29 +17,7 @@
 					<hr>
 				</div>
 				<div class="container">
-					<a href="{vendorUri}" class="btn btn-primary pull-right" type="button">
-						Other package by the same vendor <span class="badge">{packageCount}</span>
-					</a>
-					<h1>{content.packageName}</h1>
-					<f:if condition="{content.description}">
-						<p><strong>{content.description}</strong></p>
-					</f:if>
-					{content.main -> f:format.raw()}
-					<hr>
-					<div class="row">
-						<div class="col-sm-9">
-							{versions -> f:format.raw()}
-						</div>
-						<div class="col-sm-3">
-							<h4>Maintainers</h4>
-							{maintainerMenu -> f:format.raw()}
-							<hr>
-
-							<h4>Versions</h4>
-							{versionMenu -> f:format.raw()}
-							<hr>
-						</div>
-					</div>
+					{package -> f:format.raw()}
 				</div>
 			</div>
 
@@ -52,13 +30,6 @@
 					</div>
 				</div>
 			</footer>
-
-		</f:section>
-		<f:section name="bodyScripts">
-			<script src="{f:uri.resource(path: 'Libraries/jQuery/jquery-1.10.1.min.js', package: 'TYPO3.Twitter.Bootstrap')}"></script>
-			<script src="{f:uri.resource(path: '3/js/bootstrap.min.js', package: 'TYPO3.Twitter.Bootstrap')}"></script>
-			<script src="{f:uri.resource(path: 'JavaScript/scrollstart.js', package: 'TYPO3.NeosDemoTypo3Org')}"></script>
-			<script src="{f:uri.resource(path: 'JavaScript/main.js', package: 'TYPO3.NeosDemoTypo3Org')}"></script>
 		</f:section>
 	</body>
 </html>
