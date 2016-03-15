@@ -18,7 +18,6 @@ use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TYPO3CR\Search\Indexer\NodeIndexingManager;
 
@@ -32,12 +31,6 @@ class MarketPlaceCommandController extends CommandController
      * @Flow\Inject
      */
     protected $importer;
-
-    /**
-     * @var PersistenceManagerInterface
-     * @Flow\Inject
-     */
-    protected $persistenceManager;
 
     /**
      * @var NodeIndexingManager
@@ -60,9 +53,6 @@ class MarketPlaceCommandController extends CommandController
                 $count++;
                 $this->outputLine(sprintf('  %d/ %s (%s)', $count, $package->getName(), $package->getTime()));
                 $this->importer->process($package, $storage);
-                if ($count % 10 === 0) {
-                    $this->persistenceManager->clearState();
-                }
             };
             if ($package === null) {
                 $packages = new Packages();
