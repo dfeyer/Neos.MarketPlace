@@ -30,7 +30,7 @@ class Packages
 
     /**
      * @var array
-     * @Flow\InjectConfiguration(path="types")
+     * @Flow\InjectConfiguration(path="typeMapping")
      */
     protected $packageTypes;
 

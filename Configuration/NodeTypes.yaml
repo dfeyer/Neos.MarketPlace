@@ -45,12 +45,23 @@
         inspector:
           group: document
           position: 1
-    composerVendorKey:
+    __composerVendorKey:
       search:
         elasticSearchMapping:
-          type: string
-          include_in_all: true
-          index: not_analyzed
+          type: multi_field
+          fields:
+            name:
+              type: string
+              include_in_all: true
+            tag:
+              type: string
+              index: 'not_analyzed'
+              include_in_all: true
+            suggestion:
+              type: completion
+              analyzer: simple
+              search_analyzer: simple
+              payloads: true
         indexing: "${q(node).property('title')}"
 
 # Package
@@ -73,10 +84,6 @@
   properties:
     title:
       type: string
-      search:
-        elasticSearchMapping:
-          type: string
-          include_in_all: true
       ui:
         label: i18n
         reloadIfChanged: TRUE
@@ -103,10 +110,6 @@
           group: document
     type:
       type: string
-      search:
-        elasticSearchMapping:
-          type: string
-          include_in_all: true
       ui:
         label: i18n
         reloadIfChanged: TRUE
@@ -137,6 +140,50 @@
         reloadIfChanged: TRUE
         inspector:
           group: document
+    __packageKey:
+      search:
+        indexing: "${q(node).property('title')}"
+        elasticSearchMapping:
+          type: multi_field
+          fields:
+            name:
+              type: string
+              include_in_all: true
+            tag:
+              type: string
+              index: 'not_analyzed'
+              include_in_all: true
+            suggestion:
+              type: completion
+              analyzer: simple
+              search_analyzer: simple
+              payloads: true
+    __packageType:
+      search:
+        indexing: "${MarketIndexing.packageTypeMapping(q(node).property('type'))}"
+        elasticSearchMapping:
+          type: string
+          index: 'not_analyzed'
+          include_in_all: true
+    __versions:
+      search:
+        indexing: "${MarketIndexing.extractVersions(node)}"
+        elasticSearchMapping:
+          type: nested
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            keywords:
+              type: string
+            homepage:
+              type: string
+            version:
+              type: string
+            versionNormalized:
+              type: string
+
 
 # People
 'Neos.MarketPlace:People':
