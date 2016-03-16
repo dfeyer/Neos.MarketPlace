@@ -31,6 +31,9 @@ use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
  */
 class PackageConverter extends AbstractTypeConverter
 {
+    const DEV_VERSION_PREFIX = 'dev-';
+    const DEV_VERSION_SUFFIX = '-dev';
+
     /**
      * @var string
      */
@@ -224,13 +227,21 @@ class PackageConverter extends AbstractTypeConverter
                 'conflict' => $this->arrayToJsonCaster($version->getConflict()),
                 'replace' => $this->arrayToJsonCaster($version->getReplace()),
             ];
+            if (substr($version->getVersion(), 0, 4) === self::DEV_VERSION_PREFIX || substr($version->getVersion(), -4) === self::DEV_VERSION_SUFFIX) {
+                $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:DevelopmentVersion');
+            } else {
+                $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:ReleasedVersion');
+            }
             if ($node === null) {
                 $nodeTemplate = new NodeTemplate();
-                $nodeTemplate->setNodeType($this->nodeTypeManager->getNodeType('Neos.MarketPlace:Version'));
+                $nodeTemplate->setNodeType($nodeType);
                 $nodeTemplate->setName($name);
                 $this->setNodeTemplateProperties($nodeTemplate, $data);
                 $node = $versionStorage->createNodeFromTemplate($nodeTemplate);
             } else {
+                if ($node->getNodeType()->getName() !== $nodeType->getName()) {
+                    $node->setNodeType($nodeType);
+                }
                 $this->updateNodeProperties($node, $data);
             }
 

@@ -13,7 +13,12 @@ prototype(Neos.MarketPlace:Package) {
 
     packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
 
-    versionMenu = Neos.MarketPlace:VersionMenu
+    releasedVersionMenu = Neos.MarketPlace:VersionMenu {
+        collection = Neos.MarketPlace:ReleasedVersionQuery
+    }
+    developmentVersionMenu = Neos.MarketPlace:VersionMenu {
+        collection = Neos.MarketPlace:DevelopmentVersionsQuery
+    }
     versions = Neos.MarketPlace:VersionPreview
 
     maintainerMenu = Neos.MarketPlace:PeopleMenu {

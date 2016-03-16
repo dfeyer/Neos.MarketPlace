@@ -1,11 +1,13 @@
 prototype(Neos.MarketPlace:VersionPreview) >
 prototype(Neos.MarketPlace:VersionPreview) < prototype(TYPO3.TypoScript:Tag) {
+    collection = Neos.MarketPlace:VersionsQuery
+    @context.collection = ${this.collection}
     tagName = 'section'
     attributes {
         class = 'block block--versions'
     }
     content = TYPO3.TypoScript:Collection {
-        collection = Neos.MarketPlace:VersionsQuery
+        collection = ${collection}
         itemRenderer = Neos.MarketPlace:Version
         itemName = 'node'
     }

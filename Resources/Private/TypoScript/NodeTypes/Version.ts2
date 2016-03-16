@@ -1,4 +1,6 @@
-prototype(Neos.MarketPlace:Version) {
+prototype(Neos.MarketPlace:Version) < prototype(Neos.MarketPlace:ReleasedVersion) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Version.html'
+
     dist = ${q(node).find('dist').first()}
 
     distType = ${this.dist.property('type')}
