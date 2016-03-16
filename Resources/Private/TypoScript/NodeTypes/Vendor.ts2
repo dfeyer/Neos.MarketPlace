@@ -1,0 +1,9 @@
+prototype(Neos.MarketPlace:Vendor) {
+    packages = Neos.MarketPlace:PackageMenu
+
+    main = ContentCollection {
+        nodePath = 'main'
+    }
+
+    @process.contentElementWrapping >
+}

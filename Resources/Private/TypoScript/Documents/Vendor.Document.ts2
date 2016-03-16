@@ -2,14 +2,10 @@ prototype(Neos.MarketPlace:Vendor.Document) < prototype(Neos.MarketPlace:Documen
     body {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Vendor.html'
 
-        packages = Neos.MarketPlace:PackageMenu
+        vendor = Neos.MarketPlace:Vendor
 
         search = Neos.MarketPlace:Search {
             actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
-        }
-
-        content {
-            vendorName = ${q(documentNode).property('title')}
         }
     }
 }
