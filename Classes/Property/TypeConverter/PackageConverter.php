@@ -188,13 +188,15 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function createOrUpdateVersions(Package $package, NodeInterface $node)
     {
-        $upstreamVersions = array_keys($package->getVersions());
+        $upstreamVersions = array_map(function ($version) {
+            return Slug::create($version);
+        }, array_keys($package->getVersions()));
         $versionStorage = $node->getNode('versions');
         $versions = new FlowQuery([$versionStorage]);
         $versions = $versions->children('[instanceof Neos.MarketPlace:Version]');
         foreach ($versions as $version) {
             /** @var NodeInterface $version */
-            if (in_array($version->getProperty('version'), $upstreamVersions)) {
+            if (in_array($version->getName(), $upstreamVersions)) {
                 continue;
             }
             $version->remove();
