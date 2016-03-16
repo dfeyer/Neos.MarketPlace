@@ -84,6 +84,10 @@
   properties:
     title:
       type: string
+      search:
+        elasticSearchMapping:
+          type: string
+          include_in_all: true
       ui:
         label: i18n
         reloadIfChanged: TRUE
@@ -158,6 +162,12 @@
               analyzer: simple
               search_analyzer: simple
               payloads: true
+    __composerVendor:
+      search:
+        indexing: "${Array.first(String.split(q(node).property('title'), '/'))}"
+        elasticSearchMapping:
+          type: string
+          include_in_all: true
     __packageType:
       search:
         indexing: "${MarketIndexing.packageTypeMapping(q(node).property('type'))}"
