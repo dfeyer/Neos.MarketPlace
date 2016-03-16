@@ -19,7 +19,7 @@
             <dt>Requires</dt>
             <f:if condition="{require}">
                 <f:then>
-                    <dd><f:render section="packageRequirement" arguments="{packages: require}" /></dd>
+                    <dd>{require -> f:format.raw()}</dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -28,7 +28,7 @@
             <dt>Requires (dev)</dt>
             <f:if condition="{requireDev}">
                 <f:then>
-                    <dd><f:render section="packageRequirement" arguments="{packages: requireDev}" /></dd>
+                    <dd>{requireDev -> f:format.raw()}</dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -37,7 +37,7 @@
             <dt>Suggest</dt>
             <f:if condition="{suggest}">
                 <f:then>
-                    <dd><f:render section="packageSuggestion" arguments="{packages: suggest}" /></dd>
+                    <dd>{suggest -> f:format.raw()}</dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -46,7 +46,7 @@
             <dt>Provides</dt>
             <f:if condition="{provide}">
                 <f:then>
-                    <dd><f:render section="packageRequirement" arguments="{packages: provide}" /></dd>
+                    <dd>{provide -> f:format.raw()}</dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -55,7 +55,7 @@
             <dt>Conflicts</dt>
             <f:if condition="{conflict}">
                 <f:then>
-                    <dd><f:render section="packageRequirement" arguments="{packages: conflict}" /></dd>
+                    <dd>{conflict -> f:format.raw()}</dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -64,7 +64,7 @@
             <dt>Replaces</dt>
             <f:if condition="{replace}">
                 <f:then>
-                    <dd><f:render section="packageRequirement" arguments="{packages: suggest}" /></dd>
+                    <dd>{replace -> f:format.raw()}</dd>
                 </f:then>
                 <f:else>
                     <dd>None</dd>
@@ -106,23 +106,3 @@
     </div>
 </div>
 </article>
-
-<f:section name="packageSuggestion">
-    <f:if condition="{packages -> f:count()}">
-        <ul>
-            <f:for each="{packages}" as="value" key="package">
-                <li>{package}: {value}</li>
-            </f:for>
-        </ul>
-    </f:if>
-</f:section>
-
-<f:section name="packageRequirement">
-    <f:if condition="{packages -> f:count()}">
-        <ul>
-            <f:for each="{packages}" as="value" key="package">
-                <li>{package}: {value}</li>
-            </f:for>
-        </ul>
-    </f:if>
-</f:section>

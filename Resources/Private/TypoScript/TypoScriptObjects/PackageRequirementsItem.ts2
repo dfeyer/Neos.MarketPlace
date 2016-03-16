@@ -1,0 +1,4 @@
+prototype(Neos.MarketPlace:PackageRequirementsItem) < prototype(TYPO3.TypoScript:Tag) {
+    tagName = 'li'
+    content = ${package + ': ' + version}
+}
