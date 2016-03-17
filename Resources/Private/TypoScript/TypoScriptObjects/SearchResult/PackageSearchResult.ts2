@@ -1,0 +1,4 @@
+prototype(Neos.MarketPlace:PackageSearchResult) < prototype(Neos.MarketPlace:DocumentSearchResult) {
+    title.@process.prefix = ${'Package: ' + value}
+    lastActivity = ${q(node).lastActivity()}
+}

@@ -54,7 +54,7 @@ class LastActivityOperation extends AbstractOperation {
         if (isset($context[0]) && ($context[0] instanceof NodeInterface)) {
             /** @var NodeInterface $node */
             $node = $context[0];
-            return $node->getNodeType()->isOfType('Neos.MarketPlace:Package');
+            return $node->getNodeType()->isOfType('Neos.MarketPlace:Package') || $node->getNodeType()->isOfType('Neos.MarketPlace:Vendor');
         }
         return false;
     }

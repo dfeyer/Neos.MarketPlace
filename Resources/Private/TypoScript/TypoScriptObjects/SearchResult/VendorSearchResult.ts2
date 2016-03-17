@@ -1,0 +1,4 @@
+prototype(Neos.MarketPlace:VendorSearchResult) < prototype(Neos.MarketPlace:DocumentSearchResult) {
+    title.@process.prefix = ${'Vendor: ' + value}
+    lastActivity = ${q(node).lastActivity()}
+}

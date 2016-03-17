@@ -3,6 +3,8 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     actionNode = ${documentNode}
     @context.actionNode = ${this.actionNode}
 
+    searchQuery = ${this.searchTerm ? MarketPlaceSearch.query(site).fulltext(this.searchTerm).log('marketplace') : null}
+
     prototype(Flowpack.SearchPlugin:Search.Form) {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Search.Form.html'
 

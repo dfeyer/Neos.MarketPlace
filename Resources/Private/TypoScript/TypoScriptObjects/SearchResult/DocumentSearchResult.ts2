@@ -1,0 +1,3 @@
+prototype(Neos.MarketPlace:DocumentSearchResult) < prototype(TYPO3.Neos:DocumentSearchResult) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/SearchResult/DocumentSearchResult.html'
+}

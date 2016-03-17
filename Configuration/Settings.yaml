@@ -20,6 +20,10 @@ Neos:
 
 TYPO3:
 
+  TypoScript:
+    defaultContext:
+      MarketPlaceSearch: 'Neos\MarketPlace\Eel\ElasticSearchQueryBuilder'
+
   TYPO3CR:
 
     Search:

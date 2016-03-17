@@ -1,3 +1,0 @@
-prototype(Neos.MarketPlace:VendorSearchResult) < prototype(TYPO3.Neos:DocumentSearchResult) {
-    title.@process.prefix = ${'Vendor: ' + value}
-}
