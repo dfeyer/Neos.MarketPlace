@@ -193,7 +193,21 @@
               type: string
             versionNormalized:
               type: string
-
+            time:
+              type: date
+              format: 'date_time_no_millis'
+    __maintainers:
+      search:
+        indexing: "${MarketIndexing.extractMaintainers(node)}"
+        elasticSearchMapping:
+          type: nested
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            homepage:
+              type: string
 
 # People
 'Neos.MarketPlace:People':

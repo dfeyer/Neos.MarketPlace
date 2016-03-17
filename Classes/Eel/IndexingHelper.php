@@ -53,6 +53,8 @@ class IndexingHelper extends Eel\IndexingHelper
             ->find('[instanceof Neos.MarketPlace:Version]');
 
         foreach ($query as $versionNode) {
+            /** @var \DateTime $time */
+            $time = $versionNode->getProperty('time');
             /** @var NodeInterface $versionNode */
             $data[] = [
                 'name' => $versionNode->getProperty('name'),
@@ -60,6 +62,32 @@ class IndexingHelper extends Eel\IndexingHelper
                 'keywords' => $versionNode->getProperty('keywords'),
                 'homepage' => $versionNode->getProperty('homepage'),
                 'version' => $versionNode->getProperty('version'),
+                'versionNormalized' => $versionNode->getProperty('versionNormalized'),
+                'time' => $time ? $time->format('Y-m-d\TH:i:sP') : null,
+            ];
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param NodeInterface $node
+     * @return array
+     */
+    public function extractMaintainers(NodeInterface $node)
+    {
+        $data = [];
+        $query = new FlowQuery([$node]);
+        $query = $query
+            ->find('maintainers')
+            ->find('[instanceof Neos.MarketPlace:Maintainer]');
+
+        foreach ($query as $maintainerNode) {
+            /** @var NodeInterface $maintainerNode */
+            $data[] = [
+                'name' => $maintainerNode->getProperty('title'),
+                'email' => $maintainerNode->getProperty('email'),
+                'homepage' => $maintainerNode->getProperty('homepage')
             ];
         }
 
