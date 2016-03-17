@@ -13,6 +13,8 @@ prototype(Neos.MarketPlace:Package) {
         node = ${vendor}
     }
 
+    lastActivity = ${q(node).lastActivity()}
+
     packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
     hasPackageCount = ${this.packageCount > 1}
 

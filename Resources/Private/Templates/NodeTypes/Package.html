@@ -19,6 +19,7 @@
 <hr>
 <div class="row">
     <div class="col-sm-9">
+        <div><strong>Last activity:</strong> {lastActivity -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</div>
         {versions -> f:format.raw()}
     </div>
     <div class="col-sm-3">

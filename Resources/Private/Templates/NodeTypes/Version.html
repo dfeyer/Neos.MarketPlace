@@ -96,7 +96,7 @@
             </f:if>
             <f:if condition="{time}">
                 <dt>Release Date</dt>
-                <dd>{time -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "full", forceLocale: true)}</dd>
+                <dd>{time -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</dd>
             </f:if>
             <dt>Source</dt>
             <dd><a href="{sourceUrl}">{sourceType}</a> <small>{sourceReference}</small></dd>
