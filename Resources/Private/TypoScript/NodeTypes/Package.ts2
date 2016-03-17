@@ -14,6 +14,7 @@ prototype(Neos.MarketPlace:Package) {
     }
 
     packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
+    hasPackageCount = ${this.packageCount > 1}
 
     hasReleasedVersion = ${releasedVersionQuery.count() > 0}
     releasedVersionMenu = Neos.MarketPlace:VersionMenu {

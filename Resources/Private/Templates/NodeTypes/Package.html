@@ -1,7 +1,9 @@
 <article{attributes -> f:format.raw()}>
-<a href="{vendorUri}" class="btn btn-primary pull-right" type="button">
-    The same vendor provide <span class="badge">{packageCount}</span> package(s)
-</a>
+<f:if condition="{hasPackageCount}">
+    <a href="{vendorUri}" class="btn btn-primary pull-right" type="button">
+        The same vendor provide <span class="badge">{packageCount}</span> package(s)
+    </a>
+</f:if>
 <header>
     <h1>{packageName}</h1>
 </header>
