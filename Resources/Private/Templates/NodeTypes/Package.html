@@ -25,11 +25,27 @@
         <hr>
 
         <h4>Released Versions</h4>
-        {releasedVersionMenu -> f:format.raw()}
+        <f:if condition="{hasReleasedVersion}">
+            <f:then>
+                {releasedVersionMenu -> f:format.raw()}
+            </f:then>
+            <f:else>
+                <strong>No release version yet ...</strong>
+            </f:else>
+        </f:if>
+
         <hr>
 
         <h4>Development Versions</h4>
-        {developmentVersionMenu -> f:format.raw()}
+        <f:if condition="{hasDevelopmentVersion}">
+            <f:then>
+                {developmentVersionMenu -> f:format.raw()}
+            </f:then>
+            <f:else>
+                <strong>No development version ...</strong>
+            </f:else>
+        </f:if>
+
         <hr>
     </div>
 </div>
