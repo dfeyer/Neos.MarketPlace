@@ -12,6 +12,7 @@ namespace Neos\MarketPlace\Property\TypeConverter;
  */
 
 use Neos\MarketPlace\Domain\Model\Slug;
+use Neos\MarketPlace\Domain\Model\StabilityLabel;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Packagist\Api\Result\Package;
 use TYPO3\Eel\FlowQuery\FlowQuery;
@@ -31,9 +32,6 @@ use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
  */
 class PackageConverter extends AbstractTypeConverter
 {
-    const DEV_VERSION_PREFIX = 'dev-';
-    const DEV_VERSION_SUFFIX = '-dev';
-
     /**
      * @var string
      */
@@ -227,7 +225,7 @@ class PackageConverter extends AbstractTypeConverter
                 'conflict' => $this->arrayToJsonCaster($version->getConflict()),
                 'replace' => $this->arrayToJsonCaster($version->getReplace()),
             ];
-            if (substr($version->getVersion(), 0, 4) === self::DEV_VERSION_PREFIX || substr($version->getVersion(), -4) === self::DEV_VERSION_SUFFIX) {
+            if (StabilityLabel::isDev($version->getVersion())) {
                 $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:DevelopmentVersion');
             } else {
                 $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:ReleasedVersion');
