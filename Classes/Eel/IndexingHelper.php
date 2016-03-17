@@ -11,6 +11,7 @@ namespace Neos\MarketPlace\Eel;
  * source code.
  */
 
+use Neos\MarketPlace\Domain\Model\StabilityLabel;
 use TYPO3\Eel\FlowQuery\FlowQuery;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
@@ -63,6 +64,7 @@ class IndexingHelper extends Eel\IndexingHelper
                 'homepage' => $versionNode->getProperty('homepage'),
                 'version' => $versionNode->getProperty('version'),
                 'versionNormalized' => $versionNode->getProperty('versionNormalized'),
+                'stabilty' => StabilityLabel::get($versionNode->getProperty('version')),
                 'time' => $time ? $time->format('Y-m-d\TH:i:sP') : null,
             ];
         }
