@@ -1,6 +1,8 @@
 prototype(Neos.MarketPlace:Version) < prototype(Neos.MarketPlace:ReleasedVersion) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Version.html'
 
+    attributes.class = 'pm-version'
+
     dist = ${q(node).find('dist').first()}
 
     distType = ${this.dist.property('type')}
@@ -35,4 +37,9 @@ prototype(Neos.MarketPlace:Version) < prototype(Neos.MarketPlace:ReleasedVersion
 
     isAbandoned = ${q(documentNode).property('abandoned') ? true : false}
     abandoned = ${q(documentNode).property('abandoned')}
+
+    hasKeywords = ${String.isBlank(q(node).property('keywords')) ? false : true}
+    keywords = Neos.MarketPlace:Tags {
+        data = ${q(node).property('keywords')}
+    }
 }

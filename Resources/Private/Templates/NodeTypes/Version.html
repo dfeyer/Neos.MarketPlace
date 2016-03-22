@@ -1,7 +1,7 @@
 <article{attributes -> f:format.raw()}>
 <header>
     <a name="{version}"></a>
-    <h2>{name}</h2>
+    <h2>{version}</h2>
 </header>
 <f:if condition="{isAbandoned}">
     <p>This version is abandoned and no longer maintained. The author suggests using the <strong>{abandoned}</strong> package instead.</p>
@@ -10,9 +10,22 @@
 <f:if condition="{description}">
     <p>{description}</p>
 </f:if>
-<f:if condition="{keywords}">
-    <p>{keywords}</p>
-</f:if>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="small">
+            <f:if condition="{license}">
+                <i class="fa fa-copyright" title="License"></i> {license}
+            </f:if>
+            <f:if condition="{hasKeywords}">
+                <i class="fa fa-tag" title="Tags"></i> {keywords -> f:format.raw()}
+            </f:if>
+            <f:if condition="{sourceReference}">
+                <i class="fa fa-bookmark" title="License"></i> {sourceReference}
+            </f:if>
+        </div>
+    </div>
+</div>
+<hr>
 <div class="row">
     <div class="col-sm-6">
         <dl>
@@ -86,10 +99,6 @@
                 <dt>Version</dt>
                 <dd>{version}</dd>
             </f:if>
-            <f:if condition="{license}">
-                <dt>License</dt>
-                <dd>{license}</dd>
-            </f:if>
             <f:if condition="{type}">
                 <dt>Type</dt>
                 <dd>{type}</dd>
@@ -99,9 +108,9 @@
                 <dd>{time -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</dd>
             </f:if>
             <dt>Source</dt>
-            <dd><a href="{sourceUrl}">{sourceType}</a> <small>{sourceReference}</small></dd>
+            <dd><a href="{sourceUrl}">{sourceType}</a></dd>
             <dt>Distribution</dt>
-            <dd><a href="{distUrl}">{distType}</a> <small>{distReference}</small></dd>
+            <dd><a href="{distUrl}">{distType}</a></dd>
         </dl>
     </div>
 </div>
