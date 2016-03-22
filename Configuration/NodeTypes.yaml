@@ -194,7 +194,7 @@
             versionNormalized:
               type: string
             stability:
-              type: version
+              type: string
             time:
               type: date
               format: 'date_time_no_millis'

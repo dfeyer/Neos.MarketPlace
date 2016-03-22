@@ -11,9 +11,8 @@ namespace Neos\MarketPlace\Eel;
  * source code.
  */
 
-use TYPO3\Flow\Annotations as Flow;
 use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Eel;
-use TYPO3\Flow\Utility\Arrays;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * ElasticSearchQueryBuilder
@@ -29,6 +28,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
         $request = $this->enforeFunctionScoring($request);
         return $request;
     }
+
 
     /**
      * @param array $request
@@ -47,11 +47,12 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
                         ],
                         'weight' => 1.2
                     ],
-                    [
-                        'script_score' => [
-                            "script" => "(0.08 / ((3.16*pow(10,-11)) * abs(DateTime.now().getMillis() - doc['__versions.time'].date.getMillis()) + 0.05)) + 1.0"
-                        ]
-                    ]
+//                    # todo need specific elasticsearch configuration
+//                    [
+//                        'script_score' => [
+//                            "script" => "(0.08 / ((3.16*pow(10,-11)) * abs(DateTime.now().getMillis() - doc['__versions.time'].date.getMillis()) + 0.05)) + 1.0"
+//                        ]
+//                    ]
                 ],
                 'query' => $request['query']
             ]
