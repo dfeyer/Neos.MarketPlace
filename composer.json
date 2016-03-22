@@ -1,7 +1,7 @@
 {
     "description": "Neos Project Marketplace",
     "name": "neos/marketplace",
-    "type": "neos-package",
+    "type": "typo3-flow-package",
     "require": {
         "typo3/flow": "*",
         "flowpack/searchplugin": "*",
