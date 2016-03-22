@@ -1,5 +1,5 @@
-# todo can be remove when https://github.com/skurfuerst/Flowpack.SearchPlugin/pull/14 is merged
 prototype(Flowpack.SearchPlugin:Search) {
+    # todo can be remove when https://github.com/skurfuerst/Flowpack.SearchPlugin/pull/14 is merged
     @cache {
         context {
             3 = 'documentNode'
@@ -10,7 +10,7 @@ prototype(Flowpack.SearchPlugin:Search) {
 prototype(Neos.MarketPlace:Search) >
 prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     attributes {
-        class = 'pm-block'
+        class = 'pm-block pm-search'
     }
 
     actionNode = ${node}

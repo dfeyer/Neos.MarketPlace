@@ -2,6 +2,19 @@
     text-align: center;
 }
 
+.pm-search ol {
+    padding: 0;
+    margin: 0;
+}
+
+.pm-search li {
+    text-align: left;
+    list-style: none;
+    border-bottom: 1px solid #eceeef;
+    padding-bottom: .3em;
+    margin-bottom: .3em;
+}
+
 .pm-form {
     display: flex;
 }
