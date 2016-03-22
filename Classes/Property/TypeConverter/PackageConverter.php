@@ -208,11 +208,10 @@ class PackageConverter extends AbstractTypeConverter
             $name = Slug::create($version->getVersion());
             $node = $versionStorage->getNode($name);
             $data = [
-                'name' => $version->getVersion(),
+                'version' => $version->getVersion(),
                 'description' => $version->getDescription(),
                 'keywords' => $this->arrayToStringCaster($version->getKeywords()),
                 'homepage' => $version->getHomepage(),
-                'version' => $version->getVersion(),
                 'versionNormalized' => $version->getVersionNormalized(),
                 'license' => $this->arrayToStringCaster($version->getLicense()),
                 'type' => $version->getType(),
