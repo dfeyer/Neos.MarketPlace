@@ -19,7 +19,10 @@
 <hr>
 <div class="row">
     <div class="col-sm-9">
-        <div><strong>Last activity:</strong> {lastActivity -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</div>
+        <p><strong>Last activity:</strong> {lastActivity -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</p>
+        <code class="pm-code">
+            <i class="fa fa-download"></i> composer require {packageName}
+        </code>
         {versions -> f:format.raw()}
     </div>
     <div class="col-sm-3">

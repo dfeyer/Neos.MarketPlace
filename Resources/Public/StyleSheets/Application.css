@@ -1,14 +1,14 @@
-.pm-search {
-    text-align: center;
-}
-
 .pm-search ol {
     padding: 0;
     margin: 0;
 }
 
+.pm-code {
+    display: block;
+    margin-bottom: 1em;
+}
+
 .pm-search li {
-    text-align: left;
     list-style: none;
     border-bottom: 1px solid #eceeef;
     padding-bottom: .3em;
