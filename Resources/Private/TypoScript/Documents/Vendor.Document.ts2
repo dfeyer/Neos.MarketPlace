@@ -1,11 +1,12 @@
-prototype(Neos.MarketPlace:Vendor.Document) < prototype(Neos.MarketPlace:Document) {
+prototype(Neos.MarketPlace:Vendor.Document) < prototype(Neos.MarketPlace:DefaultPage) {
     body {
-        templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Vendor.html'
-
-        vendor = Neos.MarketPlace:Vendor
-
-        search = Neos.MarketPlace:Search {
-            actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
+        content {
+            main = TypoScript:Array {
+                search = Neos.MarketPlace:Search {
+                    actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
+                }
+                vendor = Neos.MarketPlace:Vendor
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 prototype(Neos.MarketPlace:PeopleMenu) >
-prototype(Neos.MarketPlace:PeopleMenu) < prototype(TYPO3.TypoScript:Tag) {
+prototype(Neos.MarketPlace:PeopleMenu) < prototype(TypoScript:Tag) {
     path = 'maintainers'
     @override.path = ${this.path}
 
@@ -7,20 +7,20 @@ prototype(Neos.MarketPlace:PeopleMenu) < prototype(TYPO3.TypoScript:Tag) {
     attributes {
         class = 'nav nav--vertical'
     }
-    content = TYPO3.TypoScript:Collection {
+    content = TypoScript:Collection {
         collection = ${q(documentNode).find(path).find('[instanceof Neos.MarketPlace:People]')}
         itemRenderer = Neos.MarketPlace:PeopleMenuItem
         itemName = 'node'
     }
 }
 
-prototype(Neos.MarketPlace:PeopleMenuItem) < prototype(TYPO3.TypoScript:Tag) {
+prototype(Neos.MarketPlace:PeopleMenuItem) < prototype(TypoScript:Tag) {
     tagName = 'li'
     content = ${q(node).property('title')}
 
     # The following line must not be removed as it adds required meta data to all content elements in backend
     @process.contentElementWrapping {
-        expression = TYPO3.Neos:ContentElementWrapping
+        expression = ContentElementWrapping
         @position = 'end 999999999'
     }
 }

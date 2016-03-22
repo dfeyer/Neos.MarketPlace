@@ -1,4 +1,4 @@
-prototype(Neos.MarketPlace:PackageRequirementsItem) < prototype(TYPO3.TypoScript:Template) {
+prototype(Neos.MarketPlace:PackageRequirementsItem) < prototype(TypoScript:Template) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/PackageRequirementsItem.html'
 
     package = ${package}

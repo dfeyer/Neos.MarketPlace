@@ -1,0 +1,24 @@
+prototype(Page) {
+    head {
+        stylesheets.marketPlace = TypoScript:Tag {
+            tagName = 'link'
+            attributes {
+                rel = 'stylesheet'
+                href = TypoScript:ResourceUri {
+                    path = 'resource://Neos.MarketPlace/Public/StyleSheets/Application.css'
+                }
+            }
+            @position = 'after site'
+        }
+    }
+}
+
+prototype(Neos.MarketPlace:DefaultPage) < prototype(Neos.NeosIo:DefaultPage) {
+    body {
+        parts {
+            subMenu {
+                maximumLevels = 1
+            }
+        }
+    }
+}

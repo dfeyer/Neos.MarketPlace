@@ -1,10 +1,10 @@
 prototype(Neos.MarketPlace:PackageMenu) >
-prototype(Neos.MarketPlace:PackageMenu) < prototype(TYPO3.TypoScript:Tag) {
+prototype(Neos.MarketPlace:PackageMenu) < prototype(TypoScript:Tag) {
     tagName = 'ul'
     attributes {
         class = 'nav nav--vertical'
     }
-    content = TYPO3.TypoScript:Collection {
+    content = TypoScript:Collection {
         collection = ${q(documentNode).find('[instanceof Neos.MarketPlace:Package]')}
         itemRenderer = Neos.MarketPlace:PackageMenuItem
         itemName = 'package'
@@ -21,7 +21,7 @@ prototype(Neos.MarketPlace:PackageMenuItem) < prototype(Neos.MarketPlace:Content
 
     name = ${q(package).property('title')}
 
-    uri = TYPO3.Neos:NodeUri {
+    uri = NodeUri {
         node = ${package}
     }
 }

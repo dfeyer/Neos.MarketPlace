@@ -1,4 +1,4 @@
-prototype(Neos.MarketPlace:PackageRequirements) < prototype(TYPO3.TypoScript:Collection) {
+prototype(Neos.MarketPlace:PackageRequirements) < prototype(TypoScript:Collection) {
     property = ''
     itemKey = 'package'
     itemName = 'version'

@@ -28,7 +28,6 @@
 
 .pm-search-results {
     padding: 0;
-    margin-top: 2em;
     text-align: left;
 }
 
@@ -36,6 +35,10 @@
     list-style: none;
     border-bottom: 1px solid #999;
     padding: .5em 1em;
+}
+
+.pm-block {
+    margin-bottom: 1em;
 }
 
 .typo3-widget-paginator {

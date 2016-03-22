@@ -6,27 +6,31 @@
 <h1>{title}</h1>
 <div class="row">
     <div class="col-sm-4">
-        <h4>Badges <small>from the founding platform</small></h4>
+        <h4>Badges</h4>
         <img style="width: 47%; display: inline-block" src="https://neosfunding.sandstorm.de/_Resources/Static/Packages/Sandstorm.NeosFundingWebsite/images/badges/bronze_dark.png" alt="Bronze Badge">
         <img style="width: 47%; display: inline-block" src="https://neosfunding.sandstorm.de/_Resources/Static/Packages/Sandstorm.NeosFundingWebsite/images/badges/dresden_dark.png" alt="Dresden Badge">
+        <p class="small">Badge are provided by our Funding plateform, interseted in <a href="#">helping the Neos Project</a> ?</p>
         <hr>
-        <h4>Packages <small>from KSS Market Place</small></h4>
-        <ul class="nav nav--vertical"><li class="nav__item">
-            <a href="https://marketplace.kss-online.com/packages/neos/application/ttree-jobbutler">ttree/jobbutler</a>
-        </li>
-            <li class="nav__item">
+        <h4>Packages</h4>
+        <ul class="nav nav-pills nav-stacked">
+            <li>
+                <a href="https://marketplace.kss-online.com/packages/neos/application/ttree-jobbutler">ttree/jobbutler</a>
+            </li>
+            <li>
                 <a href="https://marketplace.kss-online.com/packages/neos/plugin/ttree-plugin-microevent">ttree/plugin.microevent</a>
             </li>
         </ul>
+        <p class="small">You are interested in distributing a package based on paid subscription ? Check our partnership with <a href="#">KSS Market Place</a></p>
         <hr>
         <h4>Packages <small>from Packagist</small></h4>
         {packages -> f:format.raw()}
+        <p class="small">How to get your opensource package listed here ? Follow our <a href="#">open source package vendor guide</a></p>
     </div>
     <div class="col-sm-8">
         {main -> f:format.raw()}
         <hr>
         <h4>Recent references</h4>
-        <ul class="nav">
+        <ul class="nav nav-pills nav-stacked">
             <li>
                 <figure>
                     <img style="width: 100%;" src="http://placehold.it/700x300">

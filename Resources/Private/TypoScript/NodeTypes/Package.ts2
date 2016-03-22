@@ -8,8 +8,12 @@ prototype(Neos.MarketPlace:Package) {
     vendor = ${q(node).closest('[instanceof Neos.MarketPlace:Vendor]').get(0)}
     @context.vendor = ${this.vendor}
 
+    attributes = TypoScript:Attributes {
+        class = 'pm-block pm-block--package'
+    }
+
     vendorName = ${q(this.vendor).property('title')}
-    vendorUri = TYPO3.Neos:NodeUri {
+    vendorUri = NodeUri {
         node = ${vendor}
     }
 

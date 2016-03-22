@@ -1,11 +1,12 @@
-prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:Document) {
+prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:DefaultPage) {
     body {
-        templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Package.html'
-
-        package = Neos.MarketPlace:Package
-
-        search = Neos.MarketPlace:Search {
-            actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
+        content {
+            main = TypoScript:Array {
+                search = Neos.MarketPlace:Search {
+                    actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
+                }
+                package = Neos.MarketPlace:Package
+            }
         }
     }
 }

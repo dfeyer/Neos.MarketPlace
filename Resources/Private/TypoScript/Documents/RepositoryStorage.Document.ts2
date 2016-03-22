@@ -1,7 +1,7 @@
-prototype(Neos.MarketPlace:RepositoryStorage.Document) < prototype(Neos.MarketPlace:Document) {
+prototype(Neos.MarketPlace:RepositoryStorage.Document) < prototype(Neos.MarketPlace:DefaultPage) {
     body {
-        templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/RepositoryStorage.html'
-
-        search = Neos.MarketPlace:Search
+        content {
+            main = Neos.MarketPlace:Search
+        }
     }
 }

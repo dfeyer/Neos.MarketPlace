@@ -1,6 +1,9 @@
 namespace: TypoScript=TYPO3.TypoScript
 namespace: Neos=TYPO3.Neos
 
+# todo can be remove when https://github.com/neos/neos-development-collection/pull/407 is merged
+prototype(TypoScript:Collection).@class = 'Neos\\MarketPlace\\TypoScriptObjects\\CollectionImplementation'
+
 include: Documents/**/*
 include: NodeTypes/**/*
 include: Query/**/*
