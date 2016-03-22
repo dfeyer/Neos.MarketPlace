@@ -16,7 +16,13 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     actionNode = ${node}
     @context.actionNode = ${this.actionNode}
 
-    searchQuery = ${this.searchTerm ? MarketPlaceSearch.query(site).fulltext(this.searchTerm).log('marketplace') : null}
+    hasSearchQuery = ${request.arguments.search}
+
+    query = ${MarketPlaceSearch.query(site)}
+    query.@process.fulltext = ${value.fulltext(this.searchTerm)}
+    query.@process.log = ${value.log('marketplace')}
+
+    searchQuery = ${this.hasSearchQuery ? this.query : null}
 
     prototype(Flowpack.SearchPlugin:Search.Form) {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Search.Form.html'

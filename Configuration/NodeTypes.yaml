@@ -191,7 +191,20 @@
             description:
               type: string
             keywords:
-              type: string
+              type: multi_field
+              fields:
+                name:
+                  type: string
+                  include_in_all: true
+                tag:
+                  type: string
+                  index: 'not_analyzed'
+                  include_in_all: true
+                suggestion:
+                  type: completion
+                  analyzer: simple
+                  search_analyzer: simple
+                  payloads: true
             homepage:
               type: string
             version:
