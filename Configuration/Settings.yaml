@@ -18,6 +18,11 @@ Neos:
     repository:
       identifier: '9127231f-d1b8-440f-8ef7-b05f760178fb'
 
+    github:
+      cacheDirectory: '%FLOW_PATH_DATA%Github/Cache'
+      account: 'username'
+      password: 'password'
+
 TYPO3:
 
   TypoScript:

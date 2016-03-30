@@ -11,6 +11,10 @@ namespace Neos\MarketPlace\Property\TypeConverter;
  * source code.
  */
 
+use Github\Client;
+use Github\Exception\ApiLimitExceedException;
+use Github\Exception\RuntimeException;
+use Github\HttpClient\CachedHttpClient;
 use Neos\MarketPlace\Domain\Model\Slug;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Utility\VersionNumber;
@@ -21,6 +25,7 @@ use TYPO3\Flow\Property\Exception\InvalidPropertyMappingConfigurationException;
 use TYPO3\Flow\Property\Exception\TypeConverterException;
 use TYPO3\Flow\Property\PropertyMappingConfigurationInterface;
 use TYPO3\Flow\Property\TypeConverter\AbstractTypeConverter;
+use TYPO3\Flow\Utility\Arrays;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
 use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
@@ -54,6 +59,12 @@ class PackageConverter extends AbstractTypeConverter
     protected $targetType = NodeInterface::class;
 
     /**
+     * @Flow\InjectConfiguration(path="github")
+     * @var string
+     */
+    protected $githubSettings;
+
+    /**
      * Converts $source to a node
      *
      * @param string|integer|array $source the string to be converted to a \DateTime object
@@ -81,6 +92,7 @@ class PackageConverter extends AbstractTypeConverter
         $this->createOrUpdateVersions($package, $node);
         $this->handleAbandonedPackageOrVersion($package, $node);
         $this->handleDownloads($package, $node);
+        $this->handleGithubMetrics($package, $node);
         return $node;
     }
 
@@ -98,6 +110,64 @@ class PackageConverter extends AbstractTypeConverter
             'downloadTotal' => $downloads->getTotal(),
             'downloadMonthly' => $downloads->getMonthly(),
             'downloadDaily' => $downloads->getDaily(),
+        ]);
+    }
+
+    /**
+     * @param Package $package
+     * @param NodeInterface $node
+     */
+    protected function handleGithubMetrics(Package $package, NodeInterface $node)
+    {
+        if (isset($package->abandoned) && $package->abandoned === true) {
+            $this->resetGithubMetrics($node);
+        } else {
+            $repository = $package->getRepository();
+            if (strpos($repository, 'github.com') === false) {
+                return;
+            }
+            // todo make it a bit more clever
+            $repository = str_replace('.git', '', $repository);
+            preg_match("#(.*)://github.com/(.*)#", $repository, $matches);
+            list($oganization, $repository) = explode('/', $matches[2]);
+            $client = new Client(
+                new CachedHttpClient(['cache_dir' => $this->githubSettings['cacheDirectory']])
+            );
+            $client->authenticate($this->githubSettings['account'], $this->githubSettings['password']);
+            try {
+                $repository = $client->repositories()->show($oganization, $repository);
+                if (!is_array($repository)) {
+                    return;
+                }
+                $this->updateNodeProperties($node, [
+                    'githubStargazers' => (integer)Arrays::getValueByPath($repository, 'stargazers_count'),
+                    'githubWatchers' => (integer)Arrays::getValueByPath($repository, 'watchers_count'),
+                    'githubForks' => (integer)Arrays::getValueByPath($repository, 'forks_count'),
+                    'githubIssues' => (integer)Arrays::getValueByPath($repository, 'open_issues_count'),
+                    'githubAvatar' => (string)Arrays::getValueByPath($repository, 'organization.avatar_url')
+                ]);
+            } catch (ApiLimitExceedException $exception) {
+                // Skip the processing if we hit the API rate limit
+            } catch (RuntimeException $exception) {
+                if ($exception->getMessage() === 'Not Found') {
+                    // todo special handling of not found repository ?
+                    $this->resetGithubMetrics($node);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param NodeInterface $node
+     */
+    protected function resetGithubMetrics(NodeInterface $node)
+    {
+        $this->updateNodeProperties($node, [
+            'githubStargazers' => 0,
+            'githubWatchers' => 0,
+            'githubForks' => 0,
+            'githubIssues' => 0,
+            'githubAvatar' => null
         ]);
     }
 
