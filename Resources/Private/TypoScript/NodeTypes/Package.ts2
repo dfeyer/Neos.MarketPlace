@@ -2,8 +2,6 @@ prototype(Neos.MarketPlace:Package) {
     @context.package = Neos.MarketPlace:Packagist.Package {
         name = ${q(documentNode).property('title')}
     }
-    @context.releasedVersionQuery = Neos.MarketPlace:ReleasedVersionQuery
-    @context.developmentVersionsQuery = Neos.MarketPlace:DevelopmentVersionsQuery
 
     vendor = ${q(node).closest('[instanceof Neos.MarketPlace:Vendor]').get(0)}
     @context.vendor = ${this.vendor}
@@ -22,19 +20,7 @@ prototype(Neos.MarketPlace:Package) {
     packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
     hasPackageCount = ${this.packageCount > 1}
 
-    hasReleasedVersion = ${releasedVersionQuery.count() > 0}
-    releasedVersionMenu = Neos.MarketPlace:VersionMenu {
-        collection = ${releasedVersionQuery}
-    }
-    hasDevelopmentVersion = ${developmentVersionsQuery.count() > 0}
-    developmentVersionMenu = Neos.MarketPlace:VersionMenu {
-        collection = ${developmentVersionsQuery}
-    }
     versions = Neos.MarketPlace:VersionPreview
-
-    maintainerMenu = Neos.MarketPlace:PeopleMenu {
-        path = 'maintainers'
-    }
 
     main = ContentCollection {
         nodePath = 'main'

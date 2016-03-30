@@ -1,0 +1,35 @@
+<section class="pm-nav-section">
+    <header>
+        <h4>Maintainers</h4>
+    </header>
+    {maintainers -> f:format.raw()}
+</section>
+
+<section class="pm-nav-section">
+    <header>
+        <h4>Released Versions</h4>
+    </header>
+    <f:if condition="{hasReleasedVersion}">
+        <f:then>
+            {releasedVersionMenu -> f:format.raw()}
+        </f:then>
+        <f:else>
+            <strong>No release version yet&nbsp;...</strong>
+        </f:else>
+    </f:if>
+</section>
+
+<section class="pm-nav-section">
+    <header>
+        <h4>Development Versions</h4>
+    </header>
+    <f:if condition="{hasDevelopmentVersion}">
+        <f:then>
+            {developmentVersionMenu -> f:format.raw()}
+        </f:then>
+        <f:else>
+            <strong>No development version&nbsp;...</strong>
+        </f:else>
+    </f:if>
+</section>
+

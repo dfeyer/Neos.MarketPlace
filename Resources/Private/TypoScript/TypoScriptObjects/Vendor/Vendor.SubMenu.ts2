@@ -1,0 +1,6 @@
+prototype(Neos.MarketPlace:Vendor.SubMenu) < prototype(TypoScript:Template) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Vendor.SubMenu.html'
+
+    badges = Neos.MarketPlace:BadgeOverview
+    packages = Neos.MarketPlace:PackageMenu
+}

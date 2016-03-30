@@ -1,6 +1,5 @@
 <article{attributes -> f:format.raw()}>
 <header>
-    <a name="{version}"></a>
     <h2>{version}</h2>
 </header>
 <f:if condition="{isAbandoned}">
@@ -10,24 +9,20 @@
 <f:if condition="{description}">
     <p>{description}</p>
 </f:if>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="small">
-            <f:if condition="{license}">
-                <i class="fa fa-copyright" title="License"></i> {license}
-            </f:if>
-            <f:if condition="{hasKeywords}">
-                <i class="fa fa-tag" title="Tags"></i> {keywords -> f:format.raw()}
-            </f:if>
-            <f:if condition="{sourceReference}">
-                <i class="fa fa-bookmark" title="License"></i> {sourceReference}
-            </f:if>
-        </div>
-    </div>
+<div>
+    <f:if condition="{license}">
+        <i class="fa fa-copyright" title="License"></i> {license}
+    </f:if>
+    <f:if condition="{hasKeywords}">
+        <i class="fa fa-tag" title="Tags"></i> {keywords -> f:format.raw()}
+    </f:if>
+    <f:if condition="{sourceReference}">
+        <i class="fa fa-bookmark" title="License"></i> {sourceReference}
+    </f:if>
 </div>
 <hr>
-<div class="row">
-    <div class="col-sm-6">
+<div class="g">
+    <div class="gi u-w1/2">
         <dl>
             <dt>Requires</dt>
             <f:if condition="{require}">
@@ -89,7 +84,7 @@
             </f:if>
         </dl>
     </div>
-    <div class="col-sm-6">
+    <div class="gi u-w1/2">
         <dl>
             <f:if condition="{homepage}">
                 <dt>Homepage</dt>

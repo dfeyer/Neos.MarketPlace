@@ -1,5 +1,9 @@
-prototype(Neos.MarketPlace:Vendor.Document) < prototype(Neos.MarketPlace:DefaultPage) {
+prototype(Neos.MarketPlace:Vendor.Document) < prototype(Neos.NeosIo:DefaultPage) {
     body {
+        parts {
+            sectionTitle >
+            subMenu = Neos.MarketPlace:Vendor.SubMenu
+        }
         content {
             main = TypoScript:Array {
                 search = Neos.MarketPlace:Search {

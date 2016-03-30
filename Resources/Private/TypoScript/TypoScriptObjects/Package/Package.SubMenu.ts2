@@ -1,0 +1,20 @@
+prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
+    @context.releasedVersionQuery = MarketPlace:ReleasedVersionQuery
+    @context.developmentVersionsQuery = MarketPlace:DevelopmentVersionsQuery
+
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package.SubMenu.html'
+
+    maintainers = MarketPlace:PeopleMenu {
+        path = 'maintainers'
+    }
+
+    hasReleasedVersion = ${releasedVersionQuery.count() > 0}
+    releasedVersionMenu = MarketPlace:VersionMenu {
+        collection = ${releasedVersionQuery}
+    }
+
+    hasDevelopmentVersion = ${developmentVersionsQuery.count() > 0}
+    developmentVersionMenu = MarketPlace:VersionMenu {
+        collection = ${developmentVersionsQuery}
+    }
+}

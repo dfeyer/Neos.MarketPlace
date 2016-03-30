@@ -1,5 +1,9 @@
-prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:DefaultPage) {
+prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.NeosIo:DefaultPage) {
     body {
+        parts {
+            sectionTitle >
+            subMenu = Neos.MarketPlace:Package.SubMenu
+        }
         content {
             main = TypoScript:Array {
                 search = Neos.MarketPlace:Search {
@@ -8,5 +12,29 @@ prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:Defaul
                 package = Neos.MarketPlace:Package
             }
         }
+    }
+}
+
+prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
+    releasedVersionQuery = MarketPlace:ReleasedVersionQuery
+    @context.releasedVersionQuery = ${this.releasedVersionQuery}
+
+    developmentVersionsQuery = MarketPlace:DevelopmentVersionsQuery
+    @context.developmentVersionsQuery = ${this.developmentVersionsQuery}
+
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package.SubMenu.html'
+
+    maintainers = MarketPlace:PeopleMenu {
+        path = 'maintainers'
+    }
+
+    hasReleasedVersion = ${this.releasedVersionQuery.count() > 0}
+    releasedVersionMenu = MarketPlace:VersionMenu {
+        collection = ${releasedVersionQuery}
+    }
+
+    hasDevelopmentVersion = ${this.developmentVersionsQuery.count() > 0}
+    developmentVersionMenu = MarketPlace:VersionMenu {
+        collection = ${developmentVersionsQuery}
     }
 }

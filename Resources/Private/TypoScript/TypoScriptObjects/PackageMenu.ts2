@@ -2,7 +2,7 @@ prototype(Neos.MarketPlace:PackageMenu) >
 prototype(Neos.MarketPlace:PackageMenu) < prototype(TypoScript:Tag) {
     tagName = 'ul'
     attributes {
-        class = 'nav nav--vertical'
+        class = 'nav nav--stacked'
     }
     content = TypoScript:Collection {
         collection = ${q(documentNode).find('[instanceof Neos.MarketPlace:Package]')}

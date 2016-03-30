@@ -4,7 +4,7 @@ prototype(Neos.MarketPlace:VersionMenu) < prototype(TypoScript:Tag) {
     @context.collection = ${this.collection}
     tagName = 'ul'
     attributes {
-        class = 'nav nav--vertical'
+        class = 'nav nav--stacked'
     }
     content = TypoScript:Collection {
         collection = ${collection}

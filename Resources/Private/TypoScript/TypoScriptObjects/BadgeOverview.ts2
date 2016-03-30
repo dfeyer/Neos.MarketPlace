@@ -1,0 +1,6 @@
+prototype(Neos.MarketPlace:BadgeOverview) >
+prototype(Neos.MarketPlace:BadgeOverview) < prototype(TypoScript:Template) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/BadgeOverview.html'
+
+    attributes = TypoScript:Attributes
+}

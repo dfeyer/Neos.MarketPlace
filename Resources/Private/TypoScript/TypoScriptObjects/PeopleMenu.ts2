@@ -5,7 +5,7 @@ prototype(Neos.MarketPlace:PeopleMenu) < prototype(TypoScript:Tag) {
 
     tagName = 'ul'
     attributes {
-        class = 'nav nav--vertical'
+        class = 'nav nav--stacked'
     }
     content = TypoScript:Collection {
         collection = ${q(documentNode).find(path).find('[instanceof Neos.MarketPlace:People]')}

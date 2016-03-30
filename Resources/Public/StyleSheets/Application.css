@@ -27,11 +27,34 @@
     margin-right: .3em;
 }
 
+.pm-nav-section {
+    margin-bottom: 1em;
+}
+
 .pm-version {
+    display: none;
+    opacity: 0;
     border-bottom: 1px solid #eceeef;
     margin-bottom: 1em;
     background-color: #eceeef;
     padding: .5em 1em;
+}
+.pm-version:target {
+    display: block;
+    opacity: 1;
+}
+.pm-version dt {
+    font-weight: 600;
+}
+.pm-version dd {
+    -webkit-margin-start: 0;
+}
+.pm-version ul {
+    padding: 0;
+    margin: 0;
+}
+.pm-version li {
+    list-style: none;
 }
 
 .pm-form {

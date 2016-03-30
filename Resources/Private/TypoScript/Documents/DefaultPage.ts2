@@ -12,13 +12,3 @@ prototype(Page) {
         }
     }
 }
-
-prototype(Neos.MarketPlace:DefaultPage) < prototype(Neos.NeosIo:DefaultPage) {
-    body {
-        parts {
-            subMenu {
-                maximumLevels = 1
-            }
-        }
-    }
-}

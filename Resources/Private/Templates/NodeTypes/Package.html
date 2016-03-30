@@ -1,9 +1,4 @@
 <article{attributes -> f:format.raw()}>
-<f:if condition="{hasPackageCount}">
-    <a href="{vendorUri}" class="btn btn-primary pull-right" type="button">
-        The same vendor provide <span class="badge">{packageCount}</span> package(s)
-    </a>
-</f:if>
 <header>
     <h1>{packageName}</h1>
 </header>
@@ -11,48 +6,20 @@
     <p>This package is abandoned and no longer maintained. The author suggests using the <strong>{abandoned}</strong> package instead.</p>
     <hr>
 </f:if>
-
+<code class="pm-code">
+    <i class="fa fa-download"></i> composer require {packageName}
+</code>
 <f:if condition="{description}">
     <p><strong>{description}</strong></p>
 </f:if>
 {main -> f:format.raw()}
+<p><strong>Last activity:</strong> {lastActivity -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</p>
+
+{versions -> f:format.raw()}
 <hr>
-<div class="row">
-    <div class="col-sm-9">
-        <p><strong>Last activity:</strong> {lastActivity -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</p>
-        <code class="pm-code">
-            <i class="fa fa-download"></i> composer require {packageName}
-        </code>
-        {versions -> f:format.raw()}
-    </div>
-    <div class="col-sm-3">
-        <h4>Maintainers</h4>
-        {maintainerMenu -> f:format.raw()}
-        <hr>
-
-        <h4>Released Versions</h4>
-        <f:if condition="{hasReleasedVersion}">
-            <f:then>
-                {releasedVersionMenu -> f:format.raw()}
-            </f:then>
-            <f:else>
-                <strong>No release version yet&nbsp;...</strong>
-            </f:else>
-        </f:if>
-
-        <hr>
-
-        <h4>Development Versions</h4>
-        <f:if condition="{hasDevelopmentVersion}">
-            <f:then>
-                {developmentVersionMenu -> f:format.raw()}
-            </f:then>
-            <f:else>
-                <strong>No development version&nbsp;...</strong>
-            </f:else>
-        </f:if>
-
-        <hr>
-    </div>
-</div>
+<f:if condition="{hasPackageCount}">
+    <a href="{vendorUri}" class="btn btn-primary" type="button">
+        The same vendor provide <span class="badge">{packageCount}</span> package(s)
+    </a>
+</f:if>
 </article>

@@ -1,6 +1,4 @@
 prototype(Neos.MarketPlace:Vendor) {
-    packages = Neos.MarketPlace:PackageMenu
-
     attributes = TypoScript:Attributes {
         class = 'pm-block pm-block--vendor'
     }
