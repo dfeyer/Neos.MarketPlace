@@ -80,7 +80,25 @@ class PackageConverter extends AbstractTypeConverter
         $this->createOrUpdateMaintainers($package, $node);
         $this->createOrUpdateVersions($package, $node);
         $this->handleAbandonedPackageOrVersion($package, $node);
+        $this->handleDownloads($package, $node);
         return $node;
+    }
+
+    /**
+     * @param Package $package
+     * @param NodeInterface $node
+     */
+    protected function handleDownloads(Package $package, NodeInterface $node)
+    {
+        $downloads = $package->getDownloads();
+        if (!$downloads instanceof Package\Downloads) {
+            return;
+        }
+        $this->updateNodeProperties($node, [
+            'downloadTotal' => $downloads->getTotal(),
+            'downloadMonthly' => $downloads->getMonthly(),
+            'downloadDaily' => $downloads->getDaily(),
+        ]);
     }
 
     /**

@@ -5,6 +5,9 @@
 			<trans-unit id="ui.label" xml:space="preserve">
 				<source>Package</source>
 			</trans-unit>
+			<trans-unit id="groups.metrics" xml:space="preserve">
+				<source>Metrics</source>
+			</trans-unit>
 			<trans-unit id="properties.title" xml:space="preserve">
 				<source>Name</source>
 			</trans-unit>
@@ -25,6 +28,15 @@
 			</trans-unit>
 			<trans-unit id="properties.abandoned" xml:space="preserve">
 				<source>Abandoned</source>
+			</trans-unit>
+			<trans-unit id="properties.downloadTotal" xml:space="preserve">
+				<source>Total</source>
+			</trans-unit>
+			<trans-unit id="properties.downloadMonthly" xml:space="preserve">
+				<source>Monthly</source>
+			</trans-unit>
+			<trans-unit id="properties.downloadDaily" xml:space="preserve">
+				<source>Daily</source>
 			</trans-unit>
 		</body>
 	</file>
