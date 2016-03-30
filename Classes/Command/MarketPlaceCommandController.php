@@ -47,7 +47,9 @@ class MarketPlaceCommandController extends CommandController
     {
         $sync = function() use ($package) {
             $count = 0;
+            $this->outputLine();
             $this->outputLine('Synchronize with Packagist ...');
+            $this->outputLine('------------------------------');
             $storage = new Storage();
             $process = function (Package $package) use ($storage, &$count) {
                 $count++;
