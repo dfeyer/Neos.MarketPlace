@@ -139,13 +139,6 @@
         reloadIfChanged: TRUE
         inspector:
           group: document
-    favers:
-      type: integer
-      ui:
-        label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
     abandoned:
       type: string
       ui:
@@ -168,6 +161,13 @@
         inspector:
           group: metrics
     downloadDaily:
+      type: integer
+      ui:
+        label: i18n
+        reloadIfChanged: TRUE
+        inspector:
+          group: metrics
+    favers:
       type: integer
       ui:
         label: i18n
