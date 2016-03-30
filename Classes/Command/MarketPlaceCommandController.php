@@ -85,6 +85,7 @@ class MarketPlaceCommandController extends CommandController
     {
         $this->outputLine();
         $this->outputLine('Cleanup packages ...');
+        $this->outputLine('--------------------');
         $count = $this->importer->cleanupPackages($storage, function (NodeInterface $package) {
             $this->outputLine(sprintf('%s deleted', $package->getLabel()));
         });
@@ -100,6 +101,7 @@ class MarketPlaceCommandController extends CommandController
     {
         $this->outputLine();
         $this->outputLine('Cleanup vendors ...');
+        $this->outputLine('-------------------');
         $count = $this->importer->cleanupVendors($storage, function (NodeInterface $vendor) {
             $this->outputLine(sprintf('%s deleted', $vendor->getLabel()));
         });
