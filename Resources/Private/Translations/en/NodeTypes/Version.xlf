@@ -32,6 +32,27 @@
 			<trans-unit id="properties.versionNormalized" xml:space="preserve">
 				<source>Normalized Version</source>
 			</trans-unit>
+			<trans-unit id="properties.stability" xml:space="preserve">
+				<source>Is Stable ?</source>
+			</trans-unit>
+			<trans-unit id="properties.stabilityLevel" xml:space="preserve">
+				<source>Stability Level</source>
+			</trans-unit>
+			<trans-unit id="properties.stabilityLevel.selectBoxEditor.values.stable" xml:space="preserve">
+				<source>Stable</source>
+			</trans-unit>
+			<trans-unit id="properties.stabilityLevel.selectBoxEditor.values.dev" xml:space="preserve">
+				<source>Development</source>
+			</trans-unit>
+			<trans-unit id="properties.stabilityLevel.selectBoxEditor.values.alpha" xml:space="preserve">
+				<source>Alpha</source>
+			</trans-unit>
+			<trans-unit id="properties.stabilityLevel.selectBoxEditor.values.beta" xml:space="preserve">
+				<source>Beta</source>
+			</trans-unit>
+			<trans-unit id="properties.stabilityLevel.selectBoxEditor.values.rc" xml:space="preserve">
+				<source>Release Candidate</source>
+			</trans-unit>
 			<trans-unit id="properties.license" xml:space="preserve">
 				<source>License</source>
 			</trans-unit>

@@ -300,12 +300,51 @@
         label: i18n
         inspector:
           group: 'general'
+          position: 1
     versionNormalized:
-      type: string
+      type: integer
+      search:
+        elasticSearchMapping:
+          index: 'not_analyzed'
       ui:
         label: i18n
         inspector:
           group: 'general'
+          position: 2
+    stability:
+      type: boolean
+      search:
+        elasticSearchMapping:
+          index: 'not_analyzed'
+      ui:
+        label: i18n
+        inspector:
+          group: 'general'
+    stabilityLevel:
+      type: string
+      search:
+        elasticSearchMapping:
+          index: 'not_analyzed'
+      ui:
+        label: i18n
+        inspector:
+          group: 'general'
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            placeholder: i18n
+            values:
+              '':
+                label: ''
+              stable:
+                label: i18n
+              dev:
+                label: i18n
+              alpha:
+                label: i18n
+              beta:
+                label: i18n
+              rc:
+                label: i18n
     description:
       type: string
       ui:

@@ -14,6 +14,7 @@ namespace Neos\MarketPlace\Property\TypeConverter;
 use Neos\MarketPlace\Domain\Model\Slug;
 use Neos\MarketPlace\Domain\Model\StabilityLabel;
 use Neos\MarketPlace\Domain\Model\Storage;
+use Neos\MarketPlace\Utility\VersionNumber;
 use Packagist\Api\Result\Package;
 use TYPO3\Eel\FlowQuery\FlowQuery;
 use TYPO3\Flow\Annotations as Flow;
@@ -203,7 +204,13 @@ class PackageConverter extends AbstractTypeConverter
             $version->remove();
         }
 
+
         foreach ($package->getVersions() as $version) {
+            $versionNormalized = explode('-', $version->getVersionNormalized());
+            $versionStability = isset($versionNormalized[1]) ? false : true;
+            $stabilityLevel = isset($versionNormalized[1]) ? preg_replace('/[0-9]+/', '', strtolower($versionNormalized[1])) : 'stable';
+            $versionNormalized = VersionNumber::toInteger($versionNormalized[0]);
+
             /** @var Package\Version $version */
             $name = Slug::create($version->getVersion());
             $node = $versionStorage->getNode($name);
@@ -212,7 +219,9 @@ class PackageConverter extends AbstractTypeConverter
                 'description' => $version->getDescription(),
                 'keywords' => $this->arrayToStringCaster($version->getKeywords()),
                 'homepage' => $version->getHomepage(),
-                'versionNormalized' => $version->getVersionNormalized(),
+                'versionNormalized' => $versionNormalized,
+                'stability' => $versionStability,
+                'stabilityLevel' => $stabilityLevel,
                 'license' => $this->arrayToStringCaster($version->getLicense()),
                 'type' => $version->getType(),
                 'time' => \DateTime::createFromFormat(\DateTime::ISO8601, $version->getTime()),
