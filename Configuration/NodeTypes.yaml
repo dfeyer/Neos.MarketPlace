@@ -472,6 +472,7 @@
         inspector:
           group: 'general'
       search:
+        indexing: "${MarketIndexing.trimExplode(q(node).property('keywords'))}"
         elasticSearchMapping:
           type: multi_field
           fields:

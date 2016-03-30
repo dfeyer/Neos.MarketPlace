@@ -59,7 +59,7 @@ class IndexingHelper extends Eel\IndexingHelper
             $data[] = [
                 'name' => $versionNode->getProperty('name'),
                 'description' => $versionNode->getProperty('description'),
-                'keywords' => $versionNode->getProperty('keywords'),
+                'keywords' => $this->trimExplode($versionNode->getProperty('keywords')),
                 'homepage' => $versionNode->getProperty('homepage'),
                 'version' => $versionNode->getProperty('version'),
                 'versionNormalized' => $versionNode->getProperty('versionNormalized'),
@@ -115,6 +115,15 @@ class IndexingHelper extends Eel\IndexingHelper
         }
 
         return $data;
+    }
+
+    /**
+     * @param string $value
+     * @return array
+     */
+    public function trimExplode($value)
+    {
+        return array_filter(array_map('trim', explode(',', $value)));
     }
 
 }
