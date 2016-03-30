@@ -144,7 +144,7 @@ class PackageConverter extends AbstractTypeConverter
                     'githubWatchers' => (integer)Arrays::getValueByPath($repository, 'watchers_count'),
                     'githubForks' => (integer)Arrays::getValueByPath($repository, 'forks_count'),
                     'githubIssues' => (integer)Arrays::getValueByPath($repository, 'open_issues_count'),
-                    'githubAvatar' => (string)Arrays::getValueByPath($repository, 'organization.avatar_url')
+                    'githubAvatar' => trim(Arrays::getValueByPath($repository, 'organization.avatar_url'))
                 ]);
             } catch (ApiLimitExceedException $exception) {
                 // Skip the processing if we hit the API rate limit
