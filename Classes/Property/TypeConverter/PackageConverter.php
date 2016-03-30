@@ -12,7 +12,6 @@ namespace Neos\MarketPlace\Property\TypeConverter;
  */
 
 use Neos\MarketPlace\Domain\Model\Slug;
-use Neos\MarketPlace\Domain\Model\StabilityLabel;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Utility\VersionNumber;
 use Packagist\Api\Result\Package;
@@ -233,7 +232,7 @@ class PackageConverter extends AbstractTypeConverter
                 'conflict' => $this->arrayToJsonCaster($version->getConflict()),
                 'replace' => $this->arrayToJsonCaster($version->getReplace()),
             ];
-            if (StabilityLabel::isDev($version->getVersion())) {
+            if ($versionStability === false) {
                 $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:DevelopmentVersion');
             } else {
                 $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:ReleasedVersion');

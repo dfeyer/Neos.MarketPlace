@@ -11,7 +11,6 @@ namespace Neos\MarketPlace\Eel;
  * source code.
  */
 
-use Neos\MarketPlace\Domain\Model\StabilityLabel;
 use TYPO3\Eel\FlowQuery\FlowQuery;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
@@ -64,12 +63,34 @@ class IndexingHelper extends Eel\IndexingHelper
                 'homepage' => $versionNode->getProperty('homepage'),
                 'version' => $versionNode->getProperty('version'),
                 'versionNormalized' => $versionNode->getProperty('versionNormalized'),
-                'stabilty' => StabilityLabel::get($versionNode->getProperty('version')),
+                'stability' => $versionNode->getProperty('stability'),
+                'stabilityLevel' => $versionNode->getProperty('stabilityLevel'),
                 'time' => $time ? $time->format('Y-m-d\TH:i:sP') : null,
+                'timestamp' => $time ? $time->getTimestamp() : 0,
             ];
         }
 
         return $data;
+    }
+
+    /**
+     * @param NodeInterface $node
+     * @return array
+     */
+    public function extractLastVersion(NodeInterface $node)
+    {
+        $versions = $this->extractVersions($node);
+        usort($versions, function($a, $b) {
+            return $a['timestamp'] - $b['timestamp'];
+        });
+        $stableVersion = array_filter($versions, function($version) {
+            return $version['stability'] === true;
+        });
+        if (count($stableVersion) > 0) {
+            return reset($stableVersion);
+        } else {
+            return reset($versions);
+        }
     }
 
     /**
