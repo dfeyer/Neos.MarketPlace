@@ -1,0 +1,3 @@
+prototype(Neos.MarketPlace:PrereleasedVersionsQuery) < prototype(Neos.MarketPlace:VersionsQuery) {
+    value = ${q(documentNode).find('versions').find('[instanceof Neos.MarketPlace:PrereleasedVersion]')}
+}

@@ -19,6 +19,9 @@ prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
     releasedVersionQuery = MarketPlace:ReleasedVersionQuery
     @context.releasedVersionQuery = ${this.releasedVersionQuery}
 
+    prereleasedVersionQuery = MarketPlace:PrereleasedVersionsQuery
+    @context.prereleasedVersionQuery = ${this.prereleasedVersionQuery}
+
     developmentVersionsQuery = MarketPlace:DevelopmentVersionsQuery
     @context.developmentVersionsQuery = ${this.developmentVersionsQuery}
 
@@ -31,6 +34,11 @@ prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
     hasReleasedVersion = ${this.releasedVersionQuery.count() > 0}
     releasedVersionMenu = MarketPlace:VersionMenu {
         collection = ${releasedVersionQuery}
+    }
+
+    hasPrereleasedVersion = ${this.prereleasedVersionQuery.count() > 0}
+    prereleasedVersionMenu = MarketPlace:VersionMenu {
+        collection = ${prereleasedVersionQuery}
     }
 
     hasDevelopmentVersion = ${this.developmentVersionsQuery.count() > 0}

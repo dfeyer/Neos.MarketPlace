@@ -232,10 +232,15 @@ class PackageConverter extends AbstractTypeConverter
                 'conflict' => $this->arrayToJsonCaster($version->getConflict()),
                 'replace' => $this->arrayToJsonCaster($version->getReplace()),
             ];
-            if ($versionStability === false) {
-                $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:DevelopmentVersion');
-            } else {
-                $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:ReleasedVersion');
+            switch ($stabilityLevel) {
+                case 'stable':
+                    $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:ReleasedVersion');
+                    break;
+                case 'dev':
+                    $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:DevelopmentVersion');
+                    break;
+                default:
+                    $nodeType = $this->nodeTypeManager->getNodeType('Neos.MarketPlace:PrereleasedVersion');
             }
             if ($node === null) {
                 $nodeTemplate = new NodeTemplate();

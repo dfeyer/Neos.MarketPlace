@@ -19,6 +19,15 @@
     </f:if>
 </section>
 
+<f:if condition="{hasPrereleasedVersion}">
+    <section class="pm-nav-section">
+        <header>
+            <h4>Prereleased Versions</h4>
+        </header>
+    {prereleasedVersionMenu -> f:format.raw()}
+    </section>
+</f:if>
+
 <section class="pm-nav-section">
     <header>
         <h4>Development Versions</h4>

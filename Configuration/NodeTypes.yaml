@@ -497,6 +497,12 @@
   ui:
     label: i18n
 
+'Neos.MarketPlace:PrereleasedVersion':
+  superTypes:
+    'Neos.MarketPlace:Version': TRUE
+  ui:
+    label: i18n
+
 'Neos.MarketPlace:DevelopmentVersion':
   superTypes:
     'Neos.MarketPlace:Version': TRUE
