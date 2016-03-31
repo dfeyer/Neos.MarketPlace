@@ -131,22 +131,22 @@ class PackageConverter extends AbstractTypeConverter
             // todo make it a bit more clever
             $repository = str_replace('.git', '', $repository);
             preg_match("#(.*)://github.com/(.*)#", $repository, $matches);
-            list($oganization, $repository) = explode('/', $matches[2]);
+            list($organization, $repository) = explode('/', $matches[2]);
             $client = new Client(
                 new CachedHttpClient(['cache_dir' => $this->githubSettings['cacheDirectory']])
             );
             $client->authenticate($this->githubSettings['account'], $this->githubSettings['password']);
             try {
-                $repository = $client->repositories()->show($oganization, $repository);
-                if (!is_array($repository)) {
+                $meta = $client->repositories()->show($organization, $repository);
+                if (!is_array($meta)) {
                     return;
                 }
                 $this->updateNodeProperties($node, [
-                    'githubStargazers' => (integer)Arrays::getValueByPath($repository, 'stargazers_count'),
-                    'githubWatchers' => (integer)Arrays::getValueByPath($repository, 'watchers_count'),
-                    'githubForks' => (integer)Arrays::getValueByPath($repository, 'forks_count'),
-                    'githubIssues' => (integer)Arrays::getValueByPath($repository, 'open_issues_count'),
-                    'githubAvatar' => trim(Arrays::getValueByPath($repository, 'organization.avatar_url'))
+                    'githubStargazers' => (integer)Arrays::getValueByPath($meta, 'stargazers_count'),
+                    'githubWatchers' => (integer)Arrays::getValueByPath($meta, 'watchers_count'),
+                    'githubForks' => (integer)Arrays::getValueByPath($meta, 'forks_count'),
+                    'githubIssues' => (integer)Arrays::getValueByPath($meta, 'open_issues_count'),
+                    'githubAvatar' => trim(Arrays::getValueByPath($meta, 'organization.avatar_url'))
                 ]);
             } catch (ApiLimitExceedException $exception) {
                 // Skip the processing if we hit the API rate limit
