@@ -1,4 +1,6 @@
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
+{namespace marketplace=Neos\MarketPlace\ViewHelpers}
+
 <article{attributes -> f:format.raw()}>
 <header>
     <h1>{packageName}</h1>
@@ -14,7 +16,7 @@
     <p><strong>{description}</strong></p>
 </f:if>
 {main -> f:format.raw()}
-<p><strong>Last activity:</strong> {lastActivity -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</p>
+<p class="package__last-activity"><i class="fa fa-clock-o"></i> {lastActivity -> marketplace:format.relativeDate()}</p>
 
 <f:if condition="{hasReadme}">
     <article class="readme">
