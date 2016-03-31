@@ -1,3 +1,4 @@
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
 <article{attributes -> f:format.raw()}>
 <header>
     <h1>{packageName}</h1>
@@ -15,8 +16,18 @@
 {main -> f:format.raw()}
 <p><strong>Last activity:</strong> {lastActivity -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</p>
 
+<f:if condition="{hasReadme}">
+    <article class="readme">
+        <ts:render path="readme" />
+        <footer>
+            <div class="readme__notice">The content of the readme is provided by <i class="fa fa-github"></i>
+                <a href="https://github.com/"></a>Github</div>
+        </footer>
+    </article>
+</f:if>
+
 {versions -> f:format.raw()}
-<hr>
+
 <f:if condition="{hasPackageCount}">
     <a href="{vendorUri}" class="btn btn-primary" type="button">
         The same vendor provide <span class="badge">{packageCount}</span> package(s)

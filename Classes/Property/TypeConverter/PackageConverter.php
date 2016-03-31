@@ -148,6 +148,7 @@ class PackageConverter extends AbstractTypeConverter
                     'githubIssues' => (integer)Arrays::getValueByPath($meta, 'open_issues_count'),
                     'githubAvatar' => trim(Arrays::getValueByPath($meta, 'organization.avatar_url'))
                 ]);
+                $this->handleGithubReadme($organization, $repository, $node);
             } catch (ApiLimitExceedException $exception) {
                 // Skip the processing if we hit the API rate limit
             } catch (RuntimeException $exception) {
@@ -156,6 +157,40 @@ class PackageConverter extends AbstractTypeConverter
                     $this->resetGithubMetrics($node);
                 }
             }
+        }
+    }
+
+    /**
+     * @param string $oganization
+     * @param string $repository
+     * @param NodeInterface $node
+     */
+    protected function handleGithubReadme($oganization, $repository, NodeInterface $node)
+    {
+        try {
+            $httpClient = new CachedHttpClient([
+                'cache_dir' => $this->githubSettings['cacheDirectory']
+            ]);
+            $httpClient->setHeaders([
+                'Accept' => 'application/vnd.github.VERSION.html'
+            ]);
+            $client = new Client($httpClient);
+            $client->authenticate($this->githubSettings['account'], $this->githubSettings['password']);
+            $readme = trim($client->repository()->readme($oganization, $repository));
+            if ($readme === '') {
+                return;
+            }
+            $query = new FlowQuery([$node]);
+            $readmeNode = $query
+                ->find('readme')
+                ->get(0);
+
+            if ($readmeNode === null) {
+                return;
+            }
+            $readmeNode->setProperty('source', $readme);
+        } catch (\Exception $exception) {
+
         }
     }
 
@@ -435,7 +470,8 @@ class PackageConverter extends AbstractTypeConverter
      * @param array $value
      * @return string
      */
-    protected function arrayToStringCaster($value) {
+    protected function arrayToStringCaster($value)
+    {
         $value = $value ?: [];
         return implode(', ', $value);
     }
@@ -444,7 +480,8 @@ class PackageConverter extends AbstractTypeConverter
      * @param array $value
      * @return string
      */
-    protected function arrayToJsonCaster($value) {
+    protected function arrayToJsonCaster($value)
+    {
         return $value ? json_encode($value, JSON_PRETTY_PRINT) : null;
     }
 

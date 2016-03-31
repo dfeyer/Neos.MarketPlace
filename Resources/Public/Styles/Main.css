@@ -64,6 +64,36 @@
     text-align: center;
     padding: 0.3em .6em; }
 
+.readme {
+  background-color: whitesmoke;
+  border: 1px solid #CCC;
+  padding: 1em;
+  margin-bottom: 2em; }
+  .readme__notice {
+    border-top: 1px dotted #999;
+    padding-top: 1em;
+    font-size: 13px;
+    color: #888; }
+  .readme .octicon-link {
+    display: none; }
+  .readme h1 {
+    font-size: 1.8em;
+    font-weight: 600; }
+  .readme h2 {
+    font-size: 1.5em;
+    font-weight: 600; }
+  .readme h3 {
+    font-size: 1.35em;
+    font-weight: 400; }
+  .readme h4, .readme h5, .readme h6 {
+    font-size: 1.2em;
+    font-weight: 400; }
+  .readme pre, .readme code {
+    background-color: #979797;
+    color: white; }
+  .readme pre {
+    padding: 1em; }
+
 .result-list__item {
   border-bottom: 1px solid #eceeef;
   padding-bottom: .3em;

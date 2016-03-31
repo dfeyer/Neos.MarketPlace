@@ -142,6 +142,9 @@ githubProperty: &githubProperty
     versions:
       position: 'after authors'
       type: 'TYPO3.Neos:ContentCollection'
+    readme:
+      position: 'after versions'
+      type: 'Neos.MarketPlace:Readme'
   properties:
     title:
       type: string
@@ -530,3 +533,7 @@ githubProperty: &githubProperty
       type: string
       ui:
         label: i18n
+
+'Neos.MarketPlace:Readme':
+  superTypes:
+    'TYPO3.Neos.NodeTypes:Html': TRUE
