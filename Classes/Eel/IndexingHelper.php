@@ -11,6 +11,7 @@ namespace Neos\MarketPlace\Eel;
  * source code.
  */
 
+use Neos\MarketPlace\Service\PackageVersion;
 use TYPO3\Eel\FlowQuery\FlowQuery;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
@@ -27,6 +28,12 @@ class IndexingHelper extends Eel\IndexingHelper
      * @Flow\InjectConfiguration(path="typeMapping")
      */
     protected $packageTypes;
+
+    /**
+     * @var PackageVersion
+     * @Flow\Inject
+     */
+    protected $packageVersion;
 
     /**
      * @param string $packageType
@@ -47,27 +54,11 @@ class IndexingHelper extends Eel\IndexingHelper
     public function extractVersions(NodeInterface $node)
     {
         $data = [];
-        $query = new FlowQuery([$node]);
-        $query = $query
-            ->find('versions')
-            ->find('[instanceof Neos.MarketPlace:Version]');
+        $versions = $this->packageVersion->extractVersions($node);
 
-        foreach ($query as $versionNode) {
-            /** @var \DateTime $time */
-            $time = $versionNode->getProperty('time');
-            /** @var NodeInterface $versionNode */
-            $data[] = [
-                'name' => $versionNode->getProperty('name'),
-                'description' => $versionNode->getProperty('description'),
-                'keywords' => $this->trimExplode($versionNode->getProperty('keywords')),
-                'homepage' => $versionNode->getProperty('homepage'),
-                'version' => $versionNode->getProperty('version'),
-                'versionNormalized' => $versionNode->getProperty('versionNormalized'),
-                'stability' => $versionNode->getProperty('stability'),
-                'stabilityLevel' => $versionNode->getProperty('stabilityLevel'),
-                'time' => $time ? $time->format('Y-m-d\TH:i:sP') : null,
-                'timestamp' => $time ? $time->getTimestamp() : 0,
-            ];
+        /** @var NodeInterface $versionNode */
+        foreach ($versions as $versionNode) {
+            $data[] = $this->prepareVersionForIndexing($versionNode);
         }
 
         return $data;
@@ -79,18 +70,30 @@ class IndexingHelper extends Eel\IndexingHelper
      */
     public function extractLastVersion(NodeInterface $node)
     {
-        $versions = $this->extractVersions($node);
-        usort($versions, function($a, $b) {
-            return $a['timestamp'] - $b['timestamp'];
-        });
-        $stableVersion = array_filter($versions, function($version) {
-            return $version['stability'] === true;
-        });
-        if (count($stableVersion) > 0) {
-            return reset($stableVersion);
-        } else {
-            return reset($versions);
-        }
+        $version = $this->packageVersion->extractLastVersion($node);
+        return $this->prepareVersionForIndexing($version);
+    }
+
+    /**
+     * @param NodeInterface $versionNode
+     * @return array
+     */
+    protected function prepareVersionForIndexing(NodeInterface $versionNode)
+    {
+        /** @var \DateTime $time */
+        $time = $versionNode->getProperty('time');
+        return [
+            'name' => $versionNode->getProperty('name'),
+            'description' => $versionNode->getProperty('description'),
+            'keywords' => $this->trimExplode($versionNode->getProperty('keywords')),
+            'homepage' => $versionNode->getProperty('homepage'),
+            'version' => $versionNode->getProperty('version'),
+            'versionNormalized' => $versionNode->getProperty('versionNormalized'),
+            'stability' => $versionNode->getProperty('stability'),
+            'stabilityLevel' => $versionNode->getProperty('stabilityLevel'),
+            'time' => $time ? $time->format('Y-m-d\TH:i:sP') : null,
+            'timestamp' => $time ? $time->getTimestamp() : 0,
+        ];
     }
 
     /**
