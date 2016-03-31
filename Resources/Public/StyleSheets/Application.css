@@ -10,9 +10,6 @@
 
 .pm-search li {
     list-style: none;
-    border-bottom: 1px solid #eceeef;
-    padding-bottom: .3em;
-    margin-bottom: .3em;
 }
 
 .pm-tagline {
@@ -40,6 +37,25 @@
     -webkit-filter: grayscale(100%);
     filter: gray;
     filter: grayscale(100%);
+}
+
+.result-list-item {
+    border-bottom: 1px solid #eceeef;
+    padding-bottom: .3em;
+    margin-bottom: .3em;
+    font-size: 0.85em;
+}
+
+.result-list-title {
+    margin-bottom: 4px;
+}
+
+.result-list-meta {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #888;
 }
 
 .pm-version {
@@ -94,13 +110,10 @@
 
 .pm-search-results {
     padding: 0;
-    text-align: left;
 }
 
 .pm-search-results > li {
     list-style: none;
-    border-bottom: 1px solid #999;
-    padding: .5em 1em;
 }
 
 .pm-block {

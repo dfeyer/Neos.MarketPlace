@@ -1,3 +1,7 @@
 prototype(Neos.MarketPlace:DocumentSearchResult) < prototype(DocumentSearchResult) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/SearchResult/DocumentSearchResult.html'
+
+    attributes = TypoScript:Attributes {
+        class = 'result-list-item'
+    }
 }
