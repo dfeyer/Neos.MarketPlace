@@ -1,4 +1,6 @@
 prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package/Package.SubMenu.html'
+
     releasedVersionQuery = MarketPlace:ReleasedVersionQuery
     @context.releasedVersionQuery = ${this.releasedVersionQuery}
 
@@ -7,8 +9,6 @@ prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
 
     developmentVersionsQuery = MarketPlace:DevelopmentVersionsQuery
     @context.developmentVersionsQuery = ${this.developmentVersionsQuery}
-
-    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package.SubMenu.html'
 
     maintainers = MarketPlace:PeopleMenu {
         path = 'maintainers'

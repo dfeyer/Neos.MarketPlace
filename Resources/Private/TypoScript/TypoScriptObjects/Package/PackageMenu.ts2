@@ -13,7 +13,7 @@ prototype(Neos.MarketPlace:PackageMenu) < prototype(TypoScript:Tag) {
 
 prototype(Neos.MarketPlace:PackageMenuItem) >
 prototype(Neos.MarketPlace:PackageMenuItem) < prototype(Neos.MarketPlace:Content) {
-    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/PackageMenuItem.html'
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package/PackageMenuItem.html'
     attributes {
         class = 'nav__item'
     }

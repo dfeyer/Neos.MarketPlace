@@ -1,5 +1,5 @@
 prototype(Neos.MarketPlace:PackageRequirementsItem) < prototype(TypoScript:Template) {
-    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/PackageRequirementsItem.html'
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package/PackageRequirementsItem.html'
 
     package = ${package}
     version = ${version}
