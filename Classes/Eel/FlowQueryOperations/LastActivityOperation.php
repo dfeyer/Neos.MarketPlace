@@ -19,7 +19,7 @@ use TYPO3\Eel\FlowQuery\FlowQuery;
 use TYPO3\TYPO3CR\Domain\Model\Node;
 
 /**
- * EEL operation to get last activity for a given package
+ * EEL operation to get last activity for a given package or a vendor
  */
 class LastActivityOperation extends AbstractOperation {
 
