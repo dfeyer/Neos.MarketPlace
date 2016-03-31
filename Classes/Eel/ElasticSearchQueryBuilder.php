@@ -46,49 +46,9 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
             return $this;
         }
         $this->hasFulltext = true;
-        $this->appendAtPath('query.filtered.filter.bool.should', [
-            ['term' => [
-                'title' => [
-                    'value' => $searchWord
-                ]
-            ]],
-            ['term' => [
-                'description' => [
-                    'value' => $searchWord
-                ]
-            ]],
-            ['term' => [
-                '__composerVendor' => [
-                    'value' => $searchWord
-                ]
-            ]],
-            ['term' => [
-                '__packageKey.tag' => [
-                    'value' => $searchWord
-                ]
-            ]],
-            ['term' => [
-                '__lastVersion.keywords.tag' => [
-                    'value' => $searchWord
-                ]
-            ]],
-            ['term' => [
-                '__lastVersion.keywords.name' => [
-                    'value' => $searchWord
-                ]
-            ]],
-            ['term' => [
-                '__versions.keywords.tag' => [
-                    'value' => $searchWord
-                ]
-            ]],
-            ['term' => [
-                '__versions.keywords.name' => [
-                    'value' => $searchWord
-                ]
-            ]]
-        ]);
-        return $this;
+        
+
+        return parent::fulltext($searchWord);
     }
 
     /**
