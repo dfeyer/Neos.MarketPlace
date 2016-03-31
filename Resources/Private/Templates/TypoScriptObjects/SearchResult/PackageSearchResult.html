@@ -3,19 +3,7 @@
 
 <article{attributes -> f:format.raw()}>
     <header>
-        <div class="pull-right">
-            <ul class="metrics">
-                <f:if condition="{stargazers}">
-                    <li class="metrics__item"><i class="fa fa-star"></i> {stargazers}</li>
-                </f:if>
-                <f:if condition="{forks}">
-                    <li class="metrics__item"><i class="fa fa-code-fork"></i> {forks}</li>
-                </f:if>
-                <f:if condition="{downloads}">
-                    <li class="metrics__item"><i class="fa fa-download"></i> {downloads}</li>
-                </f:if>
-            </ul>
-        </div>
+        {metrics -> f:format.raw()}
         <h4 class="result-list__title"><neos:link.node node="{node}"><i class="fa fa-puzzle-piece"></i> {title}</neos:link.node></h4>
     </header>
     <f:if condition="{description}">
