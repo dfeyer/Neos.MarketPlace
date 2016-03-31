@@ -7,4 +7,5 @@ prototype(Neos.MarketPlace:PackageSearchResult) < prototype(Neos.MarketPlace:Doc
     description = ${String.isBlank(q(lastVersion).property('description')) ? q(node).property('description') : q(lastVersion).property('description')}
     stargazers = ${q(node).property('githubStargazers')}
     forks = ${q(node).property('githubForks')}
+    downloads = ${q(node).property('downloadTotal')}
 }

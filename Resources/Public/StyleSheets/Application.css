@@ -132,3 +132,14 @@
     align-items: center;
     margin: 0 1em;
 }
+
+.result-list-metrics {
+    margin: 0;
+    padding: 0;
+}
+
+.result-list-metrics__item {
+    list-style: none;
+    display: inline-block;
+    margin-left: .5em;
+}
