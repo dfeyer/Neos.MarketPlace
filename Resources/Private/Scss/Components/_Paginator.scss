@@ -1,0 +1,12 @@
+.typo3-widget-paginator {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.typo3-widget-paginator > li {
+  list-style: none;
+  align-items: center;
+  margin: 0 1em;
+}

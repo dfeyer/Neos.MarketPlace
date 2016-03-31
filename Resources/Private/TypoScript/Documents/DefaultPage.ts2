@@ -1,13 +1,7 @@
 prototype(Page) {
     head {
-        stylesheets.marketPlace = TypoScript:Tag {
-            tagName = 'link'
-            attributes {
-                rel = 'stylesheet'
-                href = TypoScript:ResourceUri {
-                    path = 'resource://Neos.MarketPlace/Public/StyleSheets/Application.css'
-                }
-            }
+        stylesheets.marketPlace = MarketPlace:StyleSheet {
+            path = 'resource://Neos.MarketPlace/Public/Styles/Main.css'
             @position = 'after site'
         }
     }
