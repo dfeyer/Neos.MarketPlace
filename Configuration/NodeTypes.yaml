@@ -236,6 +236,13 @@ githubProperty: &githubProperty
       ui:
         <<: *githubProperty
         label: i18n
+    __readme:
+      search:
+        indexing: "${q(node).find('readme').first().property('source')}"
+        fulltextExtractor: "${Indexing.extractHtmlTags(value)}"
+        elasticSearchMapping:
+          type: string
+          include_in_all: true
     __packageKey:
       search:
         indexing: "${q(node).property('title')}"
