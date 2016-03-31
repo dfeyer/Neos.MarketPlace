@@ -31,6 +31,17 @@
     margin-bottom: 1em;
 }
 
+.pm-avatar {
+    padding-bottom: 1.5em;
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+    -webkit-filter: grayscale(1);
+    -webkit-filter: grayscale(100%);
+    filter: gray;
+    filter: grayscale(100%);
+}
+
 .pm-version {
     display: none;
     opacity: 0;

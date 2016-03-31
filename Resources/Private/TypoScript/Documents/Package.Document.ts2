@@ -45,4 +45,6 @@ prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
     developmentVersionMenu = MarketPlace:VersionMenu {
         collection = ${developmentVersionsQuery}
     }
+
+    avatarUrl = ${q(node).property('githubAvatar')}
 }
