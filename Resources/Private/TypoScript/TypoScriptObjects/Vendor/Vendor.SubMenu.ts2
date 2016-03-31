@@ -3,4 +3,6 @@ prototype(Neos.MarketPlace:Vendor.SubMenu) < prototype(TypoScript:Template) {
 
     badges = Neos.MarketPlace:BadgeOverview
     packages = Neos.MarketPlace:PackageMenu
+
+    avatarUrl = ${q(node).find('[instanceof Neos.MarketPlace:Package][githubAvatar]').first().property('githubAvatar')}
 }
