@@ -1,6 +1,12 @@
 prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
-    @context.releasedVersionQuery = MarketPlace:ReleasedVersionQuery
-    @context.developmentVersionsQuery = MarketPlace:DevelopmentVersionsQuery
+    releasedVersionQuery = MarketPlace:ReleasedVersionQuery
+    @context.releasedVersionQuery = ${this.releasedVersionQuery}
+
+    prereleasedVersionQuery = MarketPlace:PrereleasedVersionsQuery
+    @context.prereleasedVersionQuery = ${this.prereleasedVersionQuery}
+
+    developmentVersionsQuery = MarketPlace:DevelopmentVersionsQuery
+    @context.developmentVersionsQuery = ${this.developmentVersionsQuery}
 
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package.SubMenu.html'
 
@@ -8,13 +14,20 @@ prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
         path = 'maintainers'
     }
 
-    hasReleasedVersion = ${releasedVersionQuery.count() > 0}
+    hasReleasedVersion = ${this.releasedVersionQuery.count() > 0}
     releasedVersionMenu = MarketPlace:VersionMenu {
         collection = ${releasedVersionQuery}
     }
 
-    hasDevelopmentVersion = ${developmentVersionsQuery.count() > 0}
+    hasPrereleasedVersion = ${this.prereleasedVersionQuery.count() > 0}
+    prereleasedVersionMenu = MarketPlace:VersionMenu {
+        collection = ${prereleasedVersionQuery}
+    }
+
+    hasDevelopmentVersion = ${this.developmentVersionsQuery.count() > 0}
     developmentVersionMenu = MarketPlace:VersionMenu {
         collection = ${developmentVersionsQuery}
     }
+
+    avatarUrl = ${q(node).property('githubAvatar')}
 }
