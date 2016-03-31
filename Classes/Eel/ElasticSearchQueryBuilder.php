@@ -29,6 +29,11 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
      */
     public function getRequest()
     {
+        $this->appendAtPath('query.filtered.filter.bool.must_not', [
+            'exists' => [
+                'field' => 'abandoned'
+            ]
+        ]);
         $request = parent::getRequest();
         $request = $this->enforeFunctionScoring($request);
         return $request;
