@@ -228,11 +228,6 @@ githubProperty: &githubProperty
       ui:
         <<: *githubProperty
         label: i18n
-    githubIssues:
-      type: integer
-      ui:
-        <<: *githubProperty
-        label: i18n
     githubAvatar:
       type: string
       ui:
