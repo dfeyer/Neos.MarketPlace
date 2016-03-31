@@ -26,6 +26,10 @@ export default class ShowMoreComponent {
     this.target = this.el.querySelector(selector);
     this.state.isOpen = true;
 
+    if (!this.target) {
+      return;
+    }
+
     const {offsetHeight} = this.target;
 
     this.init();
