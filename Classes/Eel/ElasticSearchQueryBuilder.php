@@ -20,6 +20,11 @@ use TYPO3\Flow\Annotations as Flow;
 class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
 {
     /**
+     * @var boolean
+     */
+    protected $hasFulltext = false;
+
+    /**
      * @return array
      */
     public function getRequest()
@@ -29,6 +34,18 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
         return $request;
     }
 
+    /**
+     * @param string $searchWord
+     * @return $this
+     */
+    public function fulltext($searchWord)
+    {
+        if (trim($searchWord) === '') {
+            return $this;
+        }
+        $this->hasFulltext = true;
+        return parent::fulltext($searchWord);
+    }
 
     /**
      * @param array $request
