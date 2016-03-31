@@ -1,4 +1,4 @@
-prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.NeosIo:DefaultPage) {
+prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:DefaultPage) {
     body {
         parts {
             sectionTitle >
