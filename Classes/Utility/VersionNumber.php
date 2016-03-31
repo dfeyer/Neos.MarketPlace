@@ -19,13 +19,41 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class VersionNumber
 {
+
     /**
-     * @param string $versionNumber
+     * @param string $versionNormalized
+     * @return boolean
+     */
+    public static function isVersionStable($versionNormalized)
+    {
+        $versionNormalized = explode('-', $versionNormalized);
+        return isset($versionNormalized[1]) ? false : true;
+    }
+
+    /**
+     * @param string $versionNormalized
+     * @return string
+     */
+    public static function getStabilityLevel($versionNormalized)
+    {
+        $versionNormalized = explode('-', $versionNormalized);
+        if (count($versionNormalized) === 0) {
+            return 'stable';
+        }
+        if ($versionNormalized[0] === 'dev') {
+            return 'dev';
+        }
+        return isset($versionNormalized[1]) ? preg_replace('/[0-9]+/', '', strtolower($versionNormalized[1])) : 'stable';
+    }
+
+    /**
+     * @param string $versionNormalized
      * @return integer
      */
-    public static function toInteger($versionNumber)
+    public static function toInteger($versionNormalized)
     {
-        $versionParts = explode('.', $versionNumber);
+        $versionNormalized = explode('-', $versionNormalized);
+        $versionParts = explode('.', $versionNormalized[0]);
         $version = $versionParts[0];
         for ($i = 1; $i < 4; $i++) {
             if (!empty($versionParts[$i])) {

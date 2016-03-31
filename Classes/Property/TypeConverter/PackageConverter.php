@@ -90,9 +90,11 @@ class PackageConverter extends AbstractTypeConverter
         }
         $this->createOrUpdateMaintainers($package, $node);
         $this->createOrUpdateVersions($package, $node);
-        $this->handleAbandonedPackageOrVersion($package, $node);
+
         $this->handleDownloads($package, $node);
         $this->handleGithubMetrics($package, $node);
+
+        $this->handleAbandonedPackageOrVersion($package, $node);
         return $node;
     }
 
@@ -292,11 +294,11 @@ class PackageConverter extends AbstractTypeConverter
         }
 
 
+        /** @var Package\Version $version */
         foreach ($package->getVersions() as $version) {
-            $versionNormalized = explode('-', $version->getVersionNormalized());
-            $versionStability = isset($versionNormalized[1]) ? false : true;
-            $stabilityLevel = isset($versionNormalized[1]) ? preg_replace('/[0-9]+/', '', strtolower($versionNormalized[1])) : 'stable';
-            $versionNormalized = VersionNumber::toInteger($versionNormalized[0]);
+            $versionStability = VersionNumber::isVersionStable($version->getVersionNormalized());
+            $stabilityLevel = VersionNumber::getStabilityLevel($version->getVersionNormalized());
+            $versionNormalized = VersionNumber::toInteger($version->getVersionNormalized());
 
             /** @var Package\Version $version */
             $name = Slug::create($version->getVersion());
