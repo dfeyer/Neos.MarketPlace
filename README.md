@@ -26,13 +26,21 @@ Features
 - [ ] ElasticSearch Aggregation support
 
 ### Search
+
+#### Without query (sorted by last activity)
+
 ![Search without Query](https://dl.dropboxusercontent.com/s/bfcbpenwly726ix/2016-03-31%20at%2010.36%202x.png?dl=0)
+
+#### With query (sorted by pertinance, todo)
+
 ![Search with Query](https://dl.dropboxusercontent.com/s/437t8sy0n1of630/2016-03-31%20at%2010.36%202x%20%281%29.png?dl=0)
 
 ### Vendor Page
+
 ![Vendor](https://dl.dropboxusercontent.com/s/8fe4c7jjsj9i49m/2016-03-31%20at%2010.37%202x.png?dl=0)
 
 ### Package Page
+
 ![Package](https://dl.dropboxusercontent.com/s/ixsc449cxt7jemg/2016-03-31%20at%2010.37%202x%20%281%29.png?dl=0)
 
 Configuration
