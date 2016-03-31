@@ -10,7 +10,7 @@ prototype(Flowpack.SearchPlugin:Search) {
 prototype(Neos.MarketPlace:Search) >
 prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     attributes {
-        class = 'pm-block pm-search'
+        class = 'market-block'
     }
 
     actionNode = ${node}
@@ -36,7 +36,7 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
 
     searchResultRenderer {
         attributes {
-            class = 'pm-search-results'
+            class = 'search-results'
         }
     }
 }

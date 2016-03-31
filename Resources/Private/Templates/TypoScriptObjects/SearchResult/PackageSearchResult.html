@@ -4,24 +4,24 @@
 <article{attributes -> f:format.raw()}>
     <header>
         <div class="pull-right">
-            <ul class="result-list-metrics">
+            <ul class="result-list__metrics">
                 <f:if condition="{stargazers}">
-                    <li class="result-list-metrics__item"><i class="fa fa-star"></i> {stargazers}</li>
+                    <li class="result-list__metric"><i class="fa fa-star"></i> {stargazers}</li>
                 </f:if>
                 <f:if condition="{forks}">
-                    <li class="result-list-metrics__item"><i class="fa fa-code-fork"></i> {forks}</li>
+                    <li class="result-list__metric"><i class="fa fa-code-fork"></i> {forks}</li>
                 </f:if>
                 <f:if condition="{downloads}">
-                    <li class="result-list-metrics__item"><i class="fa fa-download"></i> {downloads}</li>
+                    <li class="result-list__metric"><i class="fa fa-download"></i> {downloads}</li>
                 </f:if>
             </ul>
         </div>
-        <h4 class="result-list-title"><neos:link.node node="{node}"><i class="fa fa-puzzle-piece"></i> {title}</neos:link.node></h4>
+        <h4 class="result-list__title"><neos:link.node node="{node}"><i class="fa fa-puzzle-piece"></i> {title}</neos:link.node></h4>
     </header>
     <f:if condition="{description}">
-        <div class="result-list-description">{description}</div>
+        <div class="result-list__description">{description}</div>
     </f:if>
-    <footer class="result-list-meta">
+    <footer class="result-list__meta">
         {lastActivity -> marketplace:format.relativeDate()}
     </footer>
 </article>

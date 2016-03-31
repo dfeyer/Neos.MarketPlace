@@ -2,7 +2,7 @@ prototype(Neos.MarketPlace:Version) < prototype(Neos.MarketPlace:ReleasedVersion
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Version.html'
 
     attributes {
-        class = 'pm-version'
+        class = 'package__version'
         id = ${q(node).property('version')}
     }
 

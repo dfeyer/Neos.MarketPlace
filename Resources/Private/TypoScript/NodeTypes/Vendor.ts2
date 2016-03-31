@@ -1,6 +1,6 @@
 prototype(Neos.MarketPlace:Vendor) {
     attributes = TypoScript:Attributes {
-        class = 'pm-block pm-block--vendor'
+        class = 'market-block'
     }
 
     main = ContentCollection {

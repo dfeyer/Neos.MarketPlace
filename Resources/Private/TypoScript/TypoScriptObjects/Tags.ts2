@@ -11,5 +11,5 @@ prototype(Neos.MarketPlace:Tags) < prototype(TypoScript:Tag) {
         }
     }
 
-    attributes.class = 'pm-tagline'
+    attributes.class = 'market-tagline'
 }

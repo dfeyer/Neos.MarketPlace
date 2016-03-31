@@ -1,15 +1,15 @@
 <f:if condition="{avatarUrl}">
-    <img class="pm-avatar img-responsive" src="{avatarUrl}" alt="{vendorName}">
+    <img class="package__avatar img-responsive" src="{avatarUrl}" alt="{vendorName}">
 </f:if>
 
-<section class="pm-nav-section">
+<section class="market-nav">
     <header>
         <h4>Maintainers</h4>
     </header>
     {maintainers -> f:format.raw()}
 </section>
 
-<section class="pm-nav-section">
+<section class="market-nav">
     <header>
         <h4>Released Versions</h4>
     </header>
@@ -24,7 +24,7 @@
 </section>
 
 <f:if condition="{hasPrereleasedVersion}">
-    <section class="pm-nav-section">
+    <section class="market-nav">
         <header>
             <h4>Prereleased Versions</h4>
         </header>
@@ -32,7 +32,7 @@
     </section>
 </f:if>
 
-<section class="pm-nav-section">
+<section class="market-nav">
     <header>
         <h4>Development Versions</h4>
     </header>

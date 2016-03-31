@@ -7,7 +7,7 @@ prototype(Neos.MarketPlace:Package) {
     @context.vendor = ${this.vendor}
 
     attributes = TypoScript:Attributes {
-        class = 'pm-block pm-block--package'
+        class = 'market-block'
     }
 
     vendorName = ${q(this.vendor).property('title')}
