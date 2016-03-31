@@ -29,11 +29,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
      */
     public function getRequest()
     {
-        $this->appendAtPath('query.filtered.filter.bool.must_not', [
-            'exists' => [
-                'field' => 'abandoned'
-            ]
-        ]);
+        $this->skipAbandonnedPackages();
         $request = parent::getRequest();
         $request = $this->enforeFunctionScoring($request);
         return $request;
@@ -53,32 +49,46 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
     }
 
     /**
+     * return void
+     */
+    protected function skipAbandonnedPackages()
+    {
+        $this->appendAtPath('query.filtered.filter.bool.must_not', [
+            'exists' => [
+                'field' => 'abandoned'
+            ]
+        ]);
+    }
+
+    /**
      * @param array $request
      * @return array
      */
     protected function enforeFunctionScoring(array $request)
     {
-        $request['query'] = [
-            'function_score' => [
-                'functions' => [
-                    [
-                        'filter' => [
-                            'term' => [
-                                '__typeAndSupertypes' => 'Neos.MarketPlace:Vendor'
+        if ($this->hasFulltext !== false) {
+            $request['query'] = [
+                'function_score' => [
+                    'functions' => [
+                        [
+                            'filter' => [
+                                'term' => [
+                                    '__typeAndSupertypes' => 'Neos.MarketPlace:Vendor'
+                                ],
                             ],
+                            'weight' => 1.2
                         ],
-                        'weight' => 1.2
-                    ],
 //                    # todo need specific elasticsearch configuration
 //                    [
 //                        'script_score' => [
 //                            "script" => "(0.08 / ((3.16*pow(10,-11)) * abs(DateTime.now().getMillis() - doc['__versions.time'].date.getMillis()) + 0.05)) + 1.0"
 //                        ]
 //                    ]
-                ],
-                'query' => $request['query']
-            ]
-        ];
+                    ],
+                    'query' => $request['query']
+                ]
+            ];
+        }
         return $request;
     }
 
