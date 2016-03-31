@@ -46,7 +46,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
             return $this;
         }
         $this->hasFulltext = true;
-        
+
 
         return parent::fulltext($searchWord);
     }
@@ -81,13 +81,42 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
                             ],
                             'weight' => 1.2
                         ],
-//                    # todo need specific elasticsearch configuration
-//                    [
-//                        'script_score' => [
-//                            "script" => "(0.08 / ((3.16*pow(10,-11)) * abs(DateTime.now().getMillis() - doc['__versions.time'].date.getMillis()) + 0.05)) + 1.0"
-//                        ]
-//                    ]
+                        [
+                            'field_value_factor' => [
+                                'field' => 'downloadDaily',
+                                'factor' => 0.5,
+                                'modifier' => 'sqrt',
+                                'missing' => 1
+                            ]
+                        ],
+                        [
+                            'field_value_factor' => [
+                                'field' => 'githubStargazers',
+                                'factor' => 1,
+                                'modifier' => 'sqrt',
+                                'missing' => 1
+                            ]
+                        ],
+                        [
+                            'field_value_factor' => [
+                                'field' => 'githubForks',
+                                'factor' => 0.5,
+                                'modifier' => 'sqrt',
+                                'missing' => 1
+                            ]
+                        ],
+                        [
+                            'gauss' => [
+                                '__lastVersion.time' => [
+                                    'scale' => '60d',
+                                    'offset' => '5d',
+                                    'decay' => 0.5
+                                ]
+                            ]
+                        ]
                     ],
+                    'score_mode' => 'avg',
+                    'boost_mode' => 'multiply',
                     'query' => $request['query']
                 ]
             ];
