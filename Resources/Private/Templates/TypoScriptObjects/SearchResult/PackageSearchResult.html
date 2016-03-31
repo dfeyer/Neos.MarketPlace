@@ -4,15 +4,15 @@
 <article{attributes -> f:format.raw()}>
     <header>
         <div class="pull-right">
-            <ul class="result-list__metrics">
+            <ul class="metrics">
                 <f:if condition="{stargazers}">
-                    <li class="result-list__metric"><i class="fa fa-star"></i> {stargazers}</li>
+                    <li class="metrics__item"><i class="fa fa-star"></i> {stargazers}</li>
                 </f:if>
                 <f:if condition="{forks}">
-                    <li class="result-list__metric"><i class="fa fa-code-fork"></i> {forks}</li>
+                    <li class="metrics__item"><i class="fa fa-code-fork"></i> {forks}</li>
                 </f:if>
                 <f:if condition="{downloads}">
-                    <li class="result-list__metric"><i class="fa fa-download"></i> {downloads}</li>
+                    <li class="metrics__item"><i class="fa fa-download"></i> {downloads}</li>
                 </f:if>
             </ul>
         </div>
