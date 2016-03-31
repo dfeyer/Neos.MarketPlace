@@ -84,6 +84,29 @@
   display: inline-block;
   margin-left: .5em; }
 
+.search-form {
+  position: relative;
+  margin-bottom: 1em; }
+  .search-form__label, .search-form__input {
+    padding: .5em 1em;
+    line-height: inherit; }
+  .search-form__label {
+    position: absolute;
+    display: inline-block;
+    font-size: 1.05em; }
+  .search-form__input {
+    box-sizing: border-box;
+    display: block;
+    width: calc(100% - 86px);
+    color: #555555;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    padding-left: 43px;
+    padding-right: 43px;
+    border-radius: 23px;
+    outline: none; }
+
 .search-results {
   padding: 0; }
   .search-results > li {
