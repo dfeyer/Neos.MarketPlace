@@ -18,31 +18,39 @@ Features
 - [x] Listing of packages
 - [x] Vendor detail page
 - [x] Package detail page
+- [x] Handle deleted packages
+- [x] Get metrics from Packagist (downloads)
+- [x] Get metrics from Github (star, watch, fork, issues)
 - [ ] Some utility NodeType to show case specific packages in neos.io
 - [ ] More advanced search configuration
 - [ ] ElasticSearch Aggregation support
-- [ ] Handle deleted packages
-
-Currently the templating is done on top of the [Neos Demo Package](https://github.com/neos/neosdemotypo3org).
-
-Some screenshot from the current implemtentation (*Warning*: we use some fake/static data currently, so ...):
 
 ### Search
-![Search](https://dl.dropboxusercontent.com/s/hyo09gn9mc9ta3i/2016-03-10%20at%2009.49%202x.png?dl=0)
+![Search without Query](https://dl.dropboxusercontent.com/s/bfcbpenwly726ix/2016-03-31%20at%2010.36%202x.png?dl=0)
+![Search with Query](https://dl.dropboxusercontent.com/s/437t8sy0n1of630/2016-03-31%20at%2010.36%202x%20%281%29.png?dl=0)
 
 ### Vendor Page
-![Vendor](https://dl.dropboxusercontent.com/s/831tjm98xccodrp/2016-03-10%20at%2009.50%202x.png?dl=0)
+![Vendor](https://dl.dropboxusercontent.com/s/8fe4c7jjsj9i49m/2016-03-31%20at%2010.37%202x.png?dl=0)
 
 ### Package Page
-![Package](https://dl.dropboxusercontent.com/s/9fx1w2c3au649r7/2016-03-10%20at%2009.50%202x%20%281%29.png?dl=0)
+![Package](https://dl.dropboxusercontent.com/s/ixsc449cxt7jemg/2016-03-31%20at%2010.37%202x%20%281%29.png?dl=0)
+
+Configuration
+-------------
+
+To not hit the github API request limitation, please configuration your account username and password in
+```Settings.yaml``` at ```Neos.MarketPlace.github.account``` and ```Neos.MarketPlace.github.password```.
  
-How to test it ?
-----------------
- 
-- Install the Neos Demo Webiste
-- Add this package
-- Create a document of type ```Flowpack.SearchPlugin:Search```
-- Update this package settings to change the UUID in ```Neos.MarketPlace.repository.identifier```
+CLI Tools
+---------
+
+You can run the full sync for all packages:
+
+    flow marketplace:sync
+    
+Or run it for a sinlge package:
+
+    flow marketplace:sync --package ttree/jobbutler
 
 License
 -------
