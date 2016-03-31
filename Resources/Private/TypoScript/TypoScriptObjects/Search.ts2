@@ -1,4 +1,13 @@
 prototype(Flowpack.SearchPlugin:Search) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Search.html'
+
+    configuration {
+        itemsPerPage = 25
+        insertAbove = ${false}
+        insertBelow = ${true}
+        maximumNumberOfLinks = 6
+    }
+
     # todo can be remove when https://github.com/skurfuerst/Flowpack.SearchPlugin/pull/14 is merged
     @cache {
         context {

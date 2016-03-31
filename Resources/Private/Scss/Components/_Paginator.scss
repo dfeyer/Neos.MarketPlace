@@ -1,12 +1,32 @@
-.typo3-widget-paginator {
+.paginator {
   display: flex;
   padding: 0;
   align-items: center;
   justify-content: center;
-}
 
-.typo3-widget-paginator > li {
-  list-style: none;
-  align-items: center;
-  margin: 0 1em;
+  > li {
+    list-style: none;
+    align-items: center;
+    margin: 0 1em;
+  }
+
+  &__previous {
+
+  }
+
+  &__next {
+
+  }
+
+  &__last {
+
+  }
+
+  &__current {
+    background-color: #bbbbbb;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    padding: 0.3em .6em;
+  }
 }

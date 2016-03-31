@@ -48,16 +48,21 @@
   filter: gray;
   filter: grayscale(100%); }
 
-.typo3-widget-paginator {
+.paginator {
   display: flex;
   padding: 0;
   align-items: center;
   justify-content: center; }
-
-.typo3-widget-paginator > li {
-  list-style: none;
-  align-items: center;
-  margin: 0 1em; }
+  .paginator > li {
+    list-style: none;
+    align-items: center;
+    margin: 0 1em; }
+  .paginator__current {
+    background-color: #bbbbbb;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    padding: 0.3em .6em; }
 
 .result-list__item {
   border-bottom: 1px solid #eceeef;
@@ -111,6 +116,11 @@
   padding: 0; }
   .search-results > li {
     list-style: none; }
+  .search-results__metrics {
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: .85em;
+    color: #888; }
 
 .show-more__target {
   max-height: 999px;
