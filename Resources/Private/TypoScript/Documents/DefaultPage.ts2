@@ -4,7 +4,7 @@ prototype(Neos.MarketPlace:DefaultPage) < prototype(Neos.NeosIo:DefaultPage) {
             path = 'resource://Neos.MarketPlace/Public/Styles/Main.css'
             @position = 'after site'
         }
-        javascripts.neosMarketPlace = Ttree.Script:ScriptTag {
+        javascripts.neosMarketPlace = Ttree.Script:DeferScriptTag {
             path = 'resource://Neos.MarketPlace/Public/JavaScript/Bundle.min.js'
             @position = 'end'
         }

@@ -42,7 +42,7 @@
     "@reduct/assembler": "^2.0.4",
     "@reduct/component": "^4.1.1",
     "@reduct/nitpick": "^3.0.0",
-    "babel-polyfill": "^6.5.0",
+    "dom-add-class": "^0.1.7",
     "lodash.debounce": "^4.0.3",
     "raf": "^3.2.0"
   }

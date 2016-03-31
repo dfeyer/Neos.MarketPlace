@@ -1,0 +1,18 @@
+.show-more {
+
+  &__target {
+    max-height: 999px;
+    transition: 1s;
+  }
+
+  &__button {
+    color: #0097d7;
+    background-color: transparent;
+    border: 0;
+    border-top: 1px solid #c9c3c3;
+    padding: .5em 1em;
+    display: block;
+    width: 100%;
+    outline: none;
+  }
+}
