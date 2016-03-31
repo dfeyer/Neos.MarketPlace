@@ -62,9 +62,11 @@ class PackageVersion
             return $version->getProperty('stability') === true;
         });
         if (count($stableVersions) > 0) {
-            return reset($stableVersions);
+            $version = reset($stableVersions);
         } else {
-            return reset($versions);
+            $version = reset($versions);
         }
+
+        return $version ?: null;
     }
 }

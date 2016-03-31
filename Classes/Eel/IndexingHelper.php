@@ -71,6 +71,9 @@ class IndexingHelper extends Eel\IndexingHelper
     public function extractLastVersion(NodeInterface $node)
     {
         $version = $this->packageVersion->extractLastVersion($node);
+        if ($version === null) {
+            return [];
+        }
         return $this->prepareVersionForIndexing($version);
     }
 
