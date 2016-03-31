@@ -18,17 +18,17 @@
 {main -> f:format.raw()}
 <p class="package__last-activity"><i class="fa fa-clock-o"></i> {lastActivity -> marketplace:format.relativeDate()}</p>
 
+{versions -> f:format.raw()}
+
 <f:if condition="{hasReadme}">
     <article class="readme">
         <ts:render path="readme" />
         <footer>
             <div class="readme__notice">The content of the readme is provided by <i class="fa fa-github"></i>
-                <a href="https://github.com/"></a>Github</div>
+                <a href="https://github.com/">Github</a></div>
         </footer>
     </article>
 </f:if>
-
-{versions -> f:format.raw()}
 
 <f:if condition="{hasPackageCount}">
     <a href="{vendorUri}" class="btn btn-primary" type="button">
