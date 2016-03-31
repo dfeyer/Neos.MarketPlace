@@ -1,3 +1,59 @@
+keywordsDefaultMapping: &keywordsDefaultMapping
+  type: multi_field
+  fields:
+    name:
+      type: string
+      include_in_all: true
+    tag:
+      type: string
+      index: 'not_analyzed'
+      include_in_all: true
+    suggestion:
+      type: completion
+      analyzer: simple
+      search_analyzer: simple
+      payloads: true
+
+versionDefaultMapping: &versionDefaultMapping
+  elasticSearchMapping:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      keywords:
+        <<: *keywordsDefaultMapping
+      homepage:
+        type: string
+      version:
+        type: string
+      versionNormalized:
+        type: long
+      stability:
+        type: boolean
+      stabilityLevel:
+        type: string
+        index: 'not_analyzed'
+      time:
+        type: date
+        format: 'date_time_no_millis'
+
+documentProperty: &documentProperty
+  reloadIfChanged: TRUE
+  inspector:
+    group: document
+
+metricProperty: &metricProperty
+  reloadIfChanged: TRUE
+  inspector:
+    group: metrics
+
+githubProperty: &githubProperty
+  reloadIfChanged: TRUE
+  inspector:
+    group: metrics
+
 'Neos.MarketPlace:Document':
   abstract: TRUE
   ui:
@@ -40,10 +96,9 @@
           type: string
           include_in_all: true
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
         inspector:
-          group: document
           position: 1
     __composerVendorKey:
       search:
@@ -95,11 +150,8 @@
           type: string
           include_in_all: true
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
-          position: 1
     description:
       type: string
       search:
@@ -107,29 +159,21 @@
           type: string
           include_in_all: true
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
     time:
       type: DateTime
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
     type:
       type: string
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
     repository:
       type: string
       search:
@@ -137,87 +181,63 @@
           type: string
           include_in_all: true
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
     abandoned:
       type: string
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
     downloadTotal:
       type: integer
       ui:
+        <<: *metricProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: metrics
     downloadMonthly:
       type: integer
       ui:
+        <<: *metricProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: metrics
     downloadDaily:
       type: integer
       ui:
+        <<: *metricProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: metrics
     favers:
       type: integer
       ui:
+        <<: *metricProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: metrics
     githubStargazers:
       type: integer
       ui:
+        <<: *githubProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: github
     githubWatchers:
       type: integer
       ui:
+        <<: *githubProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: github
     githubForks:
       type: integer
       ui:
+        <<: *githubProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: github
     githubIssues:
       type: integer
       ui:
+        <<: *githubProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: github
     githubIssues:
       type: integer
       ui:
+        <<: *githubProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: github
     githubAvatar:
       type: string
       ui:
+        <<: *githubProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: github
     __packageKey:
       search:
         indexing: "${q(node).property('title')}"
@@ -252,81 +272,11 @@
     __lastVersion:
       search:
         indexing: "${MarketIndexing.extractLastVersion(node)}"
-        elasticSearchMapping:
-          type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            keywords:
-              type: multi_field
-              fields:
-                name:
-                  type: string
-                  include_in_all: true
-                tag:
-                  type: string
-                  index: 'not_analyzed'
-                  include_in_all: true
-                suggestion:
-                  type: completion
-                  analyzer: simple
-                  search_analyzer: simple
-                  payloads: true
-            homepage:
-              type: string
-            version:
-              type: string
-            versionNormalized:
-              type: long
-            stability:
-              type: boolean
-            stabilityLevel:
-              type: string
-              index: 'not_analyzed'
-            time:
-              type: date
-              format: 'date_time_no_millis'
+        <<: *versionDefaultMapping
     __versions:
       search:
         indexing: "${MarketIndexing.extractVersions(node)}"
-        elasticSearchMapping:
-          type: nested
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-            keywords:
-              type: multi_field
-              fields:
-                name:
-                  type: string
-                  include_in_all: true
-                tag:
-                  type: string
-                  index: 'not_analyzed'
-                  include_in_all: true
-                suggestion:
-                  type: completion
-                  analyzer: simple
-                  search_analyzer: simple
-                  payloads: true
-            homepage:
-              type: string
-            version:
-              type: string
-            versionNormalized:
-              type: long
-            stability:
-              type: boolean
-            stabilityLevel:
-              type: string
-              index: 'not_analyzed'
-            time:
-              type: date
-              format: 'date_time_no_millis'
+        <<: *versionDefaultMapping
     __maintainers:
       search:
         indexing: "${MarketIndexing.extractMaintainers(node)}"
@@ -349,24 +299,18 @@
     title:
       type: string
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
     email:
       type: string
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
     homepage:
       type: string
       ui:
+        <<: *documentProperty
         label: i18n
-        reloadIfChanged: TRUE
-        inspector:
-          group: document
 
 # Maintainer
 'Neos.MarketPlace:Maintainer':
@@ -474,20 +418,7 @@
       search:
         indexing: "${MarketIndexing.trimExplode(q(node).property('keywords'))}"
         elasticSearchMapping:
-          type: multi_field
-          fields:
-            name:
-              type: string
-              include_in_all: true
-            tag:
-              type: string
-              index: 'not_analyzed'
-              include_in_all: true
-            suggestion:
-              type: completion
-              analyzer: simple
-              search_analyzer: simple
-              payloads: true
+          <<: *keywordsDefaultMapping
     homepage:
       type: string
       ui:
