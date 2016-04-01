@@ -7,8 +7,13 @@
   &__notice {
     border-top: 1px dotted #999;
     padding-top: 1em;
+    padding-bottom: 1em;
     font-size: 13px;
     color: #888;
+  }
+
+  &__wrapper {
+    overflow: hidden;
   }
 
   .octicon-link {
