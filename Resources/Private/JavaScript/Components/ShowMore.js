@@ -78,12 +78,12 @@ export default class ShowMoreComponent {
   }
 
   close() {
-    this.target.style.maxHeight = this.props.maximumHeight + 'px';
+    this.target.style.height = this.props.maximumHeight + 'px';
     this.state.isOpen = false;
   }
 
   open() {
-    this.target.style.maxHeight = '999px';
+    this.target.style.height = null;
     this.state.isOpen = true;
   }
 

@@ -1,8 +1,9 @@
 .show-more {
+  height: 100%;
 
   &__target {
-    max-height: 999px;
     transition: 1s;
+    height: auto;
   }
 
   &__button {
