@@ -16,7 +16,9 @@
     <p><strong>{description}</strong></p>
 </f:if>
 {main -> f:format.raw()}
-<p class="package__last-activity"><i class="fa fa-clock-o"></i> {lastActivity -> marketplace:format.relativeDate()}</p>
+<div class="package__meta">
+    <i class="fa fa-clock-o"></i> {lastActivity -> marketplace:format.relativeDate()} - {metrics -> f:format.raw()}
+</div>
 
 {versions -> f:format.raw()}
 

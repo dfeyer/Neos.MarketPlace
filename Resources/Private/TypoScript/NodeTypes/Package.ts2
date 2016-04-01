@@ -41,5 +41,7 @@ prototype(Neos.MarketPlace:Package) {
         collection = ${q(documentNode).find('readme')}
     }
 
+    metrics = Neos.MarketPlace:PackageMetrics
+
     @process.contentElementWrapping >
 }

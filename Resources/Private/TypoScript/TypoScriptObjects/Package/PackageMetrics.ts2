@@ -2,7 +2,7 @@ prototype(Neos.MarketPlace:PackageMetrics) < prototype(TypoScript:Template) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package/PackageMetrics.html'
 
     attributes = TypoScript:Attributes {
-        class = 'metric pull-right'
+        class = 'metrics'
     }
 
     stargazers = ${q(node).property('githubStargazers')}
