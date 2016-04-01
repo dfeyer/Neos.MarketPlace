@@ -33,13 +33,7 @@ prototype(Neos.MarketPlace:Package) {
     packageTime = ${q(documentNode).property('time')}
     description = ${q(documentNode).property('description')}
 
-    readmeSource = ${q(documentNode).find('readme').first().property('source')}
-    hasReadme = ${this.readmeSource != '<p>Enter HTML here</p>' && String.isBlank(this.readmeSource) == false}
-    readme = TYPO3.TypoScript:Collection {
-        itemName = 'node'
-        itemRenderer = TYPO3.Neos:ContentCase
-        collection = ${q(documentNode).find('readme')}
-    }
+    readme = Neos.MarketPlace:PackageReadme
 
     metrics = Neos.MarketPlace:PackageMetrics
 

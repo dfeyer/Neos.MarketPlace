@@ -1,0 +1,11 @@
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<f:if condition="{hasReadme}">
+    <article class="readme">
+        <ts:render path="readme" />
+        <footer>
+            <div class="readme__notice">The content of the readme is provided by <i class="fa fa-github"></i>
+                <a href="https://github.com/">Github</a></div>
+        </footer>
+    </article>
+</f:if>

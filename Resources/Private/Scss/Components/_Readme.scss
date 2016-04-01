@@ -43,4 +43,13 @@
   pre {
     padding: 1em;
   }
+
+  .task-list {
+    margin: 0;
+    padding: 0;
+  }
+
+  .task-list-item {
+    list-style: none;
+  }
 }
