@@ -8,6 +8,17 @@
   display: block;
   margin-bottom: 1em; }
 
+.metrics {
+  display: inline-block;
+  margin: 0;
+  padding: 0; }
+  .metrics__item {
+    list-style: none;
+    display: inline-block;
+    margin-left: .5em; }
+    .metrics__item:first-child {
+      margin-left: 0; }
+
 .market-nav {
   margin-bottom: 1em; }
   .market-nav ul {
@@ -37,6 +48,10 @@
 
 .package__version li {
   list-style: none; }
+
+.package__meta {
+  margin-bottom: 1em;
+  font-size: 0.85em; }
 
 .package__avatar {
   padding-bottom: 1.5em;
@@ -93,6 +108,11 @@
     color: white; }
   .readme pre {
     padding: 1em; }
+  .readme .task-list {
+    margin: 0;
+    padding: 0; }
+  .readme .task-list-item {
+    list-style: none; }
 
 .result-list__item {
   border-bottom: 1px solid #eceeef;
@@ -109,15 +129,6 @@
   margin-bottom: 0;
   font-size: 13px;
   color: #888; }
-
-.result-list__metrics {
-  margin: 0;
-  padding: 0; }
-
-.result-list__metric {
-  list-style: none;
-  display: inline-block;
-  margin-left: .5em; }
 
 .search-form {
   position: relative;
