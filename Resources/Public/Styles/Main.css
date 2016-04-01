@@ -87,8 +87,11 @@
   .readme__notice {
     border-top: 1px dotted #999;
     padding-top: 1em;
+    padding-bottom: 1em;
     font-size: 13px;
     color: #888; }
+  .readme__wrapper {
+    overflow: hidden; }
   .readme .octicon-link {
     display: none; }
   .readme h1 {
@@ -163,19 +166,20 @@
     font-size: .85em;
     color: #888; }
 
-.show-more__target {
-  max-height: 999px;
-  transition: 1s; }
-
-.show-more__button {
-  color: #0097d7;
-  background-color: transparent;
-  border: 0;
-  border-top: 1px solid #c9c3c3;
-  padding: .5em 1em;
-  display: block;
-  width: 100%;
-  outline: none; }
+.show-more {
+  height: 100%; }
+  .show-more__target {
+    transition: 1s;
+    height: auto; }
+  .show-more__button {
+    color: #0097d7;
+    background-color: transparent;
+    border: 0;
+    border-top: 1px solid #c9c3c3;
+    padding: .5em 1em;
+    display: block;
+    width: 100%;
+    outline: none; }
 
 .market-tagline {
   padding: 0;
