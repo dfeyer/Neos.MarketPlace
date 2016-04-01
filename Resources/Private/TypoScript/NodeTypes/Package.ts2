@@ -3,16 +3,16 @@ prototype(Neos.MarketPlace:Package) {
         name = ${q(documentNode).property('title')}
     }
 
-    vendor = ${q(node).closest('[instanceof Neos.MarketPlace:Vendor]').get(0)}
+    vendor = Neos.MarketPlace:ClosestVendorQuery
     @context.vendor = ${this.vendor}
-
-    attributes = TypoScript:Attributes {
-        class = 'market-block'
-    }
 
     vendorName = ${q(this.vendor).property('title')}
     vendorUri = NodeUri {
         node = ${vendor}
+    }
+
+    attributes = TypoScript:Attributes {
+        class = 'market-block'
     }
 
     lastActivity = ${q(node).lastActivity()}
