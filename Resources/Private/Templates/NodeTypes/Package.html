@@ -8,6 +8,9 @@
     <p>This package is abandoned and no longer maintained. The author suggests using the <strong>{abandoned}</strong> package instead.</p>
     <hr>
 </f:if>
+<div class="package__meta">
+    <i class="fa fa-clock-o"></i> {lastActivity -> marketplace:format.relativeDate()} {metrics -> f:format.raw()}
+</div>
 <code class="market-code">
     <i class="fa fa-download"></i> composer require {packageName}
 </code>
@@ -15,9 +18,6 @@
     <p><strong>{description}</strong></p>
 </f:if>
 {main -> f:format.raw()}
-<div class="package__meta">
-    <i class="fa fa-clock-o"></i> {lastActivity -> marketplace:format.relativeDate()} - {metrics -> f:format.raw()}
-</div>
 
 {versions -> f:format.raw()}
 

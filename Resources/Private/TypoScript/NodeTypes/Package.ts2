@@ -35,7 +35,9 @@ prototype(Neos.MarketPlace:Package) {
 
     readme = Neos.MarketPlace:PackageReadme
 
-    metrics = Neos.MarketPlace:PackageMetrics
+    metrics = Neos.MarketPlace:PackageMetrics {
+        attributes.class.@process.pullRight = ${value + ' pull-right'}
+    }
 
     @process.contentElementWrapping >
 }
