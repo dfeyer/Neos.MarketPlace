@@ -21,7 +21,7 @@ use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
 use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
 
 /**
- * Package Tree by vendor
+ * Storage
  *
  * @api
  */
