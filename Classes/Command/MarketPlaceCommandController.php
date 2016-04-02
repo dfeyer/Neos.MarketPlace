@@ -57,8 +57,8 @@ class MarketPlaceCommandController extends CommandController
 
         $sync = function () use ($package, $beginTime) {
             $hasError = false;
-            $elapsedTime = function () use ($beginTime) {
-                return microtime(true) - $beginTime;
+            $elapsedTime = function ($timer = null) use ($beginTime) {
+                return microtime(true) - ($timer ?: $beginTime);
             };
             $count = 0;
             $this->outputLine();
@@ -74,11 +74,13 @@ class MarketPlaceCommandController extends CommandController
                 $this->logger->log(sprintf('action=%s', LogAction::FULL_SYNC_STARTED), LOG_INFO);
                 $packages = new Packages();
                 foreach ($packages->packages() as $package) {
+                    $this->logger->log(sprintf('action=%s package=%s', LogAction::SINGLE_PACKAGE_SYNC_STARTED, $package->getName()), LOG_INFO);
+                    $timer = microtime(true);
                     try {
                         $process($package);
-                        $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FINISHED, $package->getName(), $elapsedTime()), LOG_INFO);
+                        $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FINISHED, $package->getName(), $elapsedTime($timer)), LOG_INFO);
                     } catch (\Exception $exception) {
-                        $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FAILED, $package->getName(), $elapsedTime()), LOG_ERR);
+                        $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FAILED, $package->getName(), $elapsedTime($timer)), LOG_ERR);
                         $this->logger->logException($exception);
                         $hasError = true;
                     }
