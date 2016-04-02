@@ -1,35 +1,4 @@
 .package {
-  &__version {
-    display: none;
-    opacity: 0;
-    border-bottom: 1px solid #eceeef;
-    margin-bottom: 1em;
-    background-color: #eceeef;
-    padding: .5em 1em;
-  }
-
-  &__version:target {
-    display: block;
-    opacity: 1;
-  }
-
-  &__version dt {
-    font-weight: 600;
-  }
-
-  &__version dd {
-    -webkit-margin-start: 0;
-  }
-
-  &__version ul {
-    padding: 0;
-    margin: 0;
-  }
-
-  &__version li {
-    list-style: none;
-  }
-
   &__meta {
     margin-bottom: 1em;
     font-size: 0.85em;
