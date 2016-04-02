@@ -24,31 +24,6 @@
   .market-nav ul {
     overflow: hidden; }
 
-.package__version {
-  display: none;
-  opacity: 0;
-  border-bottom: 1px solid #eceeef;
-  margin-bottom: 1em;
-  background-color: #eceeef;
-  padding: .5em 1em; }
-
-.package__version:target {
-  display: block;
-  opacity: 1; }
-
-.package__version dt {
-  font-weight: 600; }
-
-.package__version dd {
-  -webkit-margin-start: 0; }
-
-.package__version ul {
-  padding: 0;
-  margin: 0; }
-
-.package__version li {
-  list-style: none; }
-
 .package__meta {
   margin-bottom: 1em;
   font-size: 0.85em; }
@@ -189,3 +164,18 @@
     list-style: none;
     display: inline-block;
     margin-right: .3em; }
+
+.version {
+  border-bottom: 1px solid #eceeef;
+  margin-bottom: 1em;
+  background-color: #eceeef;
+  padding: .5em 1em; }
+  .version dt {
+    font-weight: 600; }
+  .version dd {
+    -webkit-margin-start: 0; }
+  .version ul {
+    padding: 0;
+    margin: 0; }
+  .version li {
+    list-style: none; }
