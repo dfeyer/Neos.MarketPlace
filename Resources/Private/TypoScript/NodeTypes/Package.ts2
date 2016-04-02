@@ -20,7 +20,9 @@ prototype(Neos.MarketPlace:Package) {
     packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
     hasPackageCount = ${this.packageCount > 1}
 
-    versions = Neos.MarketPlace:VersionPreview
+    versions = Neos.MarketPlace:VersionPreview {
+        collection = Neos.MarketPlace:LastVersionQuery
+    }
 
     main = ContentCollection {
         nodePath = 'main'
