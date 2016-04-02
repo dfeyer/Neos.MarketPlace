@@ -48,8 +48,8 @@ class RelativeDateViewHelper extends AbstractViewHelper
                 return 'Last activity one hour ago';
             }
         }
-        // Same month of same year
-        if ($date->format('Y n') === $now->format('Y n')) {
+        $deltaDays = $date->diff($now)->d;
+        if ($deltaDays < 30) {
             $days = $date->diff($now)->d;
             if ($days > 1) {
                 return 'Last activity ' .  $days . ' days ago';
