@@ -44,3 +44,10 @@ TYPO3:
       translation:
         autoInclude:
           'Neos.MarketPlace': ['NodeTypes/*']
+
+Ttree:
+
+  OutOfBandRendering:
+    presets:
+      'marketplace:version':
+        path: 'root<TYPO3.TypoScript:Case>/neosMarketPlaceDocument<TYPO3.TypoScript:Matcher>/element<Neos.MarketPlace:Package.Document>/body<TYPO3.TypoScript:Template>/content/main<TYPO3.TypoScript:Array>/package<Neos.MarketPlace:Package>/versions<Neos.MarketPlace:VersionPreview>'

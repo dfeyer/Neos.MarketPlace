@@ -1,14 +1,42 @@
 prototype(Neos.MarketPlace:VersionPreview) >
 prototype(Neos.MarketPlace:VersionPreview) < prototype(TypoScript:Tag) {
-    collection = Neos.MarketPlace:VersionsQuery
+    version = ${String.isBlank(request.arguments.version) ? null : String.trim(request.arguments.version)}
+
+    findByVersionQuery = ${q(documentNode).find('versions').find('[instanceof Neos.MarketPlace:Version][version = "' + this.version + '"]').first()}
+    findLastVersionQuery = Neos.MarketPlace:LastVersionQuery
+
+    collection = ${this.version ? this.findByVersionQuery : this.findLastVersionQuery}
+
+    @context.version = ${this.version ? this.version : 'latest'}
     @context.collection = ${this.collection}
+
     tagName = 'section'
+
     attributes {
         class = 'block block--versions'
+        data-component = 'PackageVersionBrowser'
+        data-version = ${version}
+        data-path = ${documentNode.path}
     }
+
     content = TypoScript:Collection {
         collection = ${collection}
         itemRenderer = Neos.MarketPlace:Version
         itemName = 'node'
+    }
+
+    @cache {
+        mode = 'cached'
+
+        entryIdentifier {
+            documentNode = ${documentNode}
+            version = ${request.arguments.version ? request.arguments.version : 'latest'}
+            format = ${request.format}
+        }
+
+        entryTags {
+            1 = ${'Node_' + documentNode.identifier}
+            2 = ${'DescendantOf_' + documentNode.identifier}
+        }
     }
 }
