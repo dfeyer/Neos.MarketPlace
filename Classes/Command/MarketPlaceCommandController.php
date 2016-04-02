@@ -11,6 +11,7 @@ namespace Neos\MarketPlace\Command;
  * source code.
  */
 
+use Neos\MarketPlace\Domain\Model\LogAction;
 use Neos\MarketPlace\Domain\Model\Packages;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Service\PackageImporterInterface;
@@ -18,6 +19,7 @@ use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
+use TYPO3\Flow\Log\SystemLoggerInterface;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TYPO3CR\Search\Indexer\NodeIndexingManager;
 
@@ -39,13 +41,25 @@ class MarketPlaceCommandController extends CommandController
     protected $nodeIndexingManager;
 
     /**
+     * @var SystemLoggerInterface
+     * @Flow\Inject
+     */
+    protected $logger;
+
+    /**
      * @param string $package
      * @param boolean $disableIndexing
      * @return void
      */
     public function syncCommand($package = null, $disableIndexing = false)
     {
-        $sync = function() use ($package) {
+        $beginTime = microtime(true);
+
+        $sync = function () use ($package, $beginTime) {
+            $hasError = false;
+            $elapsedTime = function () use ($beginTime) {
+                return microtime(true) - $beginTime;
+            };
             $count = 0;
             $this->outputLine();
             $this->outputLine('Synchronize with Packagist ...');
@@ -57,21 +71,48 @@ class MarketPlaceCommandController extends CommandController
                 $this->importer->process($package, $storage);
             };
             if ($package === null) {
+                $this->logger->log(sprintf('action=%s', LogAction::FULL_SYNC_STARTED), LOG_INFO);
                 $packages = new Packages();
                 foreach ($packages->packages() as $package) {
-                    $process($package);
+                    try {
+                        $process($package);
+                        $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FINISHED, $package->getName(), $elapsedTime()), LOG_INFO);
+                    } catch (\Exception $exception) {
+                        $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FAILED, $package->getName(), $elapsedTime()), LOG_ERR);
+                        $this->logger->logException($exception);
+                        $hasError = true;
+                    }
                 }
                 $this->cleanupPackages($storage);
                 $this->cleanupVendors($storage);
+                $this->logger->log(sprintf('action=%s duration=%f', LogAction::FULL_SYNC_FINISHED, $elapsedTime()), LOG_INFO);
             } else {
-                $client = new Client();
-                $package = $client->get($package);
-                $process($package);
+                $packageKey = $package;
+                $this->logger->log(sprintf('action=%s package=%s', LogAction::SINGLE_PACKAGE_SYNC_STARTED, $package), LOG_INFO);
+                try {
+                    $client = new Client();
+                    $package = $client->get($package);
+                    $process($package);
+                    $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FINISHED, $packageKey, $elapsedTime()), LOG_INFO);
+                } catch (\Exception $exception) {
+                    $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FAILED, $packageKey, $elapsedTime()), LOG_ERR);
+                    $this->logger->logException($exception);
+                    $hasError = true;
+                }
             }
 
             $this->outputLine();
             $this->outputLine(sprintf('%d package(s) imported with success', $this->importer->getProcessedPackagesCount()));
+
+            if ($hasError) {
+                $this->outputLine();
+                $this->outputLine('Check your log, we have some trouble to sync some pages ...');
+            }
+
+            $this->outputLine();
+            $this->outputLine(sprintf('Duration: %f seconds', $elapsedTime()));
         };
+
 
         if ($disableIndexing === true) {
             $this->nodeIndexingManager->withoutIndexing($sync);
