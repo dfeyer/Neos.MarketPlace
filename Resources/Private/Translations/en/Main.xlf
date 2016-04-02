@@ -2,8 +2,8 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file original="" product-name="Neos.MarketPlace" source-language="en" datatype="plaintext">
 		<body>
-			<trans-unit id="foo" xml:space="preserve">
-				<source>Foo</source>
+			<trans-unit id="nodeTypes.groups.marketplace" xml:space="preserve">
+				<source>MarketPlace</source>
 			</trans-unit>
 		</body>
 	</file>

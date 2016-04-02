@@ -40,10 +40,16 @@ TYPO3:
       autoInclude:
         'Neos.MarketPlace': TRUE
 
+    nodeTypes:
+      groups:
+        marketplace:
+          position: 'after general'
+          label: 'Neos.MarketPlace:Main:nodeTypes.groups.marketplace'
+
     userInterface:
       translation:
         autoInclude:
-          'Neos.MarketPlace': ['NodeTypes/*']
+          'Neos.MarketPlace': ['Main', 'NodeTypes/*']
 
 Ttree:
 
