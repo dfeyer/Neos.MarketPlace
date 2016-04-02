@@ -38,6 +38,8 @@ versionDefaultMapping: &versionDefaultMapping
       time:
         type: date
         format: 'date_time_no_millis'
+      timestamp:
+        type: integer
 
 documentProperty: &documentProperty
   reloadIfChanged: TRUE
