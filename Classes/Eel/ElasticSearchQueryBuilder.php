@@ -48,6 +48,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
         }
         $this->hasFulltext = true;
 
+        $this->request = Arrays::setValueByPath($this->request, 'query.filtered.query.bool.must', []);
         $this->request = Arrays::setValueByPath($this->request, 'query.filtered.query.bool.should', []);
         $this->request = Arrays::setValueByPath($this->request, 'query.filtered.query.bool.minimum_should_match', 1);
         $this->appendAtPath('query.filtered.query.bool.should', [
