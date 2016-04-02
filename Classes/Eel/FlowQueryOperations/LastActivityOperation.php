@@ -64,7 +64,7 @@ class LastActivityOperation extends AbstractOperation {
      *
      * @param FlowQuery $flowQuery the FlowQuery object
      * @param array $arguments the arguments for this operation
-     * @return mixed
+     * @return \DateTime
      */
     public function evaluate(FlowQuery $flowQuery, array $arguments) {
         $query = $flowQuery->find('[instanceof Neos.MarketPlace:Version]');

@@ -48,9 +48,8 @@ class RelativeDateViewHelper extends AbstractViewHelper
                 return 'Last activity one hour ago';
             }
         }
-        $deltaDays = $date->diff($now)->d;
-        if ($deltaDays < 30) {
-            $days = $date->diff($now)->d;
+        $days = $now->diff($date)->format('%a');
+        if ($days < 30) {
             if ($days > 1) {
                 return 'Last activity ' .  $days . ' days ago';
             } else {
