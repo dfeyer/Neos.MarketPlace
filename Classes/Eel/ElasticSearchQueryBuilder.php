@@ -13,6 +13,7 @@ namespace Neos\MarketPlace\Eel;
 
 use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Eel;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Utility\Arrays;
 
 /**
  * ElasticSearchQueryBuilder
@@ -47,8 +48,29 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
         }
         $this->hasFulltext = true;
 
+        $this->request = Arrays::setValueByPath($this->request, 'query.filtered.query.bool.should', []);
+        $this->request = Arrays::setValueByPath($this->request, 'query.filtered.query.bool.minimum_should_match', 1);
+        $this->appendAtPath('query.filtered.query.bool.should', [
+            [
+                'query_string' => [
+                    'fields' => [
+                        'title^10',
+                        '__composerVendor^5',
+                        '__maintainers.name^5',
+                        '__maintainers.tag^8',
+                        'description^2',
+                        '__lastVersion.keywords.name^10',
+                        '__lastVersion.keywords.tag^12',
+                        '__fulltext.*'
+                    ],
+                    'query' => str_replace('/', '\\/', $searchWord),
+                    'default_operator' => 'AND',
+                    'use_dis_max' => true
+                ]
+            ]
+        ]);
 
-        return parent::fulltext($searchWord);
+        return $this;
     }
 
     /**
