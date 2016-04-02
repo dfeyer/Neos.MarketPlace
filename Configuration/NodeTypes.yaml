@@ -67,6 +67,16 @@ githubProperty: &githubProperty
     group: metrics
 
 #
+# TYPO3.Neos:Document
+'TYPO3.Neos:ContentCollection':
+  constraints:
+    nodeTypes:
+      'Neos.MarketPlace:Version': FALSE
+      'Neos.MarketPlace:Dist': FALSE
+      'Neos.MarketPlace:Source': FALSE
+      'Neos.MarketPlace:People': FALSE
+
+#
 # MarketPlace:Document
 'Neos.MarketPlace:Document':
   abstract: TRUE
@@ -160,12 +170,21 @@ githubProperty: &githubProperty
     maintainers:
       position: 'before main'
       type: 'TYPO3.Neos:ContentCollection'
+      constraints:
+        nodeTypes:
+          'Neos.MarketPlace:Maintainer': TRUE
     authors:
       position: 'after maintainers'
       type: 'TYPO3.Neos:ContentCollection'
+      constraints:
+        nodeTypes:
+          'Neos.MarketPlace:Author': TRUE
     versions:
       position: 'after authors'
       type: 'TYPO3.Neos:ContentCollection'
+      constraints:
+        nodeTypes:
+          'Neos.MarketPlace:Version': TRUE
     readme:
       position: 'after versions'
       type: 'Neos.MarketPlace:Readme'
@@ -348,6 +367,18 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Maintainer
 'Neos.MarketPlace:Maintainer':
+  superTypes:
+    'Neos.MarketPlace:People': TRUE
+  search:
+    fulltext:
+      enable: false
+  ui:
+    label: i18n
+    icon: 'icon-user'
+
+#
+# MarketPlace:Author
+'Neos.MarketPlace:Author':
   superTypes:
     'Neos.MarketPlace:People': TRUE
   search:
