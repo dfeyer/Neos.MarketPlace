@@ -1,3 +1,5 @@
+#
+# Keywords Default Mapping
 keywordsDefaultMapping: &keywordsDefaultMapping
   type: multi_field
   fields:
@@ -14,6 +16,8 @@ keywordsDefaultMapping: &keywordsDefaultMapping
       search_analyzer: simple
       payloads: true
 
+#
+# Version Default Mapping
 versionDefaultMapping: &versionDefaultMapping
   elasticSearchMapping:
     type: object
@@ -41,21 +45,29 @@ versionDefaultMapping: &versionDefaultMapping
       timestamp:
         type: integer
 
+#
+# Document Property
 documentProperty: &documentProperty
   reloadIfChanged: TRUE
   inspector:
     group: document
 
+#
+# Metric Property
 metricProperty: &metricProperty
   reloadIfChanged: TRUE
   inspector:
     group: metrics
 
+#
+# Github Property
 githubProperty: &githubProperty
   reloadIfChanged: TRUE
   inspector:
     group: metrics
 
+#
+# MarketPlace:Document
 'Neos.MarketPlace:Document':
   abstract: TRUE
   ui:
@@ -75,7 +87,8 @@ githubProperty: &githubProperty
     'TYPO3.Neos.Seo:OpenGraphMixin': FALSE
     'TYPO3.Neos.Seo:XmlSitemapMixin': FALSE
 
-# Repository
+#
+# MarketPlace:RepositoryStorage
 'Neos.MarketPlace:RepositoryStorage':
   superTypes:
     'Neos.MarketPlace:Document': TRUE
@@ -83,7 +96,8 @@ githubProperty: &githubProperty
     label: i18n
     icon: 'icon-search'
 
-# Vendor
+#
+# MarketPlace:Vendor
 'Neos.MarketPlace:Vendor':
   superTypes:
     'Neos.MarketPlace:Document': TRUE
@@ -128,7 +142,8 @@ githubProperty: &githubProperty
               payloads: true
         indexing: "${q(node).property('title')}"
 
-# Package
+#
+# MarketPlace:Package
 'Neos.MarketPlace:Package':
   superTypes:
     'Neos.MarketPlace:Document': TRUE
@@ -307,7 +322,8 @@ githubProperty: &githubProperty
             homepage:
               type: string
 
-# People
+#
+# MarketPlace:People
 'Neos.MarketPlace:People':
   abstract: TRUE
   superTypes:
@@ -329,7 +345,8 @@ githubProperty: &githubProperty
         <<: *documentProperty
         label: i18n
 
-# Maintainer
+#
+# MarketPlace:Maintainer
 'Neos.MarketPlace:Maintainer':
   superTypes:
     'Neos.MarketPlace:People': TRUE
@@ -340,7 +357,8 @@ githubProperty: &githubProperty
     label: i18n
     icon: 'icon-user'
 
-# Version
+#
+# MarketPlace:Version
 'Neos.MarketPlace:Version':
   abstract: TRUE
   label: "${q(node).property('version') + ' (' + q(node).property('type') + ')'}"
@@ -506,24 +524,32 @@ githubProperty: &githubProperty
         inspector:
           group: ~
 
+#
+# MarketPlace:ReleasedVersion
 'Neos.MarketPlace:ReleasedVersion':
   superTypes:
     'Neos.MarketPlace:Version': TRUE
   ui:
     label: i18n
 
+#
+# MarketPlace:PrereleasedVersion
 'Neos.MarketPlace:PrereleasedVersion':
   superTypes:
     'Neos.MarketPlace:Version': TRUE
   ui:
     label: i18n
 
+#
+# MarketPlace:DevelopmentVersion
 'Neos.MarketPlace:DevelopmentVersion':
   superTypes:
     'Neos.MarketPlace:Version': TRUE
   ui:
     label: i18n
 
+#
+# MarketPlace:Source
 'Neos.MarketPlace:Source':
   superTypes:
     'TYPO3.Neos:Content': TRUE
@@ -541,6 +567,8 @@ githubProperty: &githubProperty
       ui:
         label: i18n
 
+#
+# MarketPlace:Dist
 'Neos.MarketPlace:Dist':
   superTypes:
     'Neos.MarketPlace:Source': TRUE
@@ -550,6 +578,8 @@ githubProperty: &githubProperty
       ui:
         label: i18n
 
+#
+# MarketPlace:Readme
 'Neos.MarketPlace:Readme':
   superTypes:
     'TYPO3.Neos.NodeTypes:Html': TRUE
