@@ -62,6 +62,10 @@ class PackageUriImplementation extends AbstractTypoScriptObject
     public function evaluate()
     {
         $packageKey = $this->getPackageKey();
+        $packageKeyParts = explode('-', $packageKey);
+        if (isset($packageKeyParts[0]) && $packageKeyParts[0] === 'ext' && isset($packageKeyParts[1])) {
+            return sprintf('http://php.net/manual-lookup.php?pattern=%s&scope=quickref', urlencode($packageKeyParts[1]));
+        }
         $query = new FlowQuery([$this->getNode()]);
         /** @var NodeInterface $packageNode */
         $packageNode = $query->find(sprintf('[instanceof Neos.MarketPlace:Package][title = "%s"]', $packageKey))->get(0);
