@@ -1,4 +1,4 @@
-prototype(Neos.MarketPlace:DefaultPage) < prototype(Neos.NeosIo:DefaultPage) {
+prototype(Neos.NeosIo:DefaultPage) {
     head {
         stylesheets.neosMarketPlace = Ttree.StyleSheet:StyleSheetTag {
             path = 'resource://Neos.MarketPlace/Public/Styles/Main.css'
@@ -10,3 +10,5 @@ prototype(Neos.MarketPlace:DefaultPage) < prototype(Neos.NeosIo:DefaultPage) {
         }
     }
 }
+
+prototype(Neos.MarketPlace:DefaultPage) < prototype(Neos.NeosIo:DefaultPage)
