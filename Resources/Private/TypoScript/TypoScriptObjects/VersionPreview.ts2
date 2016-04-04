@@ -1,13 +1,14 @@
 prototype(Neos.MarketPlace:VersionPreview) >
 prototype(Neos.MarketPlace:VersionPreview) < prototype(TypoScript:Tag) {
     version = ${String.isBlank(request.arguments.version) ? null : String.trim(request.arguments.version)}
+    @context.version = ${this.version ? this.version : 'latest'}
 
-    findByVersionQuery = ${q(documentNode).find('versions').find('[instanceof Neos.MarketPlace:Version][version = "' + this.version + '"]').first()}
+    findByVersionQuery = ${q(node).find('versions').find('[instanceof Neos.MarketPlace:Version][version = "' + this.version + '"]').first()}
     findLastVersionQuery = Neos.MarketPlace:LastVersionQuery
 
     collection = ${this.version ? this.findByVersionQuery : this.findLastVersionQuery}
 
-    @context.version = ${this.version ? this.version : 'latest'}
+
     @context.collection = ${this.collection}
 
     tagName = 'section'
@@ -16,7 +17,7 @@ prototype(Neos.MarketPlace:VersionPreview) < prototype(TypoScript:Tag) {
         class = 'block block--versions'
         data-component = 'PackageVersionBrowser'
         data-version = ${version}
-        data-path = ${documentNode.path}
+        data-path = ${node.path}
     }
 
     content = TypoScript:Collection {
@@ -29,14 +30,14 @@ prototype(Neos.MarketPlace:VersionPreview) < prototype(TypoScript:Tag) {
         mode = 'cached'
 
         entryIdentifier {
-            documentNode = ${documentNode}
+            node = ${node}
             version = ${request.arguments.version ? request.arguments.version : 'latest'}
             format = ${request.format}
         }
 
         entryTags {
-            1 = ${'Node_' + documentNode.identifier}
-            2 = ${'DescendantOf_' + documentNode.identifier}
+            1 = ${'Node_' + node.identifier}
+            2 = ${'DescendantOf_' + node.identifier}
         }
     }
 }

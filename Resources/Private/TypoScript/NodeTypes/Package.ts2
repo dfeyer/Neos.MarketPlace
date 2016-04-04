@@ -1,8 +1,4 @@
 prototype(Neos.MarketPlace:Package) {
-    @context.package = Neos.MarketPlace:Packagist.Package {
-        name = ${q(documentNode).property('title')}
-    }
-
     vendor = Neos.MarketPlace:ClosestVendorQuery
     @context.vendor = ${this.vendor}
 
@@ -26,12 +22,12 @@ prototype(Neos.MarketPlace:Package) {
         nodePath = 'main'
     }
 
-    isAbandoned = ${q(documentNode).property('abandoned') ? true : false}
-    abandoned = ${q(documentNode).property('abandoned')}
+    isAbandoned = ${q(node).property('abandoned') ? true : false}
+    abandoned = ${q(node).property('abandoned')}
 
-    packageName = ${q(documentNode).property('title')}
-    packageTime = ${q(documentNode).property('time')}
-    description = ${q(documentNode).property('description')}
+    packageName = ${q(node).property('title')}
+    packageTime = ${q(node).property('time')}
+    description = ${q(node).property('description')}
 
     readme = Neos.MarketPlace:PackageReadme
 
