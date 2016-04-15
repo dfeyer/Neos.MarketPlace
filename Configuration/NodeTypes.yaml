@@ -68,6 +68,15 @@ githubProperty: &githubProperty
 
 #
 # TYPO3.Neos:Document
+
+'TYPO3.Neos:Document':
+  constraints:
+    nodeTypes:
+      'Neos.MarketPlace:Document': false
+      'Neos.MarketPlace:RepositoryStorage': true
+
+#
+# TYPO3.Neos:ContentCollection
 'TYPO3.Neos:ContentCollection':
   constraints:
     nodeTypes:
@@ -75,6 +84,7 @@ githubProperty: &githubProperty
       'Neos.MarketPlace:Dist': FALSE
       'Neos.MarketPlace:Source': FALSE
       'Neos.MarketPlace:People': FALSE
+      'Neos.MarketPlace:Readme': FALSE
 
 #
 # MarketPlace:Document
@@ -89,13 +99,18 @@ githubProperty: &githubProperty
     main:
       type: 'TYPO3.Neos:ContentCollection'
   superTypes:
-    'TYPO3.Neos:Document': TRUE
+    'TYPO3.Neos:Document': true
     'TYPO3.Neos.Seo:TitleTagMixin': FALSE
     'TYPO3.Neos.Seo:SeoMetaTagsMixin': FALSE
     'TYPO3.Neos.Seo:TwitterCardMixin': FALSE
     'TYPO3.Neos.Seo:CanonicalLinkMixin': FALSE
     'TYPO3.Neos.Seo:OpenGraphMixin': FALSE
     'TYPO3.Neos.Seo:XmlSitemapMixin': FALSE
+  constraints:
+    nodeTypes:
+      '*': false
+      'TYPO3.Neos:Document': false
+      'Neos.MarketPlace:RepositoryStorage': false
 
 #
 # MarketPlace:RepositoryStorage
@@ -105,12 +120,18 @@ githubProperty: &githubProperty
   ui:
     label: i18n
     icon: 'icon-search'
+  constraints:
+    nodeTypes:
+      'Neos.MarketPlace:Vendor': true
 
 #
 # MarketPlace:Vendor
 'Neos.MarketPlace:Vendor':
   superTypes:
     'Neos.MarketPlace:Document': TRUE
+  constraints:
+    nodeTypes:
+      'Neos.MarketPlace:Package': true
   ui:
     label: i18n
     icon: 'icon-building'
