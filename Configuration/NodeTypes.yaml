@@ -614,6 +614,9 @@ githubProperty: &githubProperty
 'Neos.MarketPlace:Readme':
   superTypes:
     'TYPO3.Neos.NodeTypes:Html': TRUE
+  ui:
+    label: i18n
+    group: marketplace
   properties:
     source:
       search:
