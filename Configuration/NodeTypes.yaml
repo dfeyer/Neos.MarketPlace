@@ -48,21 +48,21 @@ versionDefaultMapping: &versionDefaultMapping
 #
 # Document Property
 documentProperty: &documentProperty
-  reloadIfChanged: TRUE
+  reloadIfChanged: true
   inspector:
     group: document
 
 #
 # Metric Property
 metricProperty: &metricProperty
-  reloadIfChanged: TRUE
+  reloadIfChanged: true
   inspector:
     group: metrics
 
 #
 # Github Property
 githubProperty: &githubProperty
-  reloadIfChanged: TRUE
+  reloadIfChanged: true
   inspector:
     group: metrics
 
@@ -80,16 +80,16 @@ githubProperty: &githubProperty
 'TYPO3.Neos:ContentCollection':
   constraints:
     nodeTypes:
-      'Neos.MarketPlace:Version': FALSE
-      'Neos.MarketPlace:Dist': FALSE
-      'Neos.MarketPlace:Source': FALSE
-      'Neos.MarketPlace:People': FALSE
-      'Neos.MarketPlace:Readme': FALSE
+      'Neos.MarketPlace:Version': false
+      'Neos.MarketPlace:Dist': false
+      'Neos.MarketPlace:Source': false
+      'Neos.MarketPlace:People': false
+      'Neos.MarketPlace:Readme': false
 
 #
 # MarketPlace:Document
 'Neos.MarketPlace:Document':
-  abstract: TRUE
+  abstract: true
   ui:
     inspector:
       groups:
@@ -100,12 +100,12 @@ githubProperty: &githubProperty
       type: 'TYPO3.Neos:ContentCollection'
   superTypes:
     'TYPO3.Neos:Document': true
-    'TYPO3.Neos.Seo:TitleTagMixin': FALSE
-    'TYPO3.Neos.Seo:SeoMetaTagsMixin': FALSE
-    'TYPO3.Neos.Seo:TwitterCardMixin': FALSE
-    'TYPO3.Neos.Seo:CanonicalLinkMixin': FALSE
-    'TYPO3.Neos.Seo:OpenGraphMixin': FALSE
-    'TYPO3.Neos.Seo:XmlSitemapMixin': FALSE
+    'TYPO3.Neos.Seo:TitleTagMixin': false
+    'TYPO3.Neos.Seo:SeoMetaTagsMixin': false
+    'TYPO3.Neos.Seo:TwitterCardMixin': false
+    'TYPO3.Neos.Seo:CanonicalLinkMixin': false
+    'TYPO3.Neos.Seo:OpenGraphMixin': false
+    'TYPO3.Neos.Seo:XmlSitemapMixin': false
   constraints:
     nodeTypes:
       '*': false
@@ -116,7 +116,7 @@ githubProperty: &githubProperty
 # MarketPlace:RepositoryStorage
 'Neos.MarketPlace:RepositoryStorage':
   superTypes:
-    'Neos.MarketPlace:Document': TRUE
+    'Neos.MarketPlace:Document': true
   ui:
     label: i18n
     icon: 'icon-search'
@@ -128,7 +128,7 @@ githubProperty: &githubProperty
 # MarketPlace:Vendor
 'Neos.MarketPlace:Vendor':
   superTypes:
-    'Neos.MarketPlace:Document': TRUE
+    'Neos.MarketPlace:Document': true
   constraints:
     nodeTypes:
       'Neos.MarketPlace:Package': true
@@ -177,7 +177,7 @@ githubProperty: &githubProperty
 # MarketPlace:Package
 'Neos.MarketPlace:Package':
   superTypes:
-    'Neos.MarketPlace:Document': TRUE
+    'Neos.MarketPlace:Document': true
   ui:
     label: i18n
     icon: 'icon-gift'
@@ -193,19 +193,19 @@ githubProperty: &githubProperty
       type: 'TYPO3.Neos:ContentCollection'
       constraints:
         nodeTypes:
-          'Neos.MarketPlace:Maintainer': TRUE
+          'Neos.MarketPlace:Maintainer': true
     authors:
       position: 'after maintainers'
       type: 'TYPO3.Neos:ContentCollection'
       constraints:
         nodeTypes:
-          'Neos.MarketPlace:Author': TRUE
+          'Neos.MarketPlace:Author': true
     versions:
       position: 'after authors'
       type: 'TYPO3.Neos:ContentCollection'
       constraints:
         nodeTypes:
-          'Neos.MarketPlace:Version': TRUE
+          'Neos.MarketPlace:Version': true
     readme:
       position: 'after versions'
       type: 'Neos.MarketPlace:Readme'
@@ -365,9 +365,9 @@ githubProperty: &githubProperty
 #
 # MarketPlace:People
 'Neos.MarketPlace:People':
-  abstract: TRUE
+  abstract: true
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'TYPO3.Neos:Content': true
   properties:
     title:
       type: string
@@ -389,7 +389,7 @@ githubProperty: &githubProperty
 # MarketPlace:Maintainer
 'Neos.MarketPlace:Maintainer':
   superTypes:
-    'Neos.MarketPlace:People': TRUE
+    'Neos.MarketPlace:People': true
   search:
     fulltext:
       enable: false
@@ -401,7 +401,7 @@ githubProperty: &githubProperty
 # MarketPlace:Author
 'Neos.MarketPlace:Author':
   superTypes:
-    'Neos.MarketPlace:People': TRUE
+    'Neos.MarketPlace:People': true
   search:
     fulltext:
       enable: false
@@ -412,10 +412,10 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Version
 'Neos.MarketPlace:Version':
-  abstract: TRUE
+  abstract: true
   label: "${q(node).property('version') + ' (' + q(node).property('type') + ')'}"
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'TYPO3.Neos:Content': true
   childNodes:
     source:
       position: 'before main'
@@ -580,7 +580,7 @@ githubProperty: &githubProperty
 # MarketPlace:ReleasedVersion
 'Neos.MarketPlace:ReleasedVersion':
   superTypes:
-    'Neos.MarketPlace:Version': TRUE
+    'Neos.MarketPlace:Version': true
   ui:
     label: i18n
 
@@ -588,7 +588,7 @@ githubProperty: &githubProperty
 # MarketPlace:PrereleasedVersion
 'Neos.MarketPlace:PrereleasedVersion':
   superTypes:
-    'Neos.MarketPlace:Version': TRUE
+    'Neos.MarketPlace:Version': true
   ui:
     label: i18n
 
@@ -596,7 +596,7 @@ githubProperty: &githubProperty
 # MarketPlace:DevelopmentVersion
 'Neos.MarketPlace:DevelopmentVersion':
   superTypes:
-    'Neos.MarketPlace:Version': TRUE
+    'Neos.MarketPlace:Version': true
   ui:
     label: i18n
 
@@ -604,7 +604,7 @@ githubProperty: &githubProperty
 # MarketPlace:Source
 'Neos.MarketPlace:Source':
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'TYPO3.Neos:Content': true
   properties:
     type:
       type: string
@@ -623,7 +623,7 @@ githubProperty: &githubProperty
 # MarketPlace:Dist
 'Neos.MarketPlace:Dist':
   superTypes:
-    'Neos.MarketPlace:Source': TRUE
+    'Neos.MarketPlace:Source': true
   properties:
     shasum:
       type: string
@@ -634,7 +634,7 @@ githubProperty: &githubProperty
 # MarketPlace:Readme
 'Neos.MarketPlace:Readme':
   superTypes:
-    'TYPO3.Neos.NodeTypes:Html': TRUE
+    'TYPO3.Neos.NodeTypes:Html': true
   ui:
     label: i18n
     group: marketplace
@@ -647,7 +647,7 @@ githubProperty: &githubProperty
 # MarketPlace:PackageHighlight
 'Neos.MarketPlace:PackageHighlight':
   superTypes:
-    'TYPO3.Neos.NodeTypes:ContentReferences': TRUE
+    'TYPO3.Neos.NodeTypes:ContentReferences': true
   ui:
     label: i18n
     group: marketplace

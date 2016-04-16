@@ -38,7 +38,7 @@ TYPO3:
   Neos:
     typoScript:
       autoInclude:
-        'Neos.MarketPlace': TRUE
+        'Neos.MarketPlace': true
 
     nodeTypes:
       groups:
