@@ -7,5 +7,11 @@ prototype(Neos.MarketPlace:Vendor) {
         nodePath = 'main'
     }
 
+    packages = TYPO3.TypoScript:Collection {
+        collection = ${q(node).children('[instanceof Neos.MarketPlace:Package]')}
+        itemName = 'node'
+        itemRenderer = Neos.MarketPlace:PackageSearchResult
+    }
+
     @process.contentElementWrapping >
 }
