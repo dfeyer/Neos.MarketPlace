@@ -35,7 +35,7 @@ class SortOperation extends AbstractOperation {
      *
      * @var integer
      */
-    static protected $priority = 100;
+    static protected $priority = 99;
 
     /**
      * {@inheritdoc}
