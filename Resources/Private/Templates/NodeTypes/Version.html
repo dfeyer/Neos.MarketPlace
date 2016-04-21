@@ -11,7 +11,31 @@
 </f:if>
 
 <div class="g">
-    <div class="gi u-w1/2">
+    <div class="gi u-w1/1 u-wm1/2">
+        <dl>
+            <f:if condition="{homepage}">
+                <dt>Homepage</dt>
+                <dd>{homepage}</dd>
+            </f:if>
+            <f:if condition="{version}">
+                <dt>Version</dt>
+                <dd>{version}</dd>
+            </f:if>
+            <f:if condition="{type}">
+                <dt>Type</dt>
+                <dd>{type}</dd>
+            </f:if>
+            <f:if condition="{time}">
+                <dt>Release Date</dt>
+                <dd>{time -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</dd>
+            </f:if>
+            <dt>Source</dt>
+            <dd><a href="{sourceUrl}">{sourceType}</a></dd>
+            <dt>Distribution</dt>
+            <dd><a href="{distUrl}">{distType}</a></dd>
+        </dl>
+    </div>
+    <div class="gi u-w1/1 u-wm1/2">
         <dl>
             <dt>Requires</dt>
             <f:if condition="{require}">
@@ -71,30 +95,6 @@
                 <dt>Bin</dt>
                 <dd>{bin}</dd>
             </f:if>
-        </dl>
-    </div>
-    <div class="gi u-w1/2">
-        <dl>
-            <f:if condition="{homepage}">
-                <dt>Homepage</dt>
-                <dd>{homepage}</dd>
-            </f:if>
-            <f:if condition="{version}">
-                <dt>Version</dt>
-                <dd>{version}</dd>
-            </f:if>
-            <f:if condition="{type}">
-                <dt>Type</dt>
-                <dd>{type}</dd>
-            </f:if>
-            <f:if condition="{time}">
-                <dt>Release Date</dt>
-                <dd>{time -> f:format.date(localeFormatType: "dateTime", localeFormatLength: "medium", forceLocale: true)}</dd>
-            </f:if>
-            <dt>Source</dt>
-            <dd><a href="{sourceUrl}">{sourceType}</a></dd>
-            <dt>Distribution</dt>
-            <dd><a href="{distUrl}">{distType}</a></dd>
         </dl>
     </div>
 </div>
