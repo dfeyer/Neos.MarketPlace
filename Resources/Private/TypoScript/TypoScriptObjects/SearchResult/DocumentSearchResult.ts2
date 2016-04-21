@@ -4,4 +4,11 @@ prototype(Neos.MarketPlace:DocumentSearchResult) < prototype(DocumentSearchResul
     attributes = TypoScript:Attributes {
         class = 'result-list__item'
     }
+
+    @cache {
+        mode = 'cached'
+        entryIdentifier {
+            node = ${node}
+        }
+    }
 }

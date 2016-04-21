@@ -1,5 +1,14 @@
-prototype(Flowpack.SearchPlugin:Search) {
+prototype(TYPO3.TypoScript:GlobalCacheIdentifiers) {
+    search = ${request.arguments.search}
+}
+
+prototype(Neos.MarketPlace:Search) >
+prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Search.html'
+
+    attributes {
+        class = 'market-block'
+    }
 
     configuration {
         itemsPerPage = 25
@@ -8,22 +17,9 @@ prototype(Flowpack.SearchPlugin:Search) {
         maximumNumberOfLinks = 6
     }
 
-    # todo can be remove when https://github.com/skurfuerst/Flowpack.SearchPlugin/pull/14 is merged
-    @cache {
-        context {
-            3 = 'documentNode'
-        }
-    }
-}
-
-prototype(Neos.MarketPlace:Search) >
-prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
-    attributes {
-        class = 'market-block'
-    }
-
     actionNode = ${node}
     @context.actionNode = ${this.actionNode}
+    @context.searchTerm = ${this.searchTerm}
 
     hasSearchQuery = ${String.isBlank(request.arguments.search) ? false : true}
 
@@ -46,6 +42,21 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     searchResultRenderer {
         attributes {
             class = 'search-results'
+        }
+    }
+
+    @cache {
+        mode = 'cached'
+
+        maximumLifetime = '86400'
+
+        entryIdentifier {
+            node = ${node}
+        }
+
+        entryTags {
+            1 = ${'Node_' + documentNode.identifier}
+            2 = ${'DescendantOf_' + documentNode.identifier}
         }
     }
 }
