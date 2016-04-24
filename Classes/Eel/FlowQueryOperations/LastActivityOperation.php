@@ -68,16 +68,16 @@ class LastActivityOperation extends AbstractOperation {
      */
     public function evaluate(FlowQuery $flowQuery, array $arguments) {
         $query = $flowQuery->find('[instanceof Neos.MarketPlace:Version]');
-        /** @var \DateTime $lastActivity */
-        $lastActivity = null;
+        $activities = [];
         /** @var NodeInterface $version */
         foreach ($query as $version) {
             /** @var \DateTime $time */
             $time = $version->getProperty('time');
-            if ($lastActivity === null || $lastActivity->getTimestamp() < $time->getTimestamp()) {
-                $lastActivity = $time;
-            }
+            $activities[] = $time->getTimestamp();
         }
+        natsort($activities);
+        $lastActivity = new \DateTime();
+        $lastActivity->setTimestamp(array_pop($activities));
         return $lastActivity;
     }
 }
