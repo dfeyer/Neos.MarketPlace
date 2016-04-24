@@ -1,5 +1,19 @@
-prototype(TYPO3.TypoScript:GlobalCacheIdentifiers) {
-    search = ${request.arguments.search}
+root {
+    @cache {
+        entryIdentifier {
+            searchQuery = ${MarketCaching.queryCacheKey(request.arguments.search)}
+            searchPagination = ${MarketCaching.paginationCacheKey(request)}
+        }
+    }
+}
+
+prototype(Neos.MarketPlace:RepositoryStorage.Document) {
+    @cache {
+        entryIdentifier {
+            searchQuery = ${MarketCaching.queryCacheKey(request.arguments.search)}
+            searchPagination = ${MarketCaching.paginationCacheKey(request)}
+        }
+    }
 }
 
 prototype(Neos.MarketPlace:Search) >
@@ -26,7 +40,7 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     query = ${MarketPlaceSearch.query(documentNode)}
     query.@process.nodeType = ${value.nodeType('Neos.MarketPlace:Package')}
     query.@process.fulltext = ${this.hasSearchQuery ? value.fulltext(this.searchTerm) : value}
-    query.@process.sort = ${this.hasSearchQuery ? value : value.sortDesc('__lastActivity')}
+    query.@process.sort = ${this.hasSearchQuery ? value : value.sortDesc('__lastVersion.time')}
     query.@process.log = ${value.log('marketplace')}
 
     searchQuery = ${this.query}
@@ -48,15 +62,16 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     @cache {
         mode = 'cached'
 
-        maximumLifetime = '86400'
-
         entryIdentifier {
-            node = ${node}
+            documentNode = ${documentNode}
+            searchQuery = ${MarketCaching.queryCacheKey(request.arguments.search)}
+            searchPagination = ${MarketCaching.paginationCacheKey(request)}
         }
+
+        maximumLifetime = ${String.isBlank(request.arguments.search) ? '86400' : '3600'}
 
         entryTags {
             1 = ${'Node_' + documentNode.identifier}
-            2 = ${'DescendantOf_' + documentNode.identifier}
         }
     }
 }
