@@ -4,6 +4,8 @@ root {
             searchQuery = ${MarketCaching.queryCacheKey(request.arguments.search)}
             searchPagination = ${MarketCaching.paginationCacheKey(request)}
         }
+
+        maximumLifetime.@process.searchQuery = ${String.isBlank(request.arguments.search) ? '86400' : '3600'}
     }
 }
 
@@ -13,6 +15,8 @@ prototype(Neos.MarketPlace:RepositoryStorage.Document) {
             searchQuery = ${MarketCaching.queryCacheKey(request.arguments.search)}
             searchPagination = ${MarketCaching.paginationCacheKey(request)}
         }
+
+        maximumLifetime = ${String.isBlank(request.arguments.search) ? '86400' : '3600'}
     }
 }
 

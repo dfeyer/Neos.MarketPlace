@@ -4,12 +4,15 @@
 <article{attributes -> f:format.raw()}>
     <header>
         {metrics -> f:format.raw()}
-        <h4 class="result-list__title"><neos:link.node node="{node}"><i class="fa fa-puzzle-piece"></i> {title}</neos:link.node></h4>
+        <h4 class="result-list__title"><neos:link.node node="{node}">
+            <i class="fa fa-puzzle-piece"></i> {title}</neos:link.node>
+            <small>{lastVersion.properties.version}</small>
+        </h4>
     </header>
     <f:if condition="{description}">
         <div class="result-list__description">{description}</div>
     </f:if>
     <footer class="result-list__meta">
-        <i class="fa fa-clock-o"></i> {lastActivity -> marketplace:format.relativeDate()}
+        <i class="fa fa-clock-o"></i> {lastVersion.properties.time -> marketplace:format.relativeDate()}
     </footer>
 </article>
