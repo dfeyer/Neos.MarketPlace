@@ -15,10 +15,10 @@
 				<source>having a download count in the last 30 days</source>
 			</trans-unit>
 			<trans-unit id="Neos_MarketPlace_Review_Top10DownloadCountInTheLast30DaysReview" xml:space="preserve">
-				<source>Have download count in the last 30 days that is in the top 10% for all addons?</source>
+				<source>Have downloads in the last 30 days that is in the top 10% for all addons?</source>
 			</trans-unit>
 			<trans-unit id="Neos_MarketPlace_Review_Top10DownloadCountInTheLast30DaysReview_label" xml:space="preserve">
-				<source>having a download count in the last 30 days that is in the top 10% for all addons</source>
+				<source>having a downloads in the last 30 days that is in the top 10% for all addons</source>
 			</trans-unit>
 			<trans-unit id="Neos_MarketPlace_Review_Top10GithubStarCount" xml:space="preserve">
 				<source>Have github star count that is in the top 10% for all addons?</source>
@@ -56,6 +56,14 @@
 			<trans-unit id="Neos_MarketPlace_Review_HavingMoreThanOneContributorReview_label" xml:space="preserve">
 				<source>having more than 1 contributor?</source>
 			</trans-unit>
+			<group restype="x-gettext-plurals" id="Review_Points">
+				<trans-unit id="Review_Points[0]">
+					<source>{count} point</source>
+				</trans-unit>
+				<trans-unit id="Review_Points[1]">
+					<source>{count} points</source>
+				</trans-unit>
+			</group>
 		</body>
 	</file>
 </xliff>
