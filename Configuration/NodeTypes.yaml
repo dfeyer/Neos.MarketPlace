@@ -77,6 +77,13 @@ githubProperty: &githubProperty
       'Neos.MarketPlace:People': FALSE
 
 #
+# Neos.MarketPlace:Content
+'Neos.MarketPlace:Content':
+  abstract: TRUE
+  superTypes:
+    'TYPO3.Neos:Content': TRUE
+
+#
 # MarketPlace:Document
 'Neos.MarketPlace:Document':
   abstract: TRUE
@@ -346,7 +353,7 @@ githubProperty: &githubProperty
 'Neos.MarketPlace:People':
   abstract: TRUE
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'Neos.MarketPlace:Content': TRUE
   properties:
     title:
       type: string
@@ -394,7 +401,7 @@ githubProperty: &githubProperty
   abstract: TRUE
   label: "${q(node).property('version') + ' (' + q(node).property('type') + ')'}"
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'Neos.MarketPlace:Content': TRUE
   childNodes:
     source:
       position: 'before main'
@@ -583,7 +590,7 @@ githubProperty: &githubProperty
 # MarketPlace:Source
 'Neos.MarketPlace:Source':
   superTypes:
-    'TYPO3.Neos:Content': TRUE
+    'Neos.MarketPlace:Content': TRUE
   properties:
     type:
       type: string
