@@ -32,6 +32,11 @@ TYPO3:
 
   TYPO3CR:
 
+    labelGenerator:
+      eel:
+        defaultContext:
+          Translation: 'TYPO3\Flow\I18n\EelHelper\TranslationHelper'
+
     Search:
       defaultContext:
         MarketIndexing: 'Neos\MarketPlace\Eel\IndexingHelper'

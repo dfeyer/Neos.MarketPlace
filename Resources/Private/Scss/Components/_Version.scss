@@ -20,5 +20,11 @@
   li {
     list-style: none;
   }
+
+  &__footer {
+    border-top: 1px solid #999;
+    margin-top: 2em;
+    padding-top: .2em;
+  }
 }
 

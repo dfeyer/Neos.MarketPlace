@@ -1,0 +1,5 @@
+prototype(Neos.MarketPlace:Review) {
+    attributes {
+        class = 'version-review__item'
+    }
+}

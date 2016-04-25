@@ -45,4 +45,14 @@ prototype(Neos.MarketPlace:Version) < prototype(Neos.MarketPlace:ReleasedVersion
     keywords = Neos.MarketPlace:Tags {
         data = ${q(node).property('keywords')}
     }
+
+    review = Neos.MarketPlace:VersionReview
+}
+
+prototype(Neos.MarketPlace:VersionReview) < prototype(TypoScript:RawArray) {
+    hasReviews = ${q(node).find('reviews').children('[instanceof Neos.MarketPlace:Review]').count() > 0}
+    items = ContentCollection {
+        tagName = 'ul'
+        nodePath = 'reviews'
+    }
 }

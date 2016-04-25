@@ -2,8 +2,59 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file original="" product-name="Neos.MarketPlace" source-language="en" datatype="plaintext">
 		<body>
-			<trans-unit id="nodeTypes.groups.marketplace" xml:space="preserve">
-				<source>MarketPlace</source>
+			<trans-unit id="Neos_MarketPlace_Review_IsTheSourceAccessibleReview" xml:space="preserve">
+				<source>Is the source accessible?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_IsTheSourceAccessibleReview_label" xml:space="preserve">
+				<source>having the source accessible</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_DownloadCountInTheLast30DaysReview" xml:space="preserve">
+				<source>Have download count in the last 30 days?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_DownloadCountInTheLast30DaysReview_label" xml:space="preserve">
+				<source>having a download count in the last 30 days</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_Top10DownloadCountInTheLast30DaysReview" xml:space="preserve">
+				<source>Have download count in the last 30 days that is in the top 10% for all addons?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_Top10DownloadCountInTheLast30DaysReview_label" xml:space="preserve">
+				<source>having a download count in the last 30 days that is in the top 10% for all addons</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_Top10GithubStarCount" xml:space="preserve">
+				<source>Have github star count that is in the top 10% for all addons?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_Top10GithubStarCount_label" xml:space="preserve">
+				<source>having github star count that is in the top 10% for all addons</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_AreThereMeaningfulTestsReview" xml:space="preserve">
+				<source>Are there meaningful tests?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_AreThereMeaningfulTestsReview_label" xml:space="preserve">
+				<source>having meaningful tests</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_IsTheReadmeFilledOutReview" xml:space="preserve">
+				<source>Is the README filled out?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_IsTheReadmeFilledOutReview_label" xml:space="preserve">
+				<source>having a filled out README</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_ReleasedVersionInTheLastThreeMonthReview" xml:space="preserve">
+				<source>Have published a release within the last 3 months?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_ReleasedVersionInTheLastThreeMonthReview_label" xml:space="preserve">
+				<source>having published a release within the last 3 months</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_MoreThanOneCommitInTheLastThreeMonthReview" xml:space="preserve">
+				<source>Have more than 1 commit within the last 3 months?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_MoreThanOneCommitInTheLastThreeMonthReview_label" xml:space="preserve">
+				<source>having more than 1 commit within the last 3 months?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_HavingMoreThanOneContributorReview" xml:space="preserve">
+				<source>Have more than 1 contributor?</source>
+			</trans-unit>
+			<trans-unit id="Neos_MarketPlace_Review_HavingMoreThanOneContributorReview_label" xml:space="preserve">
+				<source>having more than 1 contributor?</source>
 			</trans-unit>
 		</body>
 	</file>

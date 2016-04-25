@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" product-name="Neos.MarketPlace" source-language="en" datatype="plaintext">
+		<body>
+			<trans-unit id="ui.label" xml:space="preserve">
+				<source>Review</source>
+			</trans-unit>
+			<trans-unit id="groups.review" xml:space="preserve">
+				<source>Review</source>
+			</trans-unit>
+			<trans-unit id="properties.type" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.placeholder" xml:space="preserve">
+				<source>Select the review type</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.IsTheSourceAccessibleReview" xml:space="preserve">
+				<source>Is the source accessible?</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.DownloadCountInTheLast30DaysReview" xml:space="preserve">
+				<source>Have download count in the last 30 days?</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.Top10DownloadCountInTheLast30DaysReview" xml:space="preserve">
+				<source>Have download count in the last 30 days that is in the top 10% for all addons?</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.Top10GithubStarCount" xml:space="preserve">
+				<source>Have github star count that is in the top 10% for all addons?</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.AreThereMeaningfulTestsReview" xml:space="preserve">
+				<source>Are there meaningful tests?</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.IsTheReadmeFilledOutReview" xml:space="preserve">
+				<source>Is the README filled out?</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.ReleasedVersionInTheLastThreeMonthReview" xml:space="preserve">
+				<source>Have published a release within the last 3 months?</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.MoreThanOneCommitInTheLastThreeMonthReview" xml:space="preserve">
+				<source>Have more than 1 commit within the last 3 months?</source>
+			</trans-unit>
+			<trans-unit id="properties.type.selectBoxEditor.values.Neos.MarketPlace.Review.HavingMoreThanOneContributorReview" xml:space="preserve">
+				<source>Have more than 1 contributor?</source>
+			</trans-unit>
+			<trans-unit id="properties.points" xml:space="preserve">
+				<source>Points</source>
+			</trans-unit>
+			<trans-unit id="properties.automatic" xml:space="preserve">
+				<source>Automatic Review ?</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

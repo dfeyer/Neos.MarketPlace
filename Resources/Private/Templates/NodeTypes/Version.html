@@ -98,7 +98,18 @@
         </dl>
     </div>
 </div>
-<footer>
+<aside class="version-review">
+    <h3>Review Points</h3>
+    <f:if condition="{review.hasReviews}">
+        <f:else>
+            <p>Currently no review for this package version</p>
+        </f:else>
+    </f:if>
+    <div class="version-review__wrapper">
+        {review.items -> f:format.raw()}
+    </div>
+</aside>
+<footer class="version__footer">
     <div>
         <f:if condition="{license}">
             <i class="fa fa-copyright" title="License"></i> {license}

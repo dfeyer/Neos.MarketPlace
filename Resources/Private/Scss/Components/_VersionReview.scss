@@ -1,0 +1,11 @@
+.version-review {
+  border-top: 1px solid #999;
+  margin-top: 2em;
+  padding-top: .2em;
+
+  &__item {
+    margin-bottom: .3em;
+    border-bottom: 1px dotted #CCC;
+  }
+}
+
