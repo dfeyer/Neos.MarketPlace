@@ -184,3 +184,15 @@
     margin: 0; }
   .version li {
     list-style: none; }
+  .version__footer {
+    border-top: 1px solid #999;
+    margin-top: 2em;
+    padding-top: .2em; }
+
+.version-review {
+  border-top: 1px solid #999;
+  margin-top: 2em;
+  padding-top: .2em; }
+  .version-review__item {
+    margin-bottom: .3em;
+    border-bottom: 1px dotted #CCC; }
