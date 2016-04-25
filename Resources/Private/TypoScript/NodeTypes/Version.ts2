@@ -17,7 +17,7 @@ prototype(Neos.MarketPlace:Version) < prototype(Neos.MarketPlace:ReleasedVersion
 
     sourceType = ${this.source.property('type')}
     sourceUrl = ${this.source.property('url')}
-    sourceReference = ${this.source.property('reference')}
+    sourceReference = ${String.substring(this.source.property('reference'), 0, 7)}
 
     require = Neos.MarketPlace:PackageRequirements {
         property = 'require'
