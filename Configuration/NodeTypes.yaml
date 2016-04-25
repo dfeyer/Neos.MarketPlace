@@ -596,7 +596,7 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Review
 'Neos.MarketPlace:Review':
-  label: "${String.isBlank(q(node).property('type')) ? 'Incomplete' : q(node).property('type') + ' point(s) ' + Translation.translateById(q(node).property('type'), 'Neos.MarketPlace')}"
+  label: "${String.isBlank(q(node).property('type')) ? 'Incomplete' : '(' + q(node).property('points') + ') ' + Translation.translateById(q(node).property('type'), 'Neos.MarketPlace')}"
   superTypes:
     'Neos.MarketPlace:Content': TRUE
   ui:
