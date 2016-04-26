@@ -14,8 +14,8 @@ namespace Neos\MarketPlace\Command;
 use Neos\MarketPlace\Domain\Model\LogAction;
 use Neos\MarketPlace\Domain\Model\Packages;
 use Neos\MarketPlace\Domain\Model\Storage;
+use Neos\MarketPlace\Domain\Repository\PackageRepository;
 use Neos\MarketPlace\Service\PackageImporterInterface;
-use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
@@ -35,6 +35,11 @@ class MarketPlaceCommandController extends CommandController
     protected $importer;
 
     /**
+    /**
+     * @var PackageRepository
+     * @Flow\Inject
+     */
+    protected $packageRepository;
      * @var NodeIndexingManager
      * @Flow\Inject
      */
@@ -92,8 +97,7 @@ class MarketPlaceCommandController extends CommandController
                 $packageKey = $package;
                 $this->logger->log(sprintf('action=%s package=%s', LogAction::SINGLE_PACKAGE_SYNC_STARTED, $package), LOG_INFO);
                 try {
-                    $client = new Client();
-                    $package = $client->get($package);
+                    $package = $this->packageRepository->findByPackageKey($packageKey);
                     $process($package);
                     $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FINISHED, $packageKey, $elapsedTime()), LOG_INFO);
                 } catch (\Exception $exception) {
