@@ -43,7 +43,7 @@ class MarketPlaceCommandController extends CommandController
      * @var NodeIndexingManager
      * @Flow\Inject
      */
-    protected $nodeIndexingManager;
+    protected $indexer;
 
     /**
      * @var SystemLoggerInterface
@@ -52,11 +52,12 @@ class MarketPlaceCommandController extends CommandController
     protected $logger;
 
     /**
+     * Synchronize package from packagist
+     *
      * @param string $package
-     * @param boolean $disableIndexing
      * @return void
      */
-    public function syncCommand($package = null, $disableIndexing = false)
+    public function syncCommand($package = null)
     {
         $beginTime = microtime(true);
 
@@ -73,7 +74,7 @@ class MarketPlaceCommandController extends CommandController
             $process = function (Package $package) use ($storage, &$count) {
                 $count++;
                 $this->outputLine(sprintf('  %d/ %s (%s)', $count, $package->getName(), $package->getTime()));
-                $this->importer->process($package, $storage);
+                return $this->importer->process($package, $storage);
             };
             if ($package === null) {
                 $this->logger->log(sprintf('action=%s', LogAction::FULL_SYNC_STARTED), LOG_INFO);
@@ -82,7 +83,11 @@ class MarketPlaceCommandController extends CommandController
                     $this->logger->log(sprintf('action=%s package=%s', LogAction::SINGLE_PACKAGE_SYNC_STARTED, $package->getName()), LOG_INFO);
                     $timer = microtime(true);
                     try {
-                        $process($package);
+                        /** @var NodeInterface $node */
+                        $node = $process($package);
+                        $this->indexer->withIndexing(function () use ($node) {
+                            $this->indexer->indexNode($node);
+                        });
                         $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FINISHED, $package->getName(), $elapsedTime($timer)), LOG_INFO);
                     } catch (\Exception $exception) {
                         $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FAILED, $package->getName(), $elapsedTime($timer)), LOG_ERR);
@@ -98,7 +103,11 @@ class MarketPlaceCommandController extends CommandController
                 $this->logger->log(sprintf('action=%s package=%s', LogAction::SINGLE_PACKAGE_SYNC_STARTED, $package), LOG_INFO);
                 try {
                     $package = $this->packageRepository->findByPackageKey($packageKey);
-                    $process($package);
+                    /** @var NodeInterface $node */
+                    $node = $process($package);
+                    $this->indexer->withIndexing(function () use ($node) {
+                        $this->indexer->indexNode($node);
+                    });
                     $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FINISHED, $packageKey, $elapsedTime()), LOG_INFO);
                 } catch (\Exception $exception) {
                     $this->logger->log(sprintf('action=%s package=%s duration=%f', LogAction::SINGLE_PACKAGE_SYNC_FAILED, $packageKey, $elapsedTime()), LOG_ERR);
@@ -119,6 +128,7 @@ class MarketPlaceCommandController extends CommandController
             $this->outputLine(sprintf('Duration: %f seconds', $elapsedTime()));
         };
 
+        $this->indexer->withoutIndexing($sync);
 
         if ($disableIndexing === true) {
             $this->nodeIndexingManager->withoutIndexing($sync);
