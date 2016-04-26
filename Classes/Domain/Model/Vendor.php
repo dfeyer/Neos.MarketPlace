@@ -11,7 +11,6 @@ namespace Neos\MarketPlace\Domain\Model;
  * source code.
  */
 
-use Packagist\Api\Result\Package;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\TYPO3CR\Domain\Model\Node;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
