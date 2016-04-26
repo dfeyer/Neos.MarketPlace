@@ -79,10 +79,8 @@ class PackageConverter extends AbstractTypeConverter
         /** @var Package $package */
         $package = $source;
         $storage = $this->getStorage($configuration);
-        $vendor = explode('/', $package->getName())[0];
-        $identifier = Slug::create($package->getName());
-        $vendorNode = $storage->createVendor($vendor);
-        $packageNode = $vendorNode->getNode($identifier);
+        $vendorNode = $storage->getPackageVendor($package->getName());
+        $packageNode = $vendorNode->getPackage($package->getName());
         if ($packageNode === null) {
             $node = $this->create($package, $vendorNode);
         } else {

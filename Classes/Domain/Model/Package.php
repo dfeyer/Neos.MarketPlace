@@ -11,23 +11,15 @@ namespace Neos\MarketPlace\Domain\Model;
  * source code.
  */
 
-use Cocur\Slugify\Slugify;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\TYPO3CR\Domain\Model\Node;
 
 /**
- * Package Tree by vendor
+ * Package
  *
  * @api
  */
-class Slug
+class Package extends Node
 {
-    /**
-     * @param string $string
-     * @return string
-     */
-    public static function create($string)
-    {
-        $slugify = new Slugify();
-        return $slugify->slugify($string);
-    }
+
 }

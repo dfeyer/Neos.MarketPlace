@@ -11,23 +11,25 @@ namespace Neos\MarketPlace\Domain\Model;
  * source code.
  */
 
-use Cocur\Slugify\Slugify;
+use Packagist\Api\Result\Package;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\TYPO3CR\Domain\Model\Node;
+use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 
 /**
- * Package Tree by vendor
+ * Vendor
  *
  * @api
  */
-class Slug
+class Vendor extends Node
 {
     /**
-     * @param string $string
-     * @return string
+     * @param string $packageName
+     * @return NodeInterface
      */
-    public static function create($string)
+    public function getPackage($packageName)
     {
-        $slugify = new Slugify();
-        return $slugify->slugify($string);
+        $identifier = Slug::create($packageName);
+        return $this->getNode($identifier);
     }
 }

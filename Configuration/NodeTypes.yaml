@@ -116,6 +116,7 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Vendor
 'Neos.MarketPlace:Vendor':
+  class: 'Neos\MarketPlace\Domain\Model\Vendor'
   superTypes:
     'Neos.MarketPlace:Document': TRUE
   ui:
@@ -162,6 +163,7 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Package
 'Neos.MarketPlace:Package':
+  class: 'Neos\MarketPlace\Domain\Model\Package'
   superTypes:
     'Neos.MarketPlace:Document': TRUE
   ui:

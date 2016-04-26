@@ -81,12 +81,12 @@ class Storage
     }
 
     /**
-     * @param string $vendor
-     * @return NodeInterface
+     * @param string $packageKey
+     * @return Vendor
      */
-    public function createVendor($vendor)
+    public function getPackageVendor($packageKey)
     {
-        $vendor = Slug::create($vendor);
+        $vendor = Slug::create(explode('/', $packageKey)[0]);
         $node = $this->node()->getNode($vendor);
         if ($node !== null) {
             return $node;
@@ -97,6 +97,16 @@ class Storage
         $nodeTemplate->setProperty('uriPathSegment', $vendor);
         $nodeTemplate->setProperty('title', $vendor);
         return $this->node()->createNodeFromTemplate($nodeTemplate);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifer() {
+        if ($this->node === null) {
+            $this->node();
+        }
+        return $this->node->getIdentifier();
     }
 
     /**
