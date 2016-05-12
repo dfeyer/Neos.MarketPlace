@@ -623,23 +623,23 @@ githubProperty: &githubProperty
             values:
               '':
                 label: ''
-              'Neos_MarketPlace_Review_IsTheSourceAccessibleReview':
+              'Neos_MarketPlace_Review_Plugin_IsTheSourceAccessibleReviewPlugin':
                 label: i18n
-              'Neos_MarketPlace_Review_DownloadCountInTheLast30DaysReview':
+              'Neos_MarketPlace_Review_Plugin_DownloadCountInTheLast30DaysReviewPlugin':
                 label: i18n
-              'Neos_MarketPlace_Review_Top10DownloadCountInTheLast30DaysReview':
+              'Neos_MarketPlace_Review_Plugin_Top10DownloadCountInTheLast30DaysReviewPlugin':
                 label: i18n
-              'Neos_MarketPlace_Review_Top10GithubStarCount':
+              'Neos_MarketPlace_Review_Plugin_Top10GithubStarCountReviewPlugin':
                 label: i18n
-              'Neos_MarketPlace_Review_AreThereMeaningfulTestsReview':
+              'Neos_MarketPlace_Review_Plugin_AreThereMeaningfulTestsReviewPlugin':
                 label: i18n
-              'Neos_MarketPlace_Review_IsTheReadmeFilledOutReview':
+              'Neos_MarketPlace_Review_Plugin_IsTheReadmeFilledOutReviewPlugin':
                 label: i18n
-              'Neos_MarketPlace_Review_ReleasedVersionInTheLastThreeMonthReview':
+              'Neos_MarketPlace_Review_Plugin_ReleasedVersionInTheLastThreeMonthReviewPlugin':
                 label: i18n
-              'Neos_MarketPlace_Review_MoreThanOneCommitInTheLastThreeMonthReview':
+              'Neos_MarketPlace_Review_Plugin_MoreThanOneCommitInTheLastThreeMonthReviewPlugin':
                 label: i18n
-              'Neos_MarketPlace_Review_HavingMoreThanOneContributorReview':
+              'Neos_MarketPlace_Review_Plugin_HavingMoreThanOneContributorReviewPlugin':
                 label: i18n
     points:
       type: integer

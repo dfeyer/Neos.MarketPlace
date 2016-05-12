@@ -10,7 +10,8 @@
         "cocur/slugify": "^2.0",
         "ttree/script": "^1.0",
         "ttree/stylesheet": "^1.0",
-        "ttree/outofbandrendering": "^1.0"
+        "ttree/outofbandrendering": "^1.0",
+        "ttree/flow-natsio": "*"
     },
     "autoload": {
         "psr-4": {

@@ -1,6 +1,8 @@
 ---
 Neos:
   MarketPlace:
+    worker:
+      wait: 1
     typeMapping:
       'typo3-flow-plugin': 'neos-plugin'
       'typo3-flow-build': 'neos-build'

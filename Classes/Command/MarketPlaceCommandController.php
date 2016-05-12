@@ -15,6 +15,7 @@ use Neos\MarketPlace\Domain\Model\LogAction;
 use Neos\MarketPlace\Domain\Model\Packages;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Domain\Repository\PackageRepository;
+use Neos\MarketPlace\Review\PackageReviewerInterface;
 use Neos\MarketPlace\Service\PackageImporterInterface;
 use Packagist\Api\Result\Package;
 use TYPO3\Flow\Annotations as Flow;
@@ -35,11 +36,18 @@ class MarketPlaceCommandController extends CommandController
     protected $importer;
 
     /**
+     * @var PackageReviewerInterface
+     * @Flow\Inject
+     */
+    protected $reviewer;
+
     /**
      * @var PackageRepository
      * @Flow\Inject
      */
     protected $packageRepository;
+
+    /**
      * @var NodeIndexingManager
      * @Flow\Inject
      */
@@ -129,11 +137,33 @@ class MarketPlaceCommandController extends CommandController
         };
 
         $this->indexer->withoutIndexing($sync);
+    }
 
-        if ($disableIndexing === true) {
-            $this->nodeIndexingManager->withoutIndexing($sync);
+    /**
+     * Automatic review for the given package
+     *
+     * This command can be used to require a automatic review manually
+     *
+     * @param string $package
+     * @param string $version
+     */
+    public function reviewCommand($package, $version)
+    {
+        $this->outputLine();
+        $this->outputLine('Automatic Review package %s (%s) ...', [$package, $version]);
+        $this->outputLine();
+
+        $packageKey = $package;
+        $storage = new Storage();
+        $package = $this->packageRepository->findByPackageKey($packageKey);
+
+        $versions = json_decode(json_encode($package->getVersions()), true);
+
+        if (isset($versions[$version])) {
+            $this->outputLine('  <info>++</info> Review registred');
+            $this->reviewer->process($storage, $package, $version);
         } else {
-            $sync();
+            $this->outputLine('  <error>++</error> Review rejected, missing version');
         }
     }
 
