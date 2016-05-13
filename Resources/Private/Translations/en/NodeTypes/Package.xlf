@@ -35,6 +35,9 @@
 			<trans-unit id="properties.lastActivity" xml:space="preserve">
 				<source>Last Activity</source>
 			</trans-unit>
+			<trans-unit id="properties.lastVersion" xml:space="preserve">
+				<source>Last Version</source>
+			</trans-unit>
 			<trans-unit id="properties.downloadTotal" xml:space="preserve">
 				<source>Total Downloads</source>
 			</trans-unit>

@@ -281,6 +281,14 @@ githubProperty: &githubProperty
           type: date
           include_in_all: false
           format: 'date_time_no_millis'
+    lastVersion:
+      type: reference
+      ui:
+        inspector:
+          group: 'document'
+          editorOptions:
+            nodeTypes: ['Neos.MarketPlace:Version']
+        label: i18n
     downloadTotal:
       type: integer
       ui:

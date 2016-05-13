@@ -19,6 +19,7 @@ use Neos\MarketPlace\Domain\Model\PackageNode;
 use Neos\MarketPlace\Domain\Model\Slug;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Domain\Model\VersionNode;
+use Neos\MarketPlace\Service\PackageVersion;
 use Neos\MarketPlace\Utility\VersionNumber;
 use Packagist\Api\Result\Package;
 use TYPO3\Eel\FlowQuery\FlowQuery;
@@ -49,6 +50,12 @@ class PackageConverter extends AbstractTypeConverter
      * @Flow\Inject
      */
     protected $nodeTypeManager;
+
+    /**
+     * @var PackageVersion
+     * @Flow\Inject
+     */
+    protected $packageVersion;
 
     /**
      * @var array<string>
@@ -429,6 +436,8 @@ class PackageConverter extends AbstractTypeConverter
         $lastActiveVersion = reset($sortedVersions);
 
         $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
+        $lastVersion = $this->packageVersion->extractLastVersion($packageNode);
+        $packageNode->setProperty('lastVersion', $lastVersion);
     }
 
     /**
