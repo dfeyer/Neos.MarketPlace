@@ -415,14 +415,14 @@ class PackageConverter extends AbstractTypeConverter
         /** @var VersionNode $previousVersion */
         $previousVersion = null;
 
-        $sortedVersion = [];
+        $sortedVersions = [];
         /** @var VersionNode $version */
         foreach ($versions as $version) {
-            $sortedVersion[$version->getLastActivity()->getTimestamp()] = $version;
+            $sortedVersions[$version->getLastActivity()->getTimestamp()] = $version;
         }
-        krsort($sortedVersion);
+        krsort($sortedVersions);
         /** @var VersionNode $lastActiveVersion */
-        $lastActiveVersion = reset($sortedVersion);
+        $lastActiveVersion = reset($sortedVersions);
 
         $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
     }
