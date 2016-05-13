@@ -176,6 +176,7 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Package
 'Neos.MarketPlace:Package':
+  class: 'Neos\MarketPlace\Domain\Model\PackageNode'
   superTypes:
     'Neos.MarketPlace:Document': true
   ui:
@@ -414,6 +415,7 @@ githubProperty: &githubProperty
 'Neos.MarketPlace:Version':
   abstract: true
   label: "${q(node).property('version') + ' (' + q(node).property('type') + ')'}"
+  class: 'Neos\MarketPlace\Domain\Model\VersionNode'
   superTypes:
     'TYPO3.Neos:Content': true
   childNodes:
