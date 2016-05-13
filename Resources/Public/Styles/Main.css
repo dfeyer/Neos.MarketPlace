@@ -1,3 +1,6 @@
+@-ms-viewport {
+  width: device-width; }
+
 @viewport {
   width: device-width; }
 
@@ -44,13 +47,22 @@
   filter: grayscale(100%); }
 
 .paginator {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   padding: 0;
-  align-items: center;
-  justify-content: center; }
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
   .paginator > li {
     list-style: none;
-    align-items: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+                -ms-grid-row-align: center;
+            align-items: center;
     margin: 0 1em; }
   .paginator__current {
     background-color: #bbbbbb;
@@ -174,7 +186,10 @@
   border-bottom: 1px solid #eceeef;
   margin-bottom: 1em;
   background-color: #eceeef;
-  padding: .5em 1em; }
+  padding: .5em 1em;
+  transition: opacity .7s ease-in-out; }
+  .version--hide {
+    opacity: 0.4; }
   .version dt {
     font-weight: 600; }
   .version dd {
