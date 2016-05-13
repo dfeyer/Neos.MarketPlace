@@ -8,7 +8,6 @@ prototype(Neos.MarketPlace:VersionPreview) < prototype(TypoScript:Tag) {
 
     collection = ${this.version ? this.findByVersionQuery : this.findLastVersionQuery}
 
-
     @context.collection = ${this.collection}
 
     tagName = 'section'
