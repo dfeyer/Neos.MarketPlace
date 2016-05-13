@@ -15,6 +15,23 @@ Neos:
       'neos-package': 'neos-package'
       'neos-framework': 'neos-framework'
 
+    vendorMapping:
+      'neos': TRUE
+      'flowpack': TRUE
+
+    packageBlackList:
+      'neos/app': TRUE
+      'neos/data': TRUE
+      'neos/html': TRUE
+      'neos/image': TRUE
+      'neos/lib': TRUE
+      'neos/limp': TRUE
+      'neos/plim': TRUE
+      'neos/start': TRUE
+      'neos/start-blog': TRUE
+      'neos/start-skel': TRUE
+      'neos/tiga': TRUE
+
     repository:
       identifier: '9127231f-d1b8-440f-8ef7-b05f760178fb'
 
