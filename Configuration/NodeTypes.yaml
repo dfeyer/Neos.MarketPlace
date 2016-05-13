@@ -127,6 +127,7 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Vendor
 'Neos.MarketPlace:Vendor':
+  class: 'Neos\MarketPlace\Domain\Model\VendorNode'
   superTypes:
     'Neos.MarketPlace:Document': true
   constraints:
@@ -147,9 +148,16 @@ githubProperty: &githubProperty
         label: i18n
         inspector:
           position: 1
-    __lastActivity:
+    lastActivity:
+      type: DateTime
+      ui:
+        label: i18n
+        inspector:
+          group: 'document'
+          editorOptions:
+            format: 'd-m-Y H:i'
       search:
-        indexing: '${Date.format(q(node).lastActivity(), "Y-m-d\TH:i:sP")}'
+        indexing: '${Date.format(node.lastActivity, "Y-m-d\TH:i:sP")}'
         elasticSearchMapping:
           type: date
           include_in_all: false

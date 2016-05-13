@@ -15,6 +15,7 @@ use Github\Client;
 use Github\Exception\ApiLimitExceedException;
 use Github\Exception\RuntimeException;
 use Github\HttpClient\CachedHttpClient;
+use Neos\MarketPlace\Domain\Model\PackageNode;
 use Neos\MarketPlace\Domain\Model\Slug;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Domain\Model\VersionNode;
@@ -93,6 +94,7 @@ class PackageConverter extends AbstractTypeConverter
         $this->createOrUpdateVersions($package, $node);
 
         $this->getPackageLastActivity($node);
+        $this->getVendorLastActivity($vendorNode);
 
         $this->handleDownloads($package, $node);
         $this->handleGithubMetrics($package, $node);
@@ -411,13 +413,15 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function getPackageLastActivity(NodeInterface $packageNode)
     {
-        $versions = $packageNode->getNode('versions')->getChildNodes();
-        /** @var VersionNode $previousVersion */
-        $previousVersion = null;
+        $versions = $packageNode->getNode('versions')->getChildNodes('Neos.MarketPlace:Version');
 
         $sortedVersions = [];
         /** @var VersionNode $version */
         foreach ($versions as $version) {
+            $lastActivity = $version->getLastActivity();
+            if (!$lastActivity instanceof \DateTime) {
+                continue;
+            }
             $sortedVersions[$version->getLastActivity()->getTimestamp()] = $version;
         }
         krsort($sortedVersions);
@@ -425,6 +429,29 @@ class PackageConverter extends AbstractTypeConverter
         $lastActiveVersion = reset($sortedVersions);
 
         $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
+    }
+
+    /**
+     * @param NodeInterface $vendorNode
+     */
+    protected function getVendorLastActivity(NodeInterface $vendorNode)
+    {
+        $packages = $vendorNode->getChildNodes('Neos.MarketPlace:Package');
+
+        $sortedPackages = [];
+        /** @var PackageNode $package */
+        foreach ($packages as $package) {
+            $lastActivity = $package->getLastActivity();
+            if (!$lastActivity instanceof \DateTime) {
+                continue;
+            }
+            $sortedPackages[$lastActivity->getTimestamp()] = $package;
+        }
+        krsort($sortedPackages);
+        /** @var PackageNode $lastActiveVersion */
+        $lastActivePackage = reset($sortedPackages);
+
+        $vendorNode->setProperty('lastActivity', $lastActivePackage->getLastActivity());
     }
 
     /**

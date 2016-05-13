@@ -1,5 +1,5 @@
 prototype(Neos.MarketPlace:PackageLastActivity) < prototype(TypoScript:Template) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package/PackageLastActivity.html'
 
-    lastActivity = ${q(node).lastActivity()}
+    lastActivity = ${q(node).property('lastActivity')}
 }

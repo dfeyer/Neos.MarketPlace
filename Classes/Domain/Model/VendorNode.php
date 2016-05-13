@@ -22,11 +22,11 @@ use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
 use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
 
 /**
- * PackageNode
+ * VendorNode
  *
  * @api
  */
-class PackageNode extends Node
+class VendorNode extends Node
 {
 
     /**
