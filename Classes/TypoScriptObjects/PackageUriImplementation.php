@@ -11,14 +11,15 @@ namespace Neos\MarketPlace\TypoScriptObjects;
  * source code.
  */
 
-use TYPO3\Eel\FlowQuery\FlowQuery;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\MarketPlace\Domain\Model\Slug;
 use Packagist\Api\Result\Package;
+use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Log\SystemLoggerInterface;
+use TYPO3\Neos\Domain\Service\NodeSearchServiceInterface;
+use TYPO3\Neos\Exception as NeosException;
 use TYPO3\Neos\Service\LinkingService;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject;
-use TYPO3\Neos\Exception as NeosException;
 
 /**
  * Package TypoScript Implementation
@@ -38,6 +39,12 @@ class PackageUriImplementation extends AbstractTypoScriptObject
      * @var LinkingService
      */
     protected $linkingService;
+
+    /**
+     * @Flow\Inject
+     * @var NodeSearchServiceInterface
+     */
+    protected $nodeSearchService;
 
     /**
      * @return string
@@ -66,10 +73,11 @@ class PackageUriImplementation extends AbstractTypoScriptObject
         if (isset($packageKeyParts[0]) && $packageKeyParts[0] === 'ext' && isset($packageKeyParts[1])) {
             return sprintf('http://php.net/manual-lookup.php?pattern=%s&scope=quickref', urlencode($packageKeyParts[1]));
         }
-        $query = new FlowQuery([$this->getNode()]);
+        $title = Slug::create($packageKey);
+        $packageNodes = $this->nodeSearchService->findByProperties(['uriPathSegment' => $title], ['Neos.MarketPlace:Package'], $this->getNode()->getContext());
         /** @var NodeInterface $packageNode */
-        $packageNode = $query->find(sprintf('[instanceof Neos.MarketPlace:Package][title = "%s"]', $packageKey))->get(0);
-        if ($packageNode !== null) {
+        $packageNode = reset($packageNodes);
+        if ($packageNode) {
             return $this->linkingService->createNodeUri(
                 $this->tsRuntime->getControllerContext(),
                 $packageNode,
