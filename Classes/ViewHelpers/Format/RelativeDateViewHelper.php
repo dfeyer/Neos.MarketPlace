@@ -27,10 +27,11 @@ class RelativeDateViewHelper extends AbstractViewHelper
      * Shows the year/month/date if the date is not the current year.
      *
      * @param \DateTime $date
+     * @param boolean $compact
      * @return string an <img...> html tag
      * @throws \InvalidArgumentException
      */
-    public function render(\DateTime $date = null)
+    public function render(\DateTime $date = null, $compact = false)
     {
         if ($date === null) {
             $date = $this->renderChildren();
@@ -43,20 +44,20 @@ class RelativeDateViewHelper extends AbstractViewHelper
         if ($date->format('Y z') === $now->format('Y z')) {
             $hours = $date->diff($now)->h;
             if ($hours > 1) {
-                return 'Last activity ' .  $hours . ' hours ago';
+                return $compact ? $hours . ' hours ago' : 'Last activity ' .  $hours . ' hours ago';
             } else {
-                return 'Last activity one hour ago';
+                return $compact ? 'One hour ago' : 'Last activity one hour ago';
             }
         }
         $days = $now->diff($date)->format('%a');
         if ($days < 30) {
             if ($days > 1) {
-                return 'Last activity ' .  $days . ' days ago';
+                return $compact ? $days . ' days ago' : 'Last activity ' .  $days . ' days ago';
             } else {
-                return 'Last activity yesterday';
+                return $compact ? 'Yesterday' : 'Last activity yesterday';
             }
         }
 
-        return 'Last activity on ' . $date->format('n F Y');
+        return $compact ? $date->format('n F Y') : 'Last activity on ' . $date->format('n F Y');
     }
 }
