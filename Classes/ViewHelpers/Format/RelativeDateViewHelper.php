@@ -58,6 +58,6 @@ class RelativeDateViewHelper extends AbstractViewHelper
             }
         }
 
-        return $compact ? $date->format('n F Y') : 'Last activity on ' . $date->format('n F Y');
+        return $compact ? $date->format('n M Y') : 'Last activity on ' . $date->format('n F Y');
     }
 }
