@@ -284,11 +284,14 @@ githubProperty: &githubProperty
     lastVersion:
       type: reference
       ui:
+        label: i18n
         inspector:
           group: 'document'
           editorOptions:
             nodeTypes: ['Neos.MarketPlace:Version']
-        label: i18n
+      search:
+        indexing: "${MarketIndexing.prepareVersion(q(node).property('lastVersion'))}"
+        <<: *versionDefaultMapping
     downloadTotal:
       type: integer
       ui:
@@ -368,26 +371,6 @@ githubProperty: &githubProperty
           type: string
           index: 'not_analyzed'
           include_in_all: true
-    __lastVersion:
-      search:
-        indexing: "${MarketIndexing.extractLastVersion(node)}"
-        <<: *versionDefaultMapping
-    __versions:
-      search:
-        indexing: "${MarketIndexing.extractVersions(node)}"
-        <<: *versionDefaultMapping
-    __maintainers:
-      search:
-        indexing: "${MarketIndexing.extractMaintainers(node)}"
-        elasticSearchMapping:
-          type: nested
-          properties:
-            name:
-              type: string
-            email:
-              type: string
-            homepage:
-              type: string
 
 #
 # MarketPlace:People

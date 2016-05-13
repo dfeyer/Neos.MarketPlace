@@ -58,30 +58,17 @@ class IndexingHelper extends Eel\IndexingHelper
 
         /** @var NodeInterface $versionNode */
         foreach ($versions as $versionNode) {
-            $data[] = $this->prepareVersionForIndexing($versionNode);
+            $data[] = $this->prepareVersion($versionNode);
         }
 
         return $data;
     }
 
     /**
-     * @param NodeInterface $node
-     * @return array
-     */
-    public function extractLastVersion(NodeInterface $node)
-    {
-        $version = $this->packageVersion->extractLastVersion($node);
-        if ($version === null) {
-            return [];
-        }
-        return $this->prepareVersionForIndexing($version);
-    }
-
-    /**
      * @param NodeInterface $versionNode
      * @return array
      */
-    protected function prepareVersionForIndexing(NodeInterface $versionNode)
+    public function prepareVersion(NodeInterface $versionNode)
     {
         /** @var \DateTime $time */
         $time = $versionNode->getProperty('time');

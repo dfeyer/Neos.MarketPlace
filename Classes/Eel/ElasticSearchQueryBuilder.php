@@ -60,8 +60,8 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
                         '__maintainers.name^5',
                         '__maintainers.tag^8',
                         'description^2',
-                        '__lastVersion.keywords.name^10',
-                        '__lastVersion.keywords.tag^12',
+                        'lastVersion.keywords.name^10',
+                        'lastVersion.keywords.tag^12',
                         '__fulltext.*'
                     ],
                     'query' => str_replace('/', '\\/', $searchWord),
@@ -130,7 +130,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
                         ],
                         [
                             'gauss' => [
-                                '__lastVersion.time' => [
+                                'lastVersion.time' => [
                                     'scale' => '60d',
                                     'offset' => '5d',
                                     'decay' => 0.5
