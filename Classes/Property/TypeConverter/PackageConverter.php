@@ -17,6 +17,7 @@ use Github\Exception\RuntimeException;
 use Github\HttpClient\CachedHttpClient;
 use Neos\MarketPlace\Domain\Model\Slug;
 use Neos\MarketPlace\Domain\Model\Storage;
+use Neos\MarketPlace\Domain\Model\VersionNode;
 use Neos\MarketPlace\Utility\VersionNumber;
 use Packagist\Api\Result\Package;
 use TYPO3\Eel\FlowQuery\FlowQuery;
@@ -90,6 +91,8 @@ class PackageConverter extends AbstractTypeConverter
         }
         $this->createOrUpdateMaintainers($package, $node);
         $this->createOrUpdateVersions($package, $node);
+
+        $this->getPackageLastActivity($node);
 
         $this->handleDownloads($package, $node);
         $this->handleGithubMetrics($package, $node);
@@ -401,6 +404,27 @@ class PackageConverter extends AbstractTypeConverter
 
             $this->handleAbandonedPackageOrVersion($package, $node);
         }
+    }
+
+    /**
+     * @param NodeInterface $packageNode
+     */
+    protected function getPackageLastActivity(NodeInterface $packageNode)
+    {
+        $versions = $packageNode->getNode('versions')->getChildNodes();
+        /** @var VersionNode $previousVersion */
+        $previousVersion = null;
+
+        $sortedVersion = [];
+        /** @var VersionNode $version */
+        foreach ($versions as $version) {
+            $sortedVersion[$version->getLastActivity()->getTimestamp()] = $version;
+        }
+        krsort($sortedVersion);
+        /** @var VersionNode $lastActiveVersion */
+        $lastActiveVersion = reset($sortedVersion);
+
+        $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
     }
 
     /**
