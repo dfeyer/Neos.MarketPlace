@@ -435,9 +435,11 @@ class PackageConverter extends AbstractTypeConverter
         /** @var VersionNode $lastActiveVersion */
         $lastActiveVersion = reset($sortedVersions);
 
-        $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
-        $lastVersion = $this->packageVersion->extractLastVersion($packageNode);
-        $packageNode->setProperty('lastVersion', $lastVersion);
+        if ($lastActiveVersion) {
+            $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
+            $lastVersion = $this->packageVersion->extractLastVersion($packageNode);
+            $packageNode->setProperty('lastVersion', $lastVersion);
+        }
     }
 
     /**
@@ -460,7 +462,9 @@ class PackageConverter extends AbstractTypeConverter
         /** @var PackageNode $lastActiveVersion */
         $lastActivePackage = reset($sortedPackages);
 
-        $vendorNode->setProperty('lastActivity', $lastActivePackage->getLastActivity());
+        if ($lastActivePackage) {
+            $vendorNode->setProperty('lastActivity', $lastActivePackage->getLastActivity());
+        }
     }
 
     /**
