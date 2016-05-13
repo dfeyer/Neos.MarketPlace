@@ -11,7 +11,7 @@ prototype(Neos.MarketPlace:Package) {
         class = 'market-block'
     }
 
-    lastActivity = ${q(node).lastActivity()}
+    lastActivity = Neos.MarketPlace:PackageLastActivity
 
     packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
     hasPackageCount = ${this.packageCount > 1}

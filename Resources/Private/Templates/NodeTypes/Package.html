@@ -9,7 +9,7 @@
     <hr>
 </f:if>
 <div class="package__meta">
-    <i class="fa fa-clock-o"></i> {lastActivity -> marketplace:format.relativeDate()} {metrics -> f:format.raw()}
+    {lastActivity -> f:format.raw()} {metrics -> f:format.raw()}
 </div>
 <code class="market-code">
     <i class="fa fa-download"></i> composer require {packageName}
