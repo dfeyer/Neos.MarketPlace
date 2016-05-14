@@ -35,9 +35,7 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
         maximumNumberOfLinks = 5
     }
 
-    actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
-    @context.actionNode = ${this.actionNode}
-    @context.searchTerm = ${this.searchTerm}
+    @context.actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
 
     hasSearchQuery = ${String.isBlank(request.arguments.search) ? false : true}
 

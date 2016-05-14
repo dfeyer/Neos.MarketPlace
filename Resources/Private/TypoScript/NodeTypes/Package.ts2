@@ -3,9 +3,6 @@ prototype(Neos.MarketPlace:Package) {
     @context.vendor = ${this.vendor}
 
     vendorName = ${q(this.vendor).property('title')}
-    vendorUri = NodeUri {
-        node = ${vendor}
-    }
 
     attributes = TypoScript:Attributes {
         class = 'market-block'
@@ -13,10 +10,9 @@ prototype(Neos.MarketPlace:Package) {
 
     lastActivity = Neos.MarketPlace:PackageLastActivity
 
-    packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
-    hasPackageCount = ${this.packageCount > 1}
-
     versions = Neos.MarketPlace:VersionPreview
+
+    packageCount = Neos.MarketPlace:PackageCountButton
 
     main = ContentCollection {
         nodePath = 'main'
