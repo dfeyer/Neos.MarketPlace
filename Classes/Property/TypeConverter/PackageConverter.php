@@ -420,7 +420,7 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function getPackageLastActivity(NodeInterface $packageNode)
     {
-        $versions = $packageNode->getNode('versions')->getChildNodes('Neos.MarketPlace:Version');
+        $versions = $packageNode->getNode('versions')->getChildNodes();
 
         $sortedVersions = [];
         /** @var VersionNode $version */
@@ -435,11 +435,9 @@ class PackageConverter extends AbstractTypeConverter
         /** @var VersionNode $lastActiveVersion */
         $lastActiveVersion = reset($sortedVersions);
 
-        if ($lastActiveVersion) {
-            $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
-            $lastVersion = $this->packageVersion->extractLastVersion($packageNode);
-            $packageNode->setProperty('lastVersion', $lastVersion);
-        }
+        $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
+        $lastVersion = $this->packageVersion->extractLastVersion($packageNode);
+        $packageNode->setProperty('lastVersion', $lastVersion);
     }
 
     /**
@@ -462,9 +460,7 @@ class PackageConverter extends AbstractTypeConverter
         /** @var PackageNode $lastActiveVersion */
         $lastActivePackage = reset($sortedPackages);
 
-        if ($lastActivePackage) {
-            $vendorNode->setProperty('lastActivity', $lastActivePackage->getLastActivity());
-        }
+        $vendorNode->setProperty('lastActivity', $lastActivePackage->getLastActivity());
     }
 
     /**
