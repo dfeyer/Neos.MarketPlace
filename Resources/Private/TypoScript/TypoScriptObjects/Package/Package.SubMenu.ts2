@@ -2,9 +2,9 @@ prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package/Package.SubMenu.html'
 
     versions = MarketPlace:VersionsQuery
-    @context.releasedVersionQuery = ${this.versions.filter('[instanceof Neos.MarketPlace:ReleasedVersion]')}
-    @context.prereleasedVersionQuery = ${this.versions.filter('[instanceof Neos.MarketPlace:PrereleasedVersion]')}
-    @context.developmentVersionsQuery = ${this.versions.filter('[instanceof Neos.MarketPlace:DevelopmentVersion]')}
+    @context.releasedVersionQuery = ${q(this.versions).filter('[instanceof Neos.MarketPlace:ReleasedVersion]')}
+    @context.prereleasedVersionQuery = ${q(this.versions).filter('[instanceof Neos.MarketPlace:PrereleasedVersion]')}
+    @context.developmentVersionsQuery = ${q(this.versions).filter('[instanceof Neos.MarketPlace:DevelopmentVersion]')}
 
     maintainers = MarketPlace:PeopleMenu {
         path = 'maintainers'
