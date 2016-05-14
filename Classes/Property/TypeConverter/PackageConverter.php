@@ -92,12 +92,19 @@ class PackageConverter extends AbstractTypeConverter
         $vendor = explode('/', $package->getName())[0];
         $identifier = Slug::create($package->getName());
         $vendorNode = $storage->createVendor($vendor);
+
+        /** @var PackageNode $packageNode */
         $packageNode = $vendorNode->getNode($identifier);
         if ($packageNode === null) {
             $node = $this->create($package, $vendorNode);
         } else {
-            $node = $this->update($package, $packageNode);
+            if ($this->packageRequireUpdate($package, $packageNode)) {
+                $node = $this->update($package, $packageNode);
+            } else {
+                return $packageNode;
+            }
         }
+
         $this->createOrUpdateMaintainers($package, $node);
         $this->createOrUpdateVersions($package, $node);
 
@@ -109,6 +116,26 @@ class PackageConverter extends AbstractTypeConverter
 
         $this->handleAbandonedPackageOrVersion($package, $node);
         return $node;
+    }
+
+    /**
+     * @param Package $package
+     * @param PackageNode $packageNode
+     * @return boolean
+     */
+    protected function packageRequireUpdate(Package $package, PackageNode $packageNode) {
+        $lastActivities = [];
+        /** @var Package\Version $version */
+        foreach ($package->getVersions() as $version) {
+            $time = \DateTime::createFromFormat(\DateTime::ISO8601, $version->getTime());
+            $lastActivities[$time->getTimestamp()] = $time;
+        }
+        krsort($lastActivities);
+        $lastActivity = reset($lastActivities);
+        if (!$lastActivity) {
+            $lastActivity = new \DateTime();
+        }
+        return (!($packageNode->getLastActivity() instanceof \DateTime) || $lastActivity > $packageNode->getLastActivity());
     }
 
     /**
@@ -194,7 +221,7 @@ class PackageConverter extends AbstractTypeConverter
             $contents = new Contents($client);
             $content = $contents->readme($oganization, $repository);
             $content = $this->postprocessGithubReadme($oganization, $repository, $content);
-            
+
             $readmeNode = $node->getNode('readme');
             if ($readmeNode === null) {
                 return;
