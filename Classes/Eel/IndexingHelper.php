@@ -68,8 +68,11 @@ class IndexingHelper extends Eel\IndexingHelper
      * @param NodeInterface $versionNode
      * @return array
      */
-    public function prepareVersion(NodeInterface $versionNode)
+    public function prepareVersion(NodeInterface $versionNode = null)
     {
+        if ($versionNode === null) {
+            return [];
+        }
         /** @var \DateTime $time */
         $time = $versionNode->getProperty('time');
         return [
