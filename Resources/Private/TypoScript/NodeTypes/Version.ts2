@@ -37,6 +37,9 @@ prototype(Neos.MarketPlace:Version) < prototype(Neos.MarketPlace:ReleasedVersion
     replace = Neos.MarketPlace:PackageRequirements {
         property = 'replace'
     }
+    provide = Neos.MarketPlace:PackageRequirements {
+        property = 'provide'
+    }
 
     isAbandoned = ${q(documentNode).property('abandoned') ? true : false}
     abandoned = ${q(documentNode).property('abandoned')}

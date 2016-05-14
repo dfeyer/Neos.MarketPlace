@@ -361,7 +361,7 @@ class PackageConverter extends AbstractTypeConverter
                 'license' => $this->arrayToStringCaster($version->getLicense()),
                 'type' => $version->getType(),
                 'time' => \DateTime::createFromFormat(\DateTime::ISO8601, $version->getTime()),
-                'provide' => $version->getProvide(),
+                'provide' => $this->arrayToJsonCaster($version->getProvide()),
                 'bin' => $this->arrayToJsonCaster($version->getBin()),
                 'require' => $this->arrayToJsonCaster($version->getRequire()),
                 'requireDev' => $this->arrayToJsonCaster($version->getRequireDev()),
