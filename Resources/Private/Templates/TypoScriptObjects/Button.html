@@ -1,5 +1,5 @@
-<f:if condition="{hasPackageCount}">
-    <a class="btn btn--solidPrimary" style="width: 100%;"  href="{vendorUri}">
+<f:if condition="{content}">
+    <a class="btn btn--solidPrimary" style="width: 100%; margin-bottom: 10px;"  href="{url}">
 
         <div class="btn__corner btn__corner--top">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" width="14px" height="10px" viewBox="0 0 14 10" enable-background="new 0 0 14 10" xml:space="preserve">
@@ -8,8 +8,7 @@
 		</svg>
         </div>
 
-        <div class="btn__content">The same vendor provides <span class="badge">{packageCount}</span> package(s).</div>
-
+        <div class="btn__content">{content -> f:format.raw()}</div>
 
         <div class="btn__corner btn__corner--bottom">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" width="14px" height="10px" viewBox="0 0 14 10" enable-background="new 0 0 14 10" xml:space="preserve">

@@ -28,10 +28,7 @@ prototype(Neos.MarketPlace:Package.SubMenu) < prototype(TypoScript:Template) {
         @if.hasVersions = ${developmentVersionsQuery.count() > 0}
     }
 
-    lastVersion = Neos.MarketPlace:LastVersionQuery
-    source = ${q(this.lastVersion).find('source').first()}
-    sourceUrl = ${this.source.property('url')}
-    sourceType = ${this.source.property('type')}
+    sourceButton = Neos.MarketPlace:PackageSourceButton
 
     avatarUrl = ${q(node).property('githubAvatar')}
 }

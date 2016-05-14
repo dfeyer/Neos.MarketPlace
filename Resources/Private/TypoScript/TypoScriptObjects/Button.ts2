@@ -1,0 +1,5 @@
+prototype(Neos.MarketPlace:Button) < prototype(TypoScript:Template) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Button.html'
+    url = ${null}
+    content = ${null}
+}

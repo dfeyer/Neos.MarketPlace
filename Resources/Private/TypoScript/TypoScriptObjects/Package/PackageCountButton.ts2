@@ -1,18 +1,14 @@
-prototype(Neos.MarketPlace:PackageCountButton) < prototype(TypoScript:Template) {
+prototype(Neos.MarketPlace:PackageCountButton) < prototype(Neos.MarketPlace:Button) {
     vendor = ${vendor}
     @context.vendor = ${this.vendor}
 
-    vendorUri = NodeUri {
-        node = ${vendor}
-    }
-
-    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package/PackageCountButton.html'
-
     packageCount = ${q(this.vendor).find('[instanceof Neos.MarketPlace:Package]').count()}
 
-    hasPackageCount = ${this.packageCount > 1}
+    content = ${this.packageCount > 1 ? 'The same vendor provides <span class="badge">' + this.packageCount + '</span> package(s).' : null}
 
-    lastActivity = ${q(node).property('lastActivity')}
+    url = NodeUri {
+        node = ${vendor}
+    }
 
     @cache {
         mode = 'cached'
