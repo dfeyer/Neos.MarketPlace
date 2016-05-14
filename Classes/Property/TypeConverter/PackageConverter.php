@@ -11,6 +11,7 @@ namespace Neos\MarketPlace\Property\TypeConverter;
  * source code.
  */
 
+use Github\Api\Repository\Contents;
 use Github\Client;
 use Github\Exception\ApiLimitExceedException;
 use Github\Exception\RuntimeException;
@@ -186,24 +187,43 @@ class PackageConverter extends AbstractTypeConverter
             $httpClient->setHeaders([
                 'Accept' => 'application/vnd.github.VERSION.html'
             ]);
+
             $client = new Client($httpClient);
             $client->authenticate($this->githubSettings['account'], $this->githubSettings['password']);
-            $readme = trim($client->repository()->readme($oganization, $repository));
-            if ($readme === '') {
-                return;
-            }
-            $query = new FlowQuery([$node]);
-            $readmeNode = $query
-                ->find('readme')
-                ->get(0);
 
+            $contents = new Contents($client);
+            $content = $contents->readme($oganization, $repository);
+            $content = $this->postprocessGithubReadme($oganization, $repository, $content);
+            
+            $readmeNode = $node->getNode('readme');
             if ($readmeNode === null) {
                 return;
             }
-            $readmeNode->setProperty('source', $readme);
+            $readmeNode->setProperty('source', $content);
         } catch (\Exception $exception) {
 
         }
+    }
+
+    /**
+     * @param string $oganization
+     * @param string $repository
+     * @param string $content
+     * @return string
+     */
+    protected function postprocessGithubReadme($oganization, $repository, $content)
+    {
+        $content = trim($content);
+        $domain = 'https://raw.githubusercontent.com/' . $oganization . '/' . $repository . '/master/';
+        $r = [
+            '#<svg aria-hidden="true" class="octicon octicon-link"[^>]*>.*?<\s*/\s*svg>#msi' => '',
+            '#<a[^>]*><\s*/\s*a>#msi' => '',
+            '#<article[^>]*>(.*)<\s*/\s*article>#msi' => '$1',
+            '#<div class="announce[^>]*>(.*)<\s*/\s*div>$#msi' => '$1',
+            '/href="(?!https?:\/\/)(?!data:)(?!#)/' => 'href="'.$domain,
+            '/src="(?!https?:\/\/)(?!data:)(?!#)/' => 'src="'.$domain
+        ];
+        return trim(preg_replace(array_keys($r), array_values($r), $content));
     }
 
     /**
