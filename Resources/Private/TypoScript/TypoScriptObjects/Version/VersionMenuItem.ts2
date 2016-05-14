@@ -1,6 +1,5 @@
-prototype(Neos.MarketPlace:VersionMenuItem) >
 prototype(Neos.MarketPlace:VersionMenuItem) < prototype(Neos.MarketPlace:Version) {
-    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/VersionMenuItem.html'
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Version/VersionMenuItem.html'
     attributes {
         class = 'nav__item'
     }
