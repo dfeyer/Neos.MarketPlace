@@ -7,8 +7,7 @@ prototype(Neos.MarketPlace:Vendor.Document) < prototype(Neos.MarketPlace:Default
         content {
             main = TypoScript:Array {
                 search = Neos.MarketPlace:Search {
-                    searchQuery = ${null}
-                    actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
+                    showResult = ${false}
                 }
                 vendor = Neos.MarketPlace:Vendor
             }

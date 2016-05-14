@@ -5,7 +5,7 @@
 <div{attributes -> f:format.raw()}>
 {searchForm -> f:format.raw()}
 
-<f:if condition="{searchQuery}">
+<f:if condition="{showResult}">
     <search:widget.paginate widgetId="browse" query="{searchQuery}" as="results" configuration="{configuration}">
         <div class="search-results__metrics">
             {f:translate(id: 'searchShowingResults', package: 'Flowpack.SearchPlugin', arguments: '{0: results.accessibleCount, 1: totalSearchResults}')}

@@ -7,8 +7,7 @@ prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:Defaul
             sectionTitle >
             subMenu = Neos.MarketPlace:Package.SubMenu
             form = Neos.MarketPlace:Search {
-                searchQuery = ${null}
-                actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
+                showResult = ${false}
             }
         }
 

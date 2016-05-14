@@ -35,7 +35,7 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
         maximumNumberOfLinks = 5
     }
 
-    actionNode = ${node}
+    actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
     @context.actionNode = ${this.actionNode}
     @context.searchTerm = ${this.searchTerm}
 
@@ -50,6 +50,8 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     query.@process.sort = ${this.hasSearchQuery ? value : value.sortDesc('lastActivity')}
 
     query.@process.log = ${value.log('marketplace')}
+
+    showResult = ${true}
 
     searchQuery = ${this.query}
 
