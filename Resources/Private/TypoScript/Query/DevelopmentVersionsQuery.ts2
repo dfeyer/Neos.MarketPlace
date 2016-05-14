@@ -1,3 +1,0 @@
-prototype(Neos.MarketPlace:DevelopmentVersionsQuery) < prototype(Neos.MarketPlace:VersionsQuery) {
-    value = ${q(documentNode).find('versions').find('[instanceof Neos.MarketPlace:DevelopmentVersion]')}
-}
