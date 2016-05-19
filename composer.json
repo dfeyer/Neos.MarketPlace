@@ -2,6 +2,7 @@
     "description": "Neos Project Marketplace",
     "name": "neos/marketplace",
     "type": "typo3-flow-package",
+    "license": "MIT",
     "require": {
         "typo3/flow": "*",
         "flowpack/searchplugin": "*",
