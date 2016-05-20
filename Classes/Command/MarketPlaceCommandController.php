@@ -47,9 +47,11 @@ class MarketPlaceCommandController extends CommandController
     protected $logger;
 
     /**
-     * @param string $package
-     * @param boolean $disableIndexing
-     * @param boolean $force
+     * Sync packages from Packagist
+     *
+     * @param string $package Sync only the given package
+     * @param boolean $disableIndexing Disable live indexing
+     * @param boolean $force Force sync even if the package is not update on packagist
      * @return void
      */
     public function syncCommand($package = null, $disableIndexing = false, $force = false)
@@ -125,6 +127,8 @@ class MarketPlaceCommandController extends CommandController
     }
 
     /**
+     * Remove packages that don't exist on Packagist
+     *
      * @param Storage $storage
      */
     protected function cleanupPackages(Storage $storage)
@@ -141,6 +145,8 @@ class MarketPlaceCommandController extends CommandController
     }
 
     /**
+     * Remove vendors that don't exist on Packagist or contains no packages
+     *
      * @param Storage $storage
      */
     protected function cleanupVendors(Storage $storage)
