@@ -1,4 +1,13 @@
 {namespace marketplace=Neos\MarketPlace\ViewHelpers}
 <li{attributes -> f:format.raw()}>
-    <a href="#version:{version}">{version} <small class="pull-right">{time -> marketplace:format.relativeDate(compact: 1)}</small></a>
+<a href="#version:{version}" class="version-nav__link">
+    <span class="version-nav__version">
+        {version}
+    </span>
+    <f:if condition="{time}">
+        <span class="version-nav__time">
+            {time -> marketplace:format.relativeDate(compact: 1)}
+        </span>
+    </f:if>
+</a>
 </li>

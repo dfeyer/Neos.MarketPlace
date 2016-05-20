@@ -2,7 +2,6 @@ import 'whatwg-fetch';
 import {component} from '@reduct/component';
 import propTypes from '@reduct/nitpick';
 import hashChange from 'hash-change';
-import addClass from 'dom-add-class';
 
 const serviceUrlPattern = '/ttree/outofbandrendering?preset=marketplace:version&node={{ path }}&version={{ version }}';
 

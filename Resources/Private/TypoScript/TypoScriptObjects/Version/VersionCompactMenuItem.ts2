@@ -1,3 +1,0 @@
-prototype(Neos.MarketPlace:VersionCompactMenuItem) < prototype(Neos.MarketPlace:VersionMenuItem) {
-    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Version/VersionCompactMenuItem.html'
-}
