@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import assembler from '@reduct/assembler';
 import * as components from './Components/';
 
