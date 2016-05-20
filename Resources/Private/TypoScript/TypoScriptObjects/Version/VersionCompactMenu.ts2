@@ -1,3 +1,5 @@
 prototype(Neos.MarketPlace:VersionCompactMenu) < prototype(Neos.MarketPlace:VersionMenu) {
-    versions.itemRenderer = Neos.MarketPlace:VersionCompactMenuItem
+    prototype(Neos.MarketPlace:VersionMenuItem) {
+        time = ${null}
+    }
 }

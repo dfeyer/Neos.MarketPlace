@@ -4,8 +4,13 @@ prototype(Neos.MarketPlace:VersionMenu) < prototype(TypoScript:Template) {
     collection = Neos.MarketPlace:VersionsQuery
     @context.versions = ${this.collection}
 
-    attributes {
-        class = 'nav nav--stacked'
+    wrapperAttributes = TypoScript:Attributes {
+        data-component = 'ShowMore'
+        data-selector = 'ul'
+    }
+
+    attributes = TypoScript:Attributes  {
+        class = 'version-nav'
     }
 
     title = 'Released Versions'

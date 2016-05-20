@@ -5,31 +5,12 @@ prototype(Neos.MarketPlace:PackageMenu) < prototype(TypoScript:Tag) {
 
     tagName = 'ul'
     attributes {
-        class = 'nav nav--stacked'
+        class = 'package-nav'
     }
     content = TypoScript:Collection {
         collection = ${q(documentNode).find('[instanceof Neos.MarketPlace:Package]')}
         collection.@process.sort = ${value.sort('title', 'ASC')}
         itemRenderer = Neos.MarketPlace:PackageMenuItem
         itemName = 'package'
-    }
-}
-
-prototype(Neos.MarketPlace:PackageMenuItem) >
-prototype(Neos.MarketPlace:PackageMenuItem) < prototype(Neos.MarketPlace:Content) {
-    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Package/PackageMenuItem.html'
-    attributes {
-        class = 'nav__item'
-    }
-    @context.package = ${package}
-
-    vendor = Neos.MarketPlace:ClosestVendorQuery
-    vendorName = ${q(this.vendor).property('title')}
-
-    name = ${q(package).property('title')}
-    name.@process.removeVendorName = ${skipVendorName ? String.replace(value, this.vendorName + '/', '') : value}
-
-    uri = NodeUri {
-        node = ${package}
     }
 }
