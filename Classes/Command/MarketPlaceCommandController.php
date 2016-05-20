@@ -49,13 +49,14 @@ class MarketPlaceCommandController extends CommandController
     /**
      * @param string $package
      * @param boolean $disableIndexing
+     * @param boolean $force
      * @return void
      */
-    public function syncCommand($package = null, $disableIndexing = false)
+    public function syncCommand($package = null, $disableIndexing = false, $force = false)
     {
         $beginTime = microtime(true);
 
-        $sync = function () use ($package, $beginTime) {
+        $sync = function () use ($package, $beginTime, $force) {
             $hasError = false;
             $elapsedTime = function ($timer = null) use ($beginTime) {
                 return microtime(true) - ($timer ?: $beginTime);
@@ -65,10 +66,10 @@ class MarketPlaceCommandController extends CommandController
             $this->outputLine('Synchronize with Packagist ...');
             $this->outputLine('------------------------------');
             $storage = new Storage();
-            $process = function (Package $package) use ($storage, &$count) {
+            $process = function (Package $package) use ($storage, &$count, $force) {
                 $count++;
                 $this->outputLine(sprintf('  %d/ %s (%s)', $count, $package->getName(), $package->getTime()));
-                $this->importer->process($package, $storage);
+                $this->importer->process($package, $storage, $force);
             };
             if ($package === null) {
                 $this->logger->log(sprintf('action=%s', LogAction::FULL_SYNC_STARTED), LOG_INFO);

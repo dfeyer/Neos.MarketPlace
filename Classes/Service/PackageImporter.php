@@ -53,17 +53,20 @@ class PackageImporter implements PackageImporterInterface
     protected $processedPackages = [];
 
     /**
-     * @param Package $package
-     * @param Storage $storage
-     * @return NodeInterface
+     * {@inheritdoc}
      */
-    public function process(Package $package, Storage $storage)
+    public function process(Package $package, Storage $storage, $force = false)
     {
         $configuration = $this->configurationBuilder->build();
         $configuration->setTypeConverterOption(
             PackageConverter::class,
             PackageConverter::STORAGE,
             $storage
+        );
+        $configuration->setTypeConverterOption(
+            PackageConverter::class,
+            PackageConverter::FORCE,
+            $force
         );
         $node = $this->propertyMapper->convert($package, NodeInterface::class, $configuration);
         $this->processedPackages[$package->getName()] = true;
