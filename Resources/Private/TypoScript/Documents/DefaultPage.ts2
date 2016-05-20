@@ -4,9 +4,11 @@ prototype(Neos.NeosIo:DefaultPage) {
             path = 'resource://Neos.MarketPlace/Public/Styles/Main.css'
             @position = 'after site'
         }
+    }
+    body {
         javascripts.neosMarketPlace = Ttree.Script:DeferScriptTag {
             path = 'resource://Neos.MarketPlace/Public/JavaScript/Bundle.min.js'
-            @position = 'end'
+            @position = 'after site'
         }
     }
 }
