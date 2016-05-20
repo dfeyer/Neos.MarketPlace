@@ -47,15 +47,18 @@ class MarketPlaceCommandController extends CommandController
     protected $logger;
 
     /**
-     * @param string $package
-     * @param boolean $disableIndexing
+     * Sync packages from Packagist
+     *
+     * @param string $package Sync only the given package
+     * @param boolean $disableIndexing Disable live indexing
+     * @param boolean $force Force sync even if the package is not update on packagist
      * @return void
      */
-    public function syncCommand($package = null, $disableIndexing = false)
+    public function syncCommand($package = null, $disableIndexing = false, $force = false)
     {
         $beginTime = microtime(true);
 
-        $sync = function () use ($package, $beginTime) {
+        $sync = function () use ($package, $beginTime, $force) {
             $hasError = false;
             $elapsedTime = function ($timer = null) use ($beginTime) {
                 return microtime(true) - ($timer ?: $beginTime);
@@ -65,10 +68,10 @@ class MarketPlaceCommandController extends CommandController
             $this->outputLine('Synchronize with Packagist ...');
             $this->outputLine('------------------------------');
             $storage = new Storage();
-            $process = function (Package $package) use ($storage, &$count) {
+            $process = function (Package $package) use ($storage, &$count, $force) {
                 $count++;
                 $this->outputLine(sprintf('  %d/ %s (%s)', $count, $package->getName(), $package->getTime()));
-                $this->importer->process($package, $storage);
+                $this->importer->process($package, $storage, $force);
             };
             if ($package === null) {
                 $this->logger->log(sprintf('action=%s', LogAction::FULL_SYNC_STARTED), LOG_INFO);
@@ -124,6 +127,8 @@ class MarketPlaceCommandController extends CommandController
     }
 
     /**
+     * Remove packages that don't exist on Packagist
+     *
      * @param Storage $storage
      */
     protected function cleanupPackages(Storage $storage)
@@ -140,6 +145,8 @@ class MarketPlaceCommandController extends CommandController
     }
 
     /**
+     * Remove vendors that don't exist on Packagist or contains no packages
+     *
      * @param Storage $storage
      */
     protected function cleanupVendors(Storage $storage)

@@ -47,6 +47,11 @@ class PackageConverter extends AbstractTypeConverter
     const STORAGE = 'storage';
 
     /**
+     * @var string
+     */
+    const FORCE = 'force';
+
+    /**
      * @var NodeTypeManager
      * @Flow\Inject
      */
@@ -89,16 +94,16 @@ class PackageConverter extends AbstractTypeConverter
         /** @var Package $package */
         $package = $source;
         $storage = $this->getStorage($configuration);
+        $force = $this->getForce($configuration);
         $vendor = explode('/', $package->getName())[0];
         $identifier = Slug::create($package->getName());
         $vendorNode = $storage->createVendor($vendor);
-
         /** @var PackageNode $packageNode */
         $packageNode = $vendorNode->getNode($identifier);
         if ($packageNode === null) {
             $node = $this->create($package, $vendorNode);
         } else {
-            if ($this->packageRequireUpdate($package, $packageNode)) {
+            if ($this->packageRequireUpdate($package, $packageNode) || $force === true) {
                 $node = $this->update($package, $packageNode);
             } else {
                 return $packageNode;
@@ -571,6 +576,23 @@ class PackageConverter extends AbstractTypeConverter
             throw new InvalidPropertyMappingConfigurationException('Storage must be a NodeInterface instances', 1457516377);
         }
         return $storage;
+    }
+
+    /**
+     * Is force mode enabled
+     *
+     * If force mode is enabled the package is update regardless the last updated version.
+     *
+     * @param PropertyMappingConfigurationInterface|null $configuration
+     * @return bool
+     * @throws InvalidPropertyMappingConfigurationException
+     */
+    protected function getForce(PropertyMappingConfigurationInterface $configuration = null)
+    {
+        if ($configuration === null) {
+            throw new InvalidPropertyMappingConfigurationException('Missing property configuration', 1457516367);
+        }
+        return (boolean)$configuration->getConfigurationValue(PackageConverter::class, self::FORCE);
     }
 
     /**
