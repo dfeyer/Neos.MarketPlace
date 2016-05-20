@@ -7,8 +7,13 @@ prototype(Neos.MarketPlace:DocumentSearchResult) < prototype(DocumentSearchResul
 
     @cache {
         mode = 'cached'
+
         entryIdentifier {
             node = ${node}
+        }
+
+        entryTags {
+            1 = ${'Node_' + node.identifier}
         }
     }
 }

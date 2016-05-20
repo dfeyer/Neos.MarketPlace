@@ -11,12 +11,16 @@ namespace Neos\MarketPlace\Property\TypeConverter;
  * source code.
  */
 
+use Github\Api\Repository\Contents;
 use Github\Client;
 use Github\Exception\ApiLimitExceedException;
 use Github\Exception\RuntimeException;
 use Github\HttpClient\CachedHttpClient;
+use Neos\MarketPlace\Domain\Model\PackageNode;
 use Neos\MarketPlace\Domain\Model\Slug;
 use Neos\MarketPlace\Domain\Model\Storage;
+use Neos\MarketPlace\Domain\Model\VersionNode;
+use Neos\MarketPlace\Service\PackageVersion;
 use Neos\MarketPlace\Utility\VersionNumber;
 use Packagist\Api\Result\Package;
 use TYPO3\Eel\FlowQuery\FlowQuery;
@@ -47,6 +51,12 @@ class PackageConverter extends AbstractTypeConverter
      * @Flow\Inject
      */
     protected $nodeTypeManager;
+
+    /**
+     * @var PackageVersion
+     * @Flow\Inject
+     */
+    protected $packageVersion;
 
     /**
      * @var array<string>
@@ -82,20 +92,50 @@ class PackageConverter extends AbstractTypeConverter
         $vendor = explode('/', $package->getName())[0];
         $identifier = Slug::create($package->getName());
         $vendorNode = $storage->createVendor($vendor);
+
+        /** @var PackageNode $packageNode */
         $packageNode = $vendorNode->getNode($identifier);
         if ($packageNode === null) {
             $node = $this->create($package, $vendorNode);
         } else {
-            $node = $this->update($package, $packageNode);
+            if ($this->packageRequireUpdate($package, $packageNode)) {
+                $node = $this->update($package, $packageNode);
+            } else {
+                return $packageNode;
+            }
         }
+
         $this->createOrUpdateMaintainers($package, $node);
         $this->createOrUpdateVersions($package, $node);
+
+        $this->getPackageLastActivity($node);
+        $this->getVendorLastActivity($vendorNode);
 
         $this->handleDownloads($package, $node);
         $this->handleGithubMetrics($package, $node);
 
         $this->handleAbandonedPackageOrVersion($package, $node);
         return $node;
+    }
+
+    /**
+     * @param Package $package
+     * @param PackageNode $packageNode
+     * @return boolean
+     */
+    protected function packageRequireUpdate(Package $package, PackageNode $packageNode) {
+        $lastActivities = [];
+        /** @var Package\Version $version */
+        foreach ($package->getVersions() as $version) {
+            $time = \DateTime::createFromFormat(\DateTime::ISO8601, $version->getTime());
+            $lastActivities[$time->getTimestamp()] = $time;
+        }
+        krsort($lastActivities);
+        $lastActivity = reset($lastActivities);
+        if (!$lastActivity) {
+            $lastActivity = new \DateTime();
+        }
+        return (!($packageNode->getLastActivity() instanceof \DateTime) || $lastActivity > $packageNode->getLastActivity());
     }
 
     /**
@@ -174,24 +214,43 @@ class PackageConverter extends AbstractTypeConverter
             $httpClient->setHeaders([
                 'Accept' => 'application/vnd.github.VERSION.html'
             ]);
+
             $client = new Client($httpClient);
             $client->authenticate($this->githubSettings['account'], $this->githubSettings['password']);
-            $readme = trim($client->repository()->readme($oganization, $repository));
-            if ($readme === '') {
-                return;
-            }
-            $query = new FlowQuery([$node]);
-            $readmeNode = $query
-                ->find('readme')
-                ->get(0);
 
+            $contents = new Contents($client);
+            $content = $contents->readme($oganization, $repository);
+            $content = $this->postprocessGithubReadme($oganization, $repository, $content);
+
+            $readmeNode = $node->getNode('readme');
             if ($readmeNode === null) {
                 return;
             }
-            $readmeNode->setProperty('source', $readme);
+            $readmeNode->setProperty('source', $content);
         } catch (\Exception $exception) {
 
         }
+    }
+
+    /**
+     * @param string $oganization
+     * @param string $repository
+     * @param string $content
+     * @return string
+     */
+    protected function postprocessGithubReadme($oganization, $repository, $content)
+    {
+        $content = trim($content);
+        $domain = 'https://raw.githubusercontent.com/' . $oganization . '/' . $repository . '/master/';
+        $r = [
+            '#<svg aria-hidden="true" class="octicon octicon-link"[^>]*>.*?<\s*/\s*svg>#msi' => '',
+            '#<a[^>]*><\s*/\s*a>#msi' => '',
+            '#<article[^>]*>(.*)<\s*/\s*article>#msi' => '$1',
+            '#<div class="announce[^>]*>(.*)<\s*/\s*div>$#msi' => '$1',
+            '/href="(?!https?:\/\/)(?!data:)(?!#)/' => 'href="'.$domain,
+            '/src="(?!https?:\/\/)(?!data:)(?!#)/' => 'src="'.$domain
+        ];
+        return trim(preg_replace(array_keys($r), array_values($r), $content));
     }
 
     /**
@@ -349,7 +408,7 @@ class PackageConverter extends AbstractTypeConverter
                 'license' => $this->arrayToStringCaster($version->getLicense()),
                 'type' => $version->getType(),
                 'time' => \DateTime::createFromFormat(\DateTime::ISO8601, $version->getTime()),
-                'provide' => $version->getProvide(),
+                'provide' => $this->arrayToJsonCaster($version->getProvide()),
                 'bin' => $this->arrayToJsonCaster($version->getBin()),
                 'require' => $this->arrayToJsonCaster($version->getRequire()),
                 'requireDev' => $this->arrayToJsonCaster($version->getRequireDev()),
@@ -401,6 +460,54 @@ class PackageConverter extends AbstractTypeConverter
 
             $this->handleAbandonedPackageOrVersion($package, $node);
         }
+    }
+
+    /**
+     * @param NodeInterface $packageNode
+     */
+    protected function getPackageLastActivity(NodeInterface $packageNode)
+    {
+        $versions = $packageNode->getNode('versions')->getChildNodes();
+
+        $sortedVersions = [];
+        /** @var VersionNode $version */
+        foreach ($versions as $version) {
+            $lastActivity = $version->getLastActivity();
+            if (!$lastActivity instanceof \DateTime) {
+                continue;
+            }
+            $sortedVersions[$version->getLastActivity()->getTimestamp()] = $version;
+        }
+        krsort($sortedVersions);
+        /** @var VersionNode $lastActiveVersion */
+        $lastActiveVersion = reset($sortedVersions);
+
+        $packageNode->setProperty('lastActivity', $lastActiveVersion->getLastActivity());
+        $lastVersion = $this->packageVersion->extractLastVersion($packageNode);
+        $packageNode->setProperty('lastVersion', $lastVersion);
+    }
+
+    /**
+     * @param NodeInterface $vendorNode
+     */
+    protected function getVendorLastActivity(NodeInterface $vendorNode)
+    {
+        $packages = $vendorNode->getChildNodes('Neos.MarketPlace:Package');
+
+        $sortedPackages = [];
+        /** @var PackageNode $package */
+        foreach ($packages as $package) {
+            $lastActivity = $package->getLastActivity();
+            if (!$lastActivity instanceof \DateTime) {
+                continue;
+            }
+            $sortedPackages[$lastActivity->getTimestamp()] = $package;
+        }
+        krsort($sortedPackages);
+        /** @var PackageNode $lastActiveVersion */
+        $lastActivePackage = reset($sortedPackages);
+
+        $vendorNode->setProperty('lastActivity', $lastActivePackage->getLastActivity());
     }
 
     /**

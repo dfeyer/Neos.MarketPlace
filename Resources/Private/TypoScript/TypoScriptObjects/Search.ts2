@@ -29,23 +29,27 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     }
 
     configuration {
-        itemsPerPage = 25
+        itemsPerPage = 30
         insertAbove = ${false}
         insertBelow = ${true}
-        maximumNumberOfLinks = 6
+        maximumNumberOfLinks = 5
     }
 
-    actionNode = ${node}
-    @context.actionNode = ${this.actionNode}
-    @context.searchTerm = ${this.searchTerm}
+    @context.actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
 
     hasSearchQuery = ${String.isBlank(request.arguments.search) ? false : true}
 
     query = ${MarketPlaceSearch.query(documentNode)}
+
     query.@process.nodeType = ${value.nodeType('Neos.MarketPlace:Package')}
+
     query.@process.fulltext = ${this.hasSearchQuery ? value.fulltext(this.searchTerm) : value}
-    query.@process.sort = ${this.hasSearchQuery ? value : value.sortDesc('__lastVersion.time')}
+
+    query.@process.sort = ${this.hasSearchQuery ? value : value.sortDesc('lastActivity')}
+
     query.@process.log = ${value.log('marketplace')}
+
+    showResult = ${true}
 
     searchQuery = ${this.query}
 

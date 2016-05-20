@@ -8,6 +8,9 @@
 			<trans-unit id="properties.title" xml:space="preserve">
 				<source>Name</source>
 			</trans-unit>
+			<trans-unit id="properties.lastActivity" xml:space="preserve">
+				<source>Last Activity</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

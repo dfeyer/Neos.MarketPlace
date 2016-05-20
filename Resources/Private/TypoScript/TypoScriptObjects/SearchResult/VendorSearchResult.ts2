@@ -1,5 +1,5 @@
 prototype(Neos.MarketPlace:VendorSearchResult) < prototype(Neos.MarketPlace:DocumentSearchResult) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/SearchResult/VendorSearchResult.html'
 
-    lastActivity = ${q(node).lastActivity()}
+    lastActivity = ${q(node).property('lastActivity')}
 }

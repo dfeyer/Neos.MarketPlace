@@ -42,4 +42,14 @@ class PackageRepository
         $client = new Client();
         return $client->all(['type' => $type]);
     }
+
+    /**
+     * @param string $vendor
+     * @return array
+     */
+    public function findByVendor($vendor)
+    {
+        $client = new Client();
+        return $client->all(['vendor' => $vendor]);
+    }
 }

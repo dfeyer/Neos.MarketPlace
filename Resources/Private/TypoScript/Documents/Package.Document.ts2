@@ -2,18 +2,17 @@ prototype(Neos.MarketPlace:Package.Document) < prototype(Neos.MarketPlace:Defaul
     body {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Package.html'
         partialRootPath = 'resource://Neos.NeosIo/Private/Templates/Page/Partials'
+
         parts {
             sectionTitle >
             subMenu = Neos.MarketPlace:Package.SubMenu
             form = Neos.MarketPlace:Search {
-                searchQuery = ${null}
-                actionNode = Neos.MarketPlace:ClosestRepositoryStorageNodeQuery
+                showResult = ${false}
             }
         }
+
         content {
-            main = TypoScript:Array {
-                package = Neos.MarketPlace:Package
-            }
+            main = Neos.MarketPlace:Package
         }
     }
 }

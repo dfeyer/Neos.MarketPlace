@@ -1,0 +1,18 @@
+prototype(Neos.MarketPlace:VersionMenu) < prototype(TypoScript:Template) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/Version/VersionMenu.html'
+
+    collection = Neos.MarketPlace:VersionsQuery
+    @context.versions = ${this.collection}
+
+    attributes {
+        class = 'nav nav--stacked'
+    }
+
+    title = 'Released Versions'
+
+    versions = TypoScript:Collection {
+        collection = ${versions}
+        itemRenderer = Neos.MarketPlace:VersionMenuItem
+        itemName = 'node'
+    }
+}

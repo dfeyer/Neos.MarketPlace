@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import {component} from '@reduct/component';
 import propTypes from '@reduct/nitpick';
 import hashChange from 'hash-change';
+import addClass from 'dom-add-class';
 
 const serviceUrlPattern = '/ttree/outofbandrendering?preset=marketplace:version&node={{ path }}&version={{ version }}';
 
@@ -26,6 +27,8 @@ export default class PackageVersionBrowserComponent {
   load(version) {
     let {path} = this.props;
 
+    this.el.classList.toggle('version--hide');
+
     let url = serviceUrlPattern
       .replace('{{ path }}', path)
       .replace('{{ version }}', version);
@@ -43,6 +46,7 @@ export default class PackageVersionBrowserComponent {
         }
 
         this.el.appendChild(article);
+        this.el.classList.toggle('version--hide');
         this.version = version;
       })
   }

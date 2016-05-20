@@ -1,10 +1,14 @@
 prototype(Neos.MarketPlace:PackageSearchResult) < prototype(Neos.MarketPlace:DocumentSearchResult) {
     templatePath = 'resource://Neos.MarketPlace/Private/Templates/TypoScriptObjects/SearchResult/PackageSearchResult.html'
 
-    lastActivity = ${q(node).lastActivity()}
-    lastVersion = ${q(node).lastVersion().get(0)}
+    lastActivity = Neos.MarketPlace:PackageLastActivity
 
-    description = ${String.isBlank(q(lastVersion).property('description')) ? q(node).property('description') : q(lastVersion).property('description')}
+    lastVersion = ${q(node).property('lastVersion')}
+
+    lastVersionLabel = ${q(this.lastVersion).property('version')}
+    lastVersionTime = ${q(this.lastVersion).property('time')}
+
+    description = ${String.isBlank(q(this.lastVersion).property('description')) ? q(node).property('description') : q(this.lastVersion).property('description')}
 
     metrics = Neos.MarketPlace:PackageMetrics {
         attributes.class.@process.pullRight = ${value + ' pull-right'}

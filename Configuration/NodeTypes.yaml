@@ -127,6 +127,7 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Vendor
 'Neos.MarketPlace:Vendor':
+  class: 'Neos\MarketPlace\Domain\Model\VendorNode'
   superTypes:
     'Neos.MarketPlace:Document': true
   constraints:
@@ -147,9 +148,16 @@ githubProperty: &githubProperty
         label: i18n
         inspector:
           position: 1
-    __lastActivity:
+    lastActivity:
+      type: DateTime
+      ui:
+        label: i18n
+        inspector:
+          group: 'document'
+          editorOptions:
+            format: 'd-m-Y H:i'
       search:
-        indexing: '${Date.format(q(node).lastActivity(), "Y-m-d\TH:i:sP")}'
+        indexing: '${Date.format(node.lastActivity, "Y-m-d\TH:i:sP")}'
         elasticSearchMapping:
           type: date
           include_in_all: false
@@ -176,6 +184,7 @@ githubProperty: &githubProperty
 #
 # MarketPlace:Package
 'Neos.MarketPlace:Package':
+  class: 'Neos\MarketPlace\Domain\Model\PackageNode'
   superTypes:
     'Neos.MarketPlace:Document': true
   ui:
@@ -234,8 +243,11 @@ githubProperty: &githubProperty
     time:
       type: DateTime
       ui:
-        <<: *documentProperty
         label: i18n
+        inspector:
+          group: 'document'
+          editorOptions:
+            format: 'd-m-Y H:i'
     type:
       type: string
       ui:
@@ -255,6 +267,31 @@ githubProperty: &githubProperty
       ui:
         <<: *documentProperty
         label: i18n
+    lastActivity:
+      type: DateTime
+      ui:
+        label: i18n
+        inspector:
+          group: 'document'
+          editorOptions:
+            format: 'd-m-Y H:i'
+      search:
+        indexing: '${Date.format(node.lastActivity, "Y-m-d\TH:i:sP")}'
+        elasticSearchMapping:
+          type: date
+          include_in_all: false
+          format: 'date_time_no_millis'
+    lastVersion:
+      type: reference
+      ui:
+        label: i18n
+        inspector:
+          group: 'document'
+          editorOptions:
+            nodeTypes: ['Neos.MarketPlace:Version']
+      search:
+        indexing: "${MarketIndexing.prepareVersion(q(node).property('lastVersion'))}"
+        <<: *versionDefaultMapping
     downloadTotal:
       type: integer
       ui:
@@ -300,13 +337,6 @@ githubProperty: &githubProperty
       ui:
         <<: *githubProperty
         label: i18n
-    __lastActivity:
-      search:
-        indexing: '${Date.format(q(node).lastActivity(), "Y-m-d\TH:i:sP")}'
-        elasticSearchMapping:
-          type: date
-          include_in_all: false
-          format: 'date_time_no_millis'
     __readme:
       search:
         fulltextExtractor: "${Indexing.extractHtmlTags(q(node).find('readme').first().property('source'))}"
@@ -341,26 +371,6 @@ githubProperty: &githubProperty
           type: string
           index: 'not_analyzed'
           include_in_all: true
-    __lastVersion:
-      search:
-        indexing: "${MarketIndexing.extractLastVersion(node)}"
-        <<: *versionDefaultMapping
-    __versions:
-      search:
-        indexing: "${MarketIndexing.extractVersions(node)}"
-        <<: *versionDefaultMapping
-    __maintainers:
-      search:
-        indexing: "${MarketIndexing.extractMaintainers(node)}"
-        elasticSearchMapping:
-          type: nested
-          properties:
-            name:
-              type: string
-            email:
-              type: string
-            homepage:
-              type: string
 
 #
 # MarketPlace:People
@@ -414,6 +424,7 @@ githubProperty: &githubProperty
 'Neos.MarketPlace:Version':
   abstract: true
   label: "${q(node).property('version') + ' (' + q(node).property('type') + ')'}"
+  class: 'Neos\MarketPlace\Domain\Model\VersionNode'
   superTypes:
     'TYPO3.Neos:Content': true
   childNodes:
