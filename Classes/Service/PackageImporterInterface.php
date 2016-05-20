@@ -13,6 +13,7 @@ namespace Neos\MarketPlace\Service;
 
 use Neos\MarketPlace\Domain\Model\Storage;
 use Packagist\Api\Result\Package;
+use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 
 /**
  * Package Importer Interface
@@ -24,8 +25,10 @@ interface PackageImporterInterface
     /**
      * @param Package $package
      * @param Storage $storage
+     * @param boolean $force
+     * @return NodeInterface
      */
-    public function process(Package $package, Storage $storage);
+    public function process(Package $package, Storage $storage, $force = false);
 
     /**
      * @return array
