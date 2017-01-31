@@ -132,7 +132,11 @@ class PackageConverter extends AbstractTypeConverter
         $lastActivities = [];
         /** @var Package\Version $version */
         foreach ($package->getVersions() as $version) {
-            $time = \DateTime::createFromFormat(\DateTime::ISO8601, $version->getTime());
+			$time = $version->getTime();
+			if ($time === null) {
+				continue;
+			}
+            $time = \DateTime::createFromFormat(\DateTime::ISO8601, $time);
             $lastActivities[$time->getTimestamp()] = $time;
         }
         krsort($lastActivities);

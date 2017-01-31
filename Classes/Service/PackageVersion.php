@@ -56,6 +56,9 @@ class PackageVersion
             $aTime = $a->getProperty('time');
             /** @var \DateTime $bTime */
             $bTime = $b->getProperty('time');
+            if ($aTime === false || $bTime === false) {
+            		return -1;
+			}
             return $bTime->getTimestamp() - $aTime->getTimestamp();
         });
         $stableVersions = array_filter($versions, function(NodeInterface $version) {
