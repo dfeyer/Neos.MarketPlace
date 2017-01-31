@@ -11,6 +11,7 @@ namespace Neos\MarketPlace\Property\TypeConverter;
  * source code.
  */
 
+use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Indexer\NodeIndexer;
 use Github\Api\Repository\Contents;
 use Github\Client;
 use Github\Exception\ApiLimitExceedException;
@@ -33,6 +34,7 @@ use TYPO3\Flow\Utility\Arrays;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
 use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
+use TYPO3\TypoScript\Core\Cache\ContentCache;
 
 /**
  * Convert package from packagist to node
@@ -80,6 +82,18 @@ class PackageConverter extends AbstractTypeConverter
     protected $githubSettings;
 
     /**
+     * @var NodeIndexer
+     * @Flow\Inject
+     */
+    protected $nodeIndexer;
+
+    /**
+     * @var ContentCache
+     * @Flow\Inject
+     */
+    protected $contentCache;
+
+    /**
      * Converts $source to a node
      *
      * @param string|integer|array $source the string to be converted to a \DateTime object
@@ -120,6 +134,10 @@ class PackageConverter extends AbstractTypeConverter
         $this->handleGithubMetrics($package, $node);
 
         $this->handleAbandonedPackageOrVersion($package, $node);
+
+        $this->nodeIndexer->indexNode($node);
+        $this->contentCache->flushByTag('Node_' . $node->getIdentifier());
+
         return $node;
     }
 
