@@ -91,6 +91,9 @@ class MarketPlaceCommandController extends CommandController
                 $this->cleanupPackages($storage);
                 $this->cleanupVendors($storage);
                 $this->logger->log(sprintf('action=%s duration=%f', LogAction::FULL_SYNC_FINISHED, $elapsedTime()), LOG_INFO);
+
+				$this->outputLine();
+				$this->outputLine(sprintf('%d package(s) imported with success', $this->importer->getProcessedPackagesCount()));
             } else {
                 $packageKey = $package;
                 $this->logger->log(sprintf('action=%s package=%s', LogAction::SINGLE_PACKAGE_SYNC_STARTED, $package), LOG_INFO);
@@ -104,10 +107,14 @@ class MarketPlaceCommandController extends CommandController
                     $this->logger->logException($exception);
                     $hasError = true;
                 }
-            }
 
-            $this->outputLine();
-            $this->outputLine(sprintf('%d package(s) imported with success', $this->importer->getProcessedPackagesCount()));
+				$this->outputLine();
+                if ($hasError) {
+					$this->outputLine(sprintf('Package "%s" import failed', $packageKey));
+				} else {
+					$this->outputLine(sprintf('Package "%s" imported with success', $packageKey));
+				}
+            }
 
             if ($hasError) {
                 $this->outputLine();
