@@ -19,14 +19,14 @@ use Neos\Neos\Domain\Service\NodeSearchServiceInterface;
 use Neos\Neos\Exception as NeosException;
 use Neos\Neos\Service\LinkingService;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
-use Neos\Fusion\TypoScriptObjects\AbstractTypoScriptObject;
+use Neos\Fusion\FusionObjects\AbstractFusionObject;
 
 /**
  * Package TypoScript Implementation
  *
  * @api
  */
-class PackageUriImplementation extends AbstractTypoScriptObject
+class PackageUriImplementation extends AbstractFusionObject
 {
     /**
      * @Flow\Inject

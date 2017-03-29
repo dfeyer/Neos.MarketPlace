@@ -13,7 +13,7 @@ namespace Neos\MarketPlace\TypoScriptObjects;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Fusion\Exception as TypoScriptException;
-use Neos\Fusion\TypoScriptObjects\AbstractCollectionImplementation;
+use Neos\Fusion\FusionObjects\AbstractCollectionImplementation;
 
 /**
  * Render a TypoScript collection of nodes
