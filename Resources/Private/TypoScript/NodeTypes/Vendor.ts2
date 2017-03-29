@@ -7,7 +7,7 @@ prototype(Neos.MarketPlace:Vendor) {
         nodePath = 'main'
     }
 
-    packages = TYPO3.TypoScript:Collection {
+    packages = Neos.Fusion:Collection {
         collection = ${q(node).children('[instanceof Neos.MarketPlace:Package]')}
         itemName = 'node'
         itemRenderer = Neos.MarketPlace:PackageSearchResult

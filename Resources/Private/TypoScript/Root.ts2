@@ -1,4 +1,4 @@
-namespace: TypoScript=TYPO3.TypoScript
+namespace: TypoScript=Neos.Fusion
 namespace: Neos=TYPO3.Neos
 namespace: MarketPlace=Neos.MarketPlace
 
