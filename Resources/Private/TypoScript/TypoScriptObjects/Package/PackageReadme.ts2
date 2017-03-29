@@ -13,7 +13,7 @@ prototype(Neos.MarketPlace:PackageReadme) < prototype(TypoScript:Template) {
 
     readme = Neos.Fusion:Collection {
         itemName = 'node'
-        itemRenderer = TYPO3.Neos:ContentCase
+        itemRenderer = Neos.Neos:ContentCase
         collection = ${q(documentNode).find('readme')}
     }
 }

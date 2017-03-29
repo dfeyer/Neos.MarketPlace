@@ -1,5 +1,5 @@
 namespace: TypoScript=Neos.Fusion
-namespace: Neos=TYPO3.Neos
+namespace: Neos=Neos.Neos
 namespace: MarketPlace=Neos.MarketPlace
 
 # todo can be remove when https://github.com/neos/neos-development-collection/pull/407 is merged
