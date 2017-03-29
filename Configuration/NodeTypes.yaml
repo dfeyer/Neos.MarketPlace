@@ -91,13 +91,8 @@ githubProperty:
     main:
       type: 'TYPO3.Neos:ContentCollection'
   superTypes:
-    'TYPO3.Neos:Document': '1'
-    'TYPO3.Neos.Seo:TitleTagMixin': ''
-    'TYPO3.Neos.Seo:SeoMetaTagsMixin': ''
-    'TYPO3.Neos.Seo:TwitterCardMixin': ''
-    'TYPO3.Neos.Seo:CanonicalLinkMixin': ''
-    'TYPO3.Neos.Seo:OpenGraphMixin': ''
-    'TYPO3.Neos.Seo:XmlSitemapMixin': ''
+    'TYPO3.Neos:Document': true
+    '': true
   constraints:
     nodeTypes:
       '*': false
@@ -105,7 +100,7 @@ githubProperty:
       'Neos.MarketPlace:RepositoryStorage': false
 'Neos.MarketPlace:RepositoryStorage':
   superTypes:
-    'Neos.MarketPlace:Document': '1'
+    'Neos.MarketPlace:Document': true
   ui:
     label: i18n
     icon: icon-search
@@ -115,7 +110,7 @@ githubProperty:
 'Neos.MarketPlace:Vendor':
   class: Neos\MarketPlace\Domain\Model\VendorNode
   superTypes:
-    'Neos.MarketPlace:Document': '1'
+    'Neos.MarketPlace:Document': true
   constraints:
     nodeTypes:
       'Neos.MarketPlace:Package': true
@@ -169,7 +164,7 @@ githubProperty:
 'Neos.MarketPlace:Package':
   class: Neos\MarketPlace\Domain\Model\PackageNode
   superTypes:
-    'Neos.MarketPlace:Document': '1'
+    'Neos.MarketPlace:Document': true
   ui:
     label: i18n
     icon: icon-gift
@@ -420,7 +415,7 @@ githubProperty:
 'Neos.MarketPlace:People':
   abstract: true
   superTypes:
-    'TYPO3.Neos:Content': '1'
+    'TYPO3.Neos:Content': true
   properties:
     title:
       type: string
@@ -445,7 +440,7 @@ githubProperty:
         label: i18n
 'Neos.MarketPlace:Maintainer':
   superTypes:
-    'Neos.MarketPlace:People': '1'
+    'Neos.MarketPlace:People': true
   search:
     fulltext:
       enable: false
@@ -454,7 +449,7 @@ githubProperty:
     icon: icon-user
 'Neos.MarketPlace:Author':
   superTypes:
-    'Neos.MarketPlace:People': '1'
+    'Neos.MarketPlace:People': true
   search:
     fulltext:
       enable: false
@@ -466,7 +461,7 @@ githubProperty:
   label: '${q(node).property(''version'') + '' ('' + q(node).property(''type'') + '')''}'
   class: Neos\MarketPlace\Domain\Model\VersionNode
   superTypes:
-    'TYPO3.Neos:Content': '1'
+    'TYPO3.Neos:Content': true
   childNodes:
     source:
       position: 'before main'
@@ -641,22 +636,22 @@ githubProperty:
           group: null
 'Neos.MarketPlace:ReleasedVersion':
   superTypes:
-    'Neos.MarketPlace:Version': '1'
+    'Neos.MarketPlace:Version': true
   ui:
     label: i18n
 'Neos.MarketPlace:PrereleasedVersion':
   superTypes:
-    'Neos.MarketPlace:Version': '1'
+    'Neos.MarketPlace:Version': true
   ui:
     label: i18n
 'Neos.MarketPlace:DevelopmentVersion':
   superTypes:
-    'Neos.MarketPlace:Version': '1'
+    'Neos.MarketPlace:Version': true
   ui:
     label: i18n
 'Neos.MarketPlace:Source':
   superTypes:
-    'TYPO3.Neos:Content': '1'
+    'TYPO3.Neos:Content': true
   properties:
     type:
       type: string
@@ -672,7 +667,7 @@ githubProperty:
         label: i18n
 'Neos.MarketPlace:Dist':
   superTypes:
-    'Neos.MarketPlace:Source': '1'
+    'Neos.MarketPlace:Source': true
   properties:
     shasum:
       type: string
@@ -680,7 +675,7 @@ githubProperty:
         label: i18n
 'Neos.MarketPlace:Readme':
   superTypes:
-    'TYPO3.Neos.NodeTypes:Html': '1'
+    'TYPO3.Neos.NodeTypes:Html': true
   ui:
     label: i18n
     group: marketplace
@@ -690,7 +685,7 @@ githubProperty:
         fulltextExtractor: '${Indexing.extractHtmlTags(value)}'
 'Neos.MarketPlace:PackageHighlight':
   superTypes:
-    'TYPO3.Neos.NodeTypes:ContentReferences': '1'
+    'TYPO3.Neos.NodeTypes:ContentReferences': true
   ui:
     label: i18n
     group: marketplace
