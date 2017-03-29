@@ -13,7 +13,7 @@ namespace Neos\MarketPlace\Eel;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\ActionRequest;
-use Neos\Flow\Utility\Arrays;
+use Neos\Utility\Arrays;
 use Neos\Flow\Utility\Unicode\Functions;
 use TYPO3\Neos\TypoScript\Helper\CachingHelper as TypoScriptCachingHelper;
 

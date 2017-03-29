@@ -13,7 +13,7 @@ namespace Neos\MarketPlace\Eel;
 
 use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Eel;
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Utility\Arrays;
+use Neos\Utility\Arrays;
 
 /**
  * ElasticSearchQueryBuilder
