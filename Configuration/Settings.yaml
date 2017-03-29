@@ -32,9 +32,6 @@ Neos:
       account: username
       password: password
   Neos:
-    typoScript:
-      autoInclude:
-        Neos.MarketPlace: true
     nodeTypes:
       groups:
         marketplace:
@@ -46,6 +43,9 @@ Neos:
           Neos.MarketPlace:
             - Main
             - 'NodeTypes/*'
+    fusion:
+      autoInclude:
+        Neos.MarketPlace: true
   ContentRepository:
     Search:
       defaultContext:
