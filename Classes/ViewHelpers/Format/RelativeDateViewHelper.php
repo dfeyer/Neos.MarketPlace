@@ -13,7 +13,7 @@ namespace Neos\MarketPlace\ViewHelpers\Format;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Utility\Now;
-use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
+use Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Renders a DateTime formatted relative to the current date
