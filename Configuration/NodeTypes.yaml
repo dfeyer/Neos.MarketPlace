@@ -675,7 +675,7 @@ githubProperty:
         label: i18n
 'Neos.MarketPlace:Readme':
   superTypes:
-    'TYPO3.Neos.NodeTypes:Html': true
+    'Neos.NodeTypes:Html': true
   ui:
     label: i18n
     group: marketplace
@@ -685,7 +685,7 @@ githubProperty:
         fulltextExtractor: '${Indexing.extractHtmlTags(value)}'
 'Neos.MarketPlace:PackageHighlight':
   superTypes:
-    'TYPO3.Neos.NodeTypes:ContentReferences': true
+    'Neos.NodeTypes:ContentReferences': true
   ui:
     label: i18n
     group: marketplace
