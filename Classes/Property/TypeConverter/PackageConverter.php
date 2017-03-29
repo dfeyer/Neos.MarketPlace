@@ -24,7 +24,7 @@ use Neos\MarketPlace\Domain\Model\VersionNode;
 use Neos\MarketPlace\Service\PackageVersion;
 use Neos\MarketPlace\Utility\VersionNumber;
 use Packagist\Api\Result\Package;
-use TYPO3\Eel\FlowQuery\FlowQuery;
+use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Property\Exception\InvalidPropertyMappingConfigurationException;
 use Neos\Flow\Property\Exception\TypeConverterException;

@@ -15,7 +15,7 @@ use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Domain\Repository\PackageRepository;
 use Neos\MarketPlace\Property\TypeConverter\PackageConverter;
 use Packagist\Api\Result\Package;
-use TYPO3\Eel\FlowQuery\FlowQuery;
+use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Property\PropertyMapper;
 use Neos\Flow\Property\PropertyMappingConfigurationBuilder;

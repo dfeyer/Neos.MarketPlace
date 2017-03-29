@@ -12,7 +12,7 @@ namespace Neos\MarketPlace\Eel;
  */
 
 use Neos\MarketPlace\Service\PackageVersion;
-use TYPO3\Eel\FlowQuery\FlowQuery;
+use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Annotations as Flow;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TYPO3CR\Search\Eel;
