@@ -1,4 +1,4 @@
-prototype(Neos.MarketPlace:PackageHighlight) < prototype(TYPO3.Neos.NodeTypes:ContentReferences) {
+prototype(Neos.MarketPlace:PackageHighlight) < prototype(Neos.NodeTypes:ContentReferences) {
     referenceNodes {
         itemRenderer = Neos.MarketPlace:PackageHighlightItem
     }
