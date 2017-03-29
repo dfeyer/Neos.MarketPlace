@@ -34,7 +34,7 @@ use Neos\Utility\Arrays;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\ContentRepository\Domain\Model\NodeTemplate;
 use Neos\ContentRepository\Domain\Service\NodeTypeManager;
-use TYPO3\TypoScript\Core\Cache\ContentCache;
+use Neos\Fusion\Core\Cache\ContentCache;
 
 /**
  * Convert package from packagist to node

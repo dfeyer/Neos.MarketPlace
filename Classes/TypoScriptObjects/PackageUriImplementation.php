@@ -19,7 +19,7 @@ use Neos\Neos\Domain\Service\NodeSearchServiceInterface;
 use Neos\Neos\Exception as NeosException;
 use Neos\Neos\Service\LinkingService;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
-use TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject;
+use Neos\Fusion\TypoScriptObjects\AbstractTypoScriptObject;
 
 /**
  * Package TypoScript Implementation

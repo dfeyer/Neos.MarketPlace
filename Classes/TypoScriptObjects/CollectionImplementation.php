@@ -12,8 +12,8 @@ namespace Neos\MarketPlace\TypoScriptObjects;
  */
 
 use Neos\Flow\Annotations as Flow;
-use TYPO3\TypoScript\Exception as TypoScriptException;
-use TYPO3\TypoScript\TypoScriptObjects\AbstractCollectionImplementation;
+use Neos\Fusion\Exception as TypoScriptException;
+use Neos\Fusion\TypoScriptObjects\AbstractCollectionImplementation;
 
 /**
  * Render a TypoScript collection of nodes
@@ -47,7 +47,7 @@ class CollectionImplementation extends AbstractCollectionImplementation
         $this->numberOfRenderedNodes = 0;
         $itemName = $this->getItemName();
         if ($itemName === null) {
-            throw new \TYPO3\TypoScript\Exception('The Collection needs an itemName to be set.', 1344325771);
+            throw new \Neos\Fusion\Exception('The Collection needs an itemName to be set.', 1344325771);
         }
         $itemKey = $this->getItemKey();
         $iterationName = $this->getIterationName();

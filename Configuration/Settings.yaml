@@ -50,8 +50,7 @@ Neos:
     Search:
       defaultContext:
         MarketIndexing: Neos\MarketPlace\Eel\IndexingHelper
-TYPO3:
-  TypoScript:
+  Fusion:
     defaultContext:
       MarketPlaceSearch: Neos\MarketPlace\Eel\ElasticSearchQueryBuilder
       MarketCaching: Neos\MarketPlace\Eel\CachingHelper
@@ -59,4 +58,4 @@ Ttree:
   OutOfBandRendering:
     presets:
       'marketplace:version':
-        path: 'root<TYPO3.TypoScript:Case>/neosMarketPlaceDocument<TYPO3.TypoScript:Matcher>/element<Neos.MarketPlace:Package.Document>/body<TYPO3.TypoScript:Template>/content/main<TYPO3.TypoScript:Array>/package<Neos.MarketPlace:Package>/versions<Neos.MarketPlace:VersionPreview>'
+        path: 'root<Neos.Fusion:Case>/neosMarketPlaceDocument<Neos.Fusion:Matcher>/element<Neos.MarketPlace:Package.Document>/body<Neos.Fusion:Template>/content/main<Neos.Fusion:Array>/package<Neos.MarketPlace:Package>/versions<Neos.MarketPlace:VersionPreview>'
