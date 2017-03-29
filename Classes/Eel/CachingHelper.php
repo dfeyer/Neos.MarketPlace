@@ -14,7 +14,7 @@ namespace Neos\MarketPlace\Eel;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\ActionRequest;
 use Neos\Utility\Arrays;
-use Neos\Flow\Utility\Unicode\Functions;
+use Neos\Utility\Unicode\Functions;
 use Neos\Neos\TypoScript\Helper\CachingHelper as TypoScriptCachingHelper;
 
 /**
