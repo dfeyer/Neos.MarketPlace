@@ -67,12 +67,12 @@ githubProperty:
   reloadIfChanged: true
   inspector:
     group: metrics
-'TYPO3.Neos:Document':
+'Neos.Neos:Document':
   constraints:
     nodeTypes:
       'Neos.MarketPlace:Document': false
       'Neos.MarketPlace:RepositoryStorage': true
-'TYPO3.Neos:ContentCollection':
+'Neos.Neos:ContentCollection':
   constraints:
     nodeTypes:
       'Neos.MarketPlace:Version': false
@@ -89,14 +89,14 @@ githubProperty:
           label: i18n
   childNodes:
     main:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
   superTypes:
-    'TYPO3.Neos:Document': true
+    'Neos.Neos:Document': true
     '': true
   constraints:
     nodeTypes:
       '*': false
-      'TYPO3.Neos:Document': false
+      'Neos.Neos:Document': false
       'Neos.MarketPlace:RepositoryStorage': false
 'Neos.MarketPlace:RepositoryStorage':
   superTypes:
@@ -177,19 +177,19 @@ githubProperty:
   childNodes:
     maintainers:
       position: 'before main'
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
       constraints:
         nodeTypes:
           'Neos.MarketPlace:Maintainer': true
     authors:
       position: 'after maintainers'
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
       constraints:
         nodeTypes:
           'Neos.MarketPlace:Author': true
     versions:
       position: 'after authors'
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
       constraints:
         nodeTypes:
           'Neos.MarketPlace:Version': true
@@ -415,7 +415,7 @@ githubProperty:
 'Neos.MarketPlace:People':
   abstract: true
   superTypes:
-    'TYPO3.Neos:Content': true
+    'Neos.Neos:Content': true
   properties:
     title:
       type: string
@@ -461,7 +461,7 @@ githubProperty:
   label: '${q(node).property(''version'') + '' ('' + q(node).property(''type'') + '')''}'
   class: Neos\MarketPlace\Domain\Model\VersionNode
   superTypes:
-    'TYPO3.Neos:Content': true
+    'Neos.Neos:Content': true
   childNodes:
     source:
       position: 'before main'
@@ -517,7 +517,7 @@ githubProperty:
         label: i18n
         inspector:
           group: general
-          editor: TYPO3.Neos/Inspector/Editors/SelectBoxEditor
+          editor: Neos.Neos/Inspector/Editors/SelectBoxEditor
           editorOptions:
             placeholder: i18n
             values:
@@ -651,7 +651,7 @@ githubProperty:
     label: i18n
 'Neos.MarketPlace:Source':
   superTypes:
-    'TYPO3.Neos:Content': true
+    'Neos.Neos:Content': true
   properties:
     type:
       type: string
