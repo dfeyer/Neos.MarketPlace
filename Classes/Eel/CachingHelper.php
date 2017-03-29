@@ -15,7 +15,7 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\ActionRequest;
 use Neos\Utility\Arrays;
 use Neos\Utility\Unicode\Functions;
-use Neos\Neos\TypoScript\Helper\CachingHelper as TypoScriptCachingHelper;
+use Neos\Neos\Fusion\Helper\CachingHelper as TypoScriptCachingHelper;
 
 /**
  * Caching helper to make cache tag generation easier.
