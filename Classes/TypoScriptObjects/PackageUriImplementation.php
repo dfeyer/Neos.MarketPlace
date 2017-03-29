@@ -13,8 +13,8 @@ namespace Neos\MarketPlace\TypoScriptObjects;
 
 use Neos\MarketPlace\Domain\Model\Slug;
 use Packagist\Api\Result\Package;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Log\SystemLoggerInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Log\SystemLoggerInterface;
 use TYPO3\Neos\Domain\Service\NodeSearchServiceInterface;
 use TYPO3\Neos\Exception as NeosException;
 use TYPO3\Neos\Service\LinkingService;

@@ -11,8 +11,8 @@ namespace Neos\MarketPlace\ViewHelpers\Format;
  * source code.
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Utility\Now;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Utility\Now;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**

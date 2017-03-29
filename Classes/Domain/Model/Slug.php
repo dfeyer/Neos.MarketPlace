@@ -13,7 +13,7 @@ namespace Neos\MarketPlace\Domain\Model;
 
 use Cocur\Slugify\Slugify;
 use Packagist\Api\Result\Package;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Package Tree by vendor

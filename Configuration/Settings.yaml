@@ -2,12 +2,12 @@
 Neos:
   MarketPlace:
     typeMapping:
-      'typo3-flow-plugin': 'neos-plugin'
+      'neos-plugin': 'neos-plugin'
       'typo3-flow-build': 'neos-build'
       'typo3-flow-boilerplate': 'neos-boilerplate'
-      'typo3-flow-site': 'neos-site'
-      'typo3-flow-package': 'neos-package'
-      'typo3-flow-framework': 'neos-framework'
+      'neos-site': 'neos-site'
+      'neos-package': 'neos-package'
+      'neos-framework': 'neos-framework'
       'neos-plugin': 'neos-plugin'
       'neos-build': 'neos-build'
       'neos-boilerplate': 'neos-boilerplate'

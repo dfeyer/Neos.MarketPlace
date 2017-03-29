@@ -12,11 +12,11 @@ namespace Neos\MarketPlace;
  */
 
 use Packagist\Api\Result\Package;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Exception
  */
-class Exception extends \TYPO3\Flow\Exception
+class Exception extends \Neos\Flow\Exception
 {
 }

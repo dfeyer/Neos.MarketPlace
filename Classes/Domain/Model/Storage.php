@@ -13,7 +13,7 @@ namespace Neos\MarketPlace\Domain\Model;
 
 use Neos\MarketPlace\Exception;
 use Packagist\Api\Result\Package;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use TYPO3\Neos\Domain\Service\ContentContext;
 use TYPO3\Neos\Domain\Service\ContentContextFactory;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;

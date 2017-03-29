@@ -13,7 +13,7 @@ namespace Neos\MarketPlace\Domain\Repository;
 
 use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Handle request to Packagist to get package informations
