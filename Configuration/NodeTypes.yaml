@@ -92,7 +92,11 @@ githubProperty:
       type: 'Neos.Neos:ContentCollection'
   superTypes:
     'Neos.Neos:Document': true
-    '': true
+    'Neos.Seo:TitleTagMixin': true
+    'Neos.Seo:TwitterCardMixin': true
+    'Neos.Seo:CanonicalLinkMixin': true
+    'Neos.Seo:OpenGraphMixin': true
+    'Neos.Seo:XmlSitemapMixin': true
   constraints:
     nodeTypes:
       '*': false

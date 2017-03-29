@@ -11,6 +11,7 @@ namespace Neos\MarketPlace\Service;
  * source code.
  */
 
+use Neos\Flow\Property\PropertyMappingConfiguration;
 use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Domain\Repository\PackageRepository;
 use Neos\MarketPlace\Property\TypeConverter\PackageConverter;
@@ -36,12 +37,6 @@ class PackageImporter implements PackageImporterInterface
     protected $packageRepository;
 
     /**
-     * @var PropertyMappingConfigurationBuilder
-     * @Flow\Inject
-     */
-    protected $configurationBuilder;
-
-    /**
      * @var PropertyMapper
      * @Flow\Inject
      */
@@ -57,7 +52,7 @@ class PackageImporter implements PackageImporterInterface
      */
     public function process(Package $package, Storage $storage, $force = false)
     {
-        $configuration = $this->configurationBuilder->build();
+        $configuration = new PropertyMappingConfiguration();
         $configuration->setTypeConverterOption(
             PackageConverter::class,
             PackageConverter::STORAGE,
