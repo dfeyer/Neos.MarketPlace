@@ -14,7 +14,7 @@ namespace Neos\MarketPlace\Service;
 use Packagist\Api\Result\Package;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Annotations as Flow;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 
 /**
  * Package Version Utility

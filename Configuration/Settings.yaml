@@ -46,15 +46,15 @@ Neos:
           Neos.MarketPlace:
             - Main
             - 'NodeTypes/*'
+  ContentRepository:
+    Search:
+      defaultContext:
+        MarketIndexing: Neos\MarketPlace\Eel\IndexingHelper
 TYPO3:
   TypoScript:
     defaultContext:
       MarketPlaceSearch: Neos\MarketPlace\Eel\ElasticSearchQueryBuilder
       MarketCaching: Neos\MarketPlace\Eel\CachingHelper
-  TYPO3CR:
-    Search:
-      defaultContext:
-        MarketIndexing: Neos\MarketPlace\Eel\IndexingHelper
 Ttree:
   OutOfBandRendering:
     presets:

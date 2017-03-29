@@ -18,7 +18,7 @@ use Neos\Flow\Log\SystemLoggerInterface;
 use Neos\Neos\Domain\Service\NodeSearchServiceInterface;
 use Neos\Neos\Exception as NeosException;
 use Neos\Neos\Service\LinkingService;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 use TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject;
 
 /**

@@ -14,9 +14,9 @@ namespace Neos\MarketPlace\Eel\FlowQueryOperations;
 use Neos\Eel\FlowQuery\FlowQueryException;
 use Neos\Eel\FlowQuery\Operations\AbstractOperation;
 use Neos\Flow\Annotations as Flow;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Eel\FlowQuery\FlowQuery;
-use TYPO3\TYPO3CR\Domain\Model\Node;
+use Neos\ContentRepository\Domain\Model\Node;
 
 /**
  * EEL sort() operation to sort Nodes

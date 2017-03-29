@@ -20,8 +20,8 @@ use Packagist\Api\Result\Package;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Cli\CommandController;
 use Neos\Flow\Log\SystemLoggerInterface;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
-use TYPO3\TYPO3CR\Search\Indexer\NodeIndexingManager;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\ContentRepository\Search\Indexer\NodeIndexingManager;
 
 /**
  * MarketPlace Command Controller
