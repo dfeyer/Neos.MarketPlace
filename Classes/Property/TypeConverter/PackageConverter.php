@@ -24,17 +24,17 @@ use Neos\MarketPlace\Domain\Model\VersionNode;
 use Neos\MarketPlace\Service\PackageVersion;
 use Neos\MarketPlace\Utility\VersionNumber;
 use Packagist\Api\Result\Package;
-use TYPO3\Eel\FlowQuery\FlowQuery;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Property\Exception\InvalidPropertyMappingConfigurationException;
-use TYPO3\Flow\Property\Exception\TypeConverterException;
-use TYPO3\Flow\Property\PropertyMappingConfigurationInterface;
-use TYPO3\Flow\Property\TypeConverter\AbstractTypeConverter;
-use TYPO3\Flow\Utility\Arrays;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
-use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
-use TYPO3\TYPO3CR\Domain\Service\NodeTypeManager;
-use TYPO3\TypoScript\Core\Cache\ContentCache;
+use Neos\Eel\FlowQuery\FlowQuery;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Property\Exception\InvalidPropertyMappingConfigurationException;
+use Neos\Flow\Property\Exception\TypeConverterException;
+use Neos\Flow\Property\PropertyMappingConfigurationInterface;
+use Neos\Flow\Property\TypeConverter\AbstractTypeConverter;
+use Neos\Utility\Arrays;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\ContentRepository\Domain\Model\NodeTemplate;
+use Neos\ContentRepository\Domain\Service\NodeTypeManager;
+use Neos\Fusion\Core\Cache\ContentCache;
 
 /**
  * Convert package from packagist to node

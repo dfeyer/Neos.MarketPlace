@@ -11,11 +11,11 @@ namespace Neos\MarketPlace\Eel;
  * source code.
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\ActionRequest;
-use TYPO3\Flow\Utility\Arrays;
-use TYPO3\Flow\Utility\Unicode\Functions;
-use TYPO3\Neos\TypoScript\Helper\CachingHelper as TypoScriptCachingHelper;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\ActionRequest;
+use Neos\Utility\Arrays;
+use Neos\Utility\Unicode\Functions;
+use Neos\Neos\Fusion\Helper\CachingHelper as TypoScriptCachingHelper;
 
 /**
  * Caching helper to make cache tag generation easier.

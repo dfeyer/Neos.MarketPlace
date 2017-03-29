@@ -13,7 +13,7 @@ namespace Neos\MarketPlace\Service;
 
 use Neos\MarketPlace\Domain\Model\Storage;
 use Packagist\Api\Result\Package;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 
 /**
  * Package Importer Interface

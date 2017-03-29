@@ -17,11 +17,11 @@ use Neos\MarketPlace\Domain\Model\Storage;
 use Neos\MarketPlace\Service\PackageImporterInterface;
 use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Cli\CommandController;
-use TYPO3\Flow\Log\SystemLoggerInterface;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
-use TYPO3\TYPO3CR\Search\Indexer\NodeIndexingManager;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Cli\CommandController;
+use Neos\Flow\Log\SystemLoggerInterface;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\ContentRepository\Search\Indexer\NodeIndexingManager;
 
 /**
  * MarketPlace Command Controller

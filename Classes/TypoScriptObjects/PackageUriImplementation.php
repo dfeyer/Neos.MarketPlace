@@ -13,20 +13,20 @@ namespace Neos\MarketPlace\TypoScriptObjects;
 
 use Neos\MarketPlace\Domain\Model\Slug;
 use Packagist\Api\Result\Package;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Log\SystemLoggerInterface;
-use TYPO3\Neos\Domain\Service\NodeSearchServiceInterface;
-use TYPO3\Neos\Exception as NeosException;
-use TYPO3\Neos\Service\LinkingService;
-use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
-use TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Log\SystemLoggerInterface;
+use Neos\Neos\Domain\Service\NodeSearchServiceInterface;
+use Neos\Neos\Exception as NeosException;
+use Neos\Neos\Service\LinkingService;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
+use Neos\Fusion\FusionObjects\AbstractFusionObject;
 
 /**
  * Package TypoScript Implementation
  *
  * @api
  */
-class PackageUriImplementation extends AbstractTypoScriptObject
+class PackageUriImplementation extends AbstractFusionObject
 {
     /**
      * @Flow\Inject
