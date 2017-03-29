@@ -1,10 +1,10 @@
 {
     "description": "Neos Project Marketplace",
     "name": "neos/marketplace",
-    "type": "typo3-flow-package",
+    "type": "neos-package",
     "license": "MIT",
     "require": {
-        "typo3/flow": "*",
+        "neos/flow": "*",
         "flowpack/searchplugin": "*",
         "knplabs/packagist-api": "^1.3",
         "knplabs/github-api": "^1.6",
