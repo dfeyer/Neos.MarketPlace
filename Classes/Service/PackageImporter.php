@@ -19,7 +19,6 @@ use Packagist\Api\Result\Package;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Property\PropertyMapper;
-use Neos\Flow\Property\PropertyMappingConfigurationBuilder;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 
 /**
@@ -52,7 +51,7 @@ class PackageImporter implements PackageImporterInterface
      */
     public function process(Package $package, Storage $storage, $force = false)
     {
-        $configuration = new PropertyMappingConfiguration();
+        $configuration = $this->propertyMapper->buildPropertyMappingConfiguration();
         $configuration->setTypeConverterOption(
             PackageConverter::class,
             PackageConverter::STORAGE,

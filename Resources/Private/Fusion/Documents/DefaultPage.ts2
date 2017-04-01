@@ -1,6 +1,6 @@
 prototype(Neos.NeosIo:DefaultPage) {
     head {
-        stylesheets.neosMarketPlace = Ttree.StyleSheet:StyleSheetTag {
+        stylesheets.neosMarketPlace = Ttree.StyleSheet:External {
             path = 'resource://Neos.MarketPlace/Public/Styles/Main.css'
             @position = 'after site'
         }

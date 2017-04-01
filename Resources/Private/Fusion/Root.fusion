@@ -2,9 +2,6 @@ namespace: TypoScript=Neos.Fusion
 namespace: Neos=Neos.Neos
 namespace: MarketPlace=Neos.MarketPlace
 
-# todo can be remove when https://github.com/neos/neos-development-collection/pull/407 is merged
-prototype(TypoScript:Collection).@class = 'Neos\\MarketPlace\\TypoScriptObjects\\CollectionImplementation'
-
 include: Documents/**/*
 include: NodeTypes/**/*
 include: Query/**/*
