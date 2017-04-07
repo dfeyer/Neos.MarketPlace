@@ -11,8 +11,8 @@ namespace Neos\MarketPlace\Eel;
  * source code.
  */
 
+use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Driver\QueryInterface;
 use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Eel;
-use Neos\Flow\Annotations as Flow;
 use Neos\Utility\Arrays;
 
 /**
@@ -26,13 +26,13 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
     protected $hasFulltext = false;
 
     /**
-     * @return array
+     * @return QueryInterface
      */
     public function getRequest()
     {
         $this->skipAbandonnedPackages();
         $request = parent::getRequest();
-        $request = $this->enforeFunctionScoring($request);
+        $request = $this->enforceFunctionScoring($request);
         return $request;
     }
 
@@ -87,14 +87,14 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
     }
 
     /**
-     * @param array $request
-     * @return array
+     * @param QueryInterface $request
+     * @return QueryInterface
      */
-    protected function enforeFunctionScoring(array $request)
+    protected function enforceFunctionScoring(QueryInterface $request)
     {
         if ($this->hasFulltext !== false) {
-            $request['query'] = [
-                'function_score' => [
+            $request->appendAtPath('query',
+                ['function_score' => [
                     'functions' => [
                         [
                             'filter' => [
@@ -129,12 +129,11 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
                             ]
                         ],
                         [
-                            'gauss' => [
-                                'lastVersion.time' => [
-                                    'scale' => '60d',
-                                    'offset' => '5d',
-                                    'decay' => 0.5
-                                ]
+                        'gauss' => [
+                            'lastVersion.time' => [
+                                'scale' => '60d',
+                                'offset' => '5d',
+                                'decay' => 0.5
                             ]
                         ]
                     ],
@@ -142,7 +141,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
                     'boost_mode' => 'multiply',
                     'query' => $request['query']
                 ]
-            ];
+            ]]);
         }
         return $request;
     }
