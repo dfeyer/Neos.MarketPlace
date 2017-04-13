@@ -30,10 +30,14 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
      */
     public function getRequest()
     {
-        $this->skipAbandonnedPackages();
         $request = parent::getRequest();
-        $request = $this->enforceFunctionScoring($request);
-        return $request;
+        $copiedRequest = clone $request;
+        self::skipAbandonnedPackages($copiedRequest);
+        if ($this->hasFulltext !== false) {
+            self::enforceFunctionScoring($copiedRequest);
+        }
+
+        return $copiedRequest;
     }
 
     /**
@@ -76,10 +80,11 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
 
     /**
      * return void
+     * @param QueryInterface $request
      */
-    protected function skipAbandonnedPackages()
+    protected static function skipAbandonnedPackages(QueryInterface $request)
     {
-        $this->appendAtPath('query.filtered.filter.bool.must_not', [
+        $request->appendAtPath('query.filtered.filter.bool.must_not', [
             'exists' => [
                 'field' => 'abandoned'
             ]
@@ -90,60 +95,57 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
      * @param QueryInterface $request
      * @return QueryInterface
      */
-    protected function enforceFunctionScoring(QueryInterface $request)
+    protected static function enforceFunctionScoring(QueryInterface $request)
     {
-        if ($this->hasFulltext !== false) {
-            $request->appendAtPath('query',
-                ['function_score' => [
-                    'functions' => [
-                        [
-                            'filter' => [
-                                'term' => [
-                                    '__typeAndSupertypes' => 'Neos.MarketPlace:Vendor'
-                                ],
+        $request->setValueByPath('query',
+            ['function_score' => [
+                'functions' => [
+                    [
+                        'filter' => [
+                            'term' => [
+                                '__typeAndSupertypes' => 'Neos.MarketPlace:Vendor'
                             ],
-                            'weight' => 1.2
                         ],
-                        [
-                            'field_value_factor' => [
-                                'field' => 'downloadDaily',
-                                'factor' => 0.5,
-                                'modifier' => 'sqrt',
-                                'missing' => 1
-                            ]
-                        ],
-                        [
-                            'field_value_factor' => [
-                                'field' => 'githubStargazers',
-                                'factor' => 1,
-                                'modifier' => 'sqrt',
-                                'missing' => 1
-                            ]
-                        ],
-                        [
-                            'field_value_factor' => [
-                                'field' => 'githubForks',
-                                'factor' => 0.5,
-                                'modifier' => 'sqrt',
-                                'missing' => 1
-                            ]
-                        ],
-                        [
-                        'gauss' => [
-                            'lastVersion.time' => [
-                                'scale' => '60d',
-                                'offset' => '5d',
-                                'decay' => 0.5
-                            ]
+                        'weight' => 1.2
+                    ],
+                    [
+                        'field_value_factor' => [
+                            'field' => 'downloadDaily',
+                            'factor' => 0.5,
+                            'modifier' => 'sqrt',
+                            'missing' => 1
                         ]
                     ],
-                    'score_mode' => 'avg',
-                    'boost_mode' => 'multiply',
-                    'query' => $request['query']
-                ]
-            ]]);
-        }
-        return $request;
+                    [
+                        'field_value_factor' => [
+                            'field' => 'githubStargazers',
+                            'factor' => 1,
+                            'modifier' => 'sqrt',
+                            'missing' => 1
+                        ]
+                    ],
+                    [
+                        'field_value_factor' => [
+                            'field' => 'githubForks',
+                            'factor' => 0.5,
+                            'modifier' => 'sqrt',
+                            'missing' => 1
+                        ]
+                    ],
+                    [
+                    'gauss' => [
+                        'lastVersion.time' => [
+                            'scale' => '60d',
+                            'offset' => '5d',
+                            'decay' => 0.5
+                        ]
+                    ]
+                ],
+                'score_mode' => 'avg',
+                'boost_mode' => 'multiply',
+                'query' => $request['query']
+            ]
+        ]]);
     }
 
 }
