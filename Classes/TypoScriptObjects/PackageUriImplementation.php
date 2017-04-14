@@ -79,7 +79,7 @@ class PackageUriImplementation extends AbstractFusionObject
         $packageNode = reset($packageNodes);
         if ($packageNode) {
             return $this->linkingService->createNodeUri(
-                $this->tsRuntime->getControllerContext(),
+                $this->runtime->getControllerContext(),
                 $packageNode,
                 $this->getNode()
             );
