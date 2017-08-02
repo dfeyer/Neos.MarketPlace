@@ -98,54 +98,56 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
     protected static function enforceFunctionScoring(QueryInterface $request)
     {
         $request->setValueByPath('query',
-            ['function_score' => [
-                'functions' => [
-                    [
-                        'filter' => [
-                            'term' => [
-                                '__typeAndSupertypes' => 'Neos.MarketPlace:Vendor'
+            [
+                'function_score' => [
+                    'functions' => [
+                        [
+                            'filter' => [
+                                'term' => [
+                                    '__typeAndSupertypes' => 'Neos.MarketPlace:Vendor'
+                                ],
                             ],
+                            'weight' => 1.2
                         ],
-                        'weight' => 1.2
-                    ],
-                    [
-                        'field_value_factor' => [
-                            'field' => 'downloadDaily',
-                            'factor' => 0.5,
-                            'modifier' => 'sqrt',
-                            'missing' => 1
+                        [
+                            'field_value_factor' => [
+                                'field' => 'downloadDaily',
+                                'factor' => 0.5,
+                                'modifier' => 'sqrt',
+                                'missing' => 1
+                            ]
+                        ],
+                        [
+                            'field_value_factor' => [
+                                'field' => 'githubStargazers',
+                                'factor' => 1,
+                                'modifier' => 'sqrt',
+                                'missing' => 1
+                            ]
+                        ],
+                        [
+                            'field_value_factor' => [
+                                'field' => 'githubForks',
+                                'factor' => 0.5,
+                                'modifier' => 'sqrt',
+                                'missing' => 1
+                            ]
+                        ],
+                        [
+                            'gauss' => [
+                                'lastVersion.time' => [
+                                    'scale' => '60d',
+                                    'offset' => '5d',
+                                    'decay' => 0.5
+                                ]
+                            ]
                         ]
                     ],
-                    [
-                        'field_value_factor' => [
-                            'field' => 'githubStargazers',
-                            'factor' => 1,
-                            'modifier' => 'sqrt',
-                            'missing' => 1
-                        ]
-                    ],
-                    [
-                        'field_value_factor' => [
-                            'field' => 'githubForks',
-                            'factor' => 0.5,
-                            'modifier' => 'sqrt',
-                            'missing' => 1
-                        ]
-                    ],
-                    [
-                    'gauss' => [
-                        'lastVersion.time' => [
-                            'scale' => '60d',
-                            'offset' => '5d',
-                            'decay' => 0.5
-                        ]
-                    ]
-                ],
-                'score_mode' => 'avg',
-                'boost_mode' => 'multiply',
-                'query' => $request['query']
-            ]
-        ]]);
+                    'score_mode' => 'avg',
+                    'boost_mode' => 'multiply',
+                    'query' => $request['query']
+                ]
+            ]);
     }
 
 }
