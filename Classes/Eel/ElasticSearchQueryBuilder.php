@@ -52,28 +52,28 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
         }
         $this->hasFulltext = true;
 
-        $this->request = Arrays::setValueByPath($this->request->toArray(), 'query.filtered.query.bool.must', []);
-        $this->request = Arrays::setValueByPath($this->request->toArray(), 'query.filtered.query.bool.should', []);
-        $this->request = Arrays::setValueByPath($this->request->toArray(), 'query.filtered.query.bool.minimum_should_match', 1);
-        $this->appendAtPath('query.filtered.query.bool.should', [
-            [
-                'query_string' => [
-                    'fields' => [
-                        'title^10',
-                        '__composerVendor^5',
-                        '__maintainers.name^5',
-                        '__maintainers.tag^8',
-                        'description^2',
-                        'lastVersion.keywords.name^10',
-                        'lastVersion.keywords.tag^12',
-                        '__fulltext.*'
-                    ],
-                    'query' => str_replace('/', '\\/', $searchWord),
-                    'default_operator' => 'AND',
-                    'use_dis_max' => true
-                ]
-            ]
-        ]);
+        $this->request->setValueByPath('query.filtered.query.bool.must', '');
+        $this->request->setValueByPath('query.filtered.query.bool.should', '');
+        $this->request->setValueByPath('query.filtered.query.bool.minimum_should_match', 1);
+//        $this->request->appendAtPath('query.filtered.query.bool.should', [
+//            [
+//                'query_string' => [
+//                    'fields' => [
+//                        'title^10',
+//                        '__composerVendor^5',
+//                        '__maintainers.name^5',
+//                        '__maintainers.tag^8',
+//                        'description^2',
+//                        'lastVersion.keywords.name^10',
+//                        'lastVersion.keywords.tag^12',
+//                        '__fulltext.*'
+//                    ],
+//                    'query' => str_replace('/', '\\/', $searchWord),
+//                    'default_operator' => 'AND',
+//                    'use_dis_max' => true
+//                ]
+//            ]
+//        ]);
 
         return $this;
     }
@@ -97,7 +97,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
      */
     protected static function enforceFunctionScoring(QueryInterface $request)
     {
-        $request->setValueByPath('query',
+        $request->setByPath('query',
             [
                 'function_score' => [
                     'functions' => [
