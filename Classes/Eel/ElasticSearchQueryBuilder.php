@@ -13,7 +13,6 @@ namespace Neos\MarketPlace\Eel;
 
 use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Driver\QueryInterface;
 use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Eel;
-use Neos\Utility\Arrays;
 
 /**
  * ElasticSearchQueryBuilder
@@ -32,7 +31,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
     {
         $request = parent::getRequest();
         $copiedRequest = clone $request;
-        self::skipAbandonnedPackages($copiedRequest);
+        self::skipAbandonedPackages($copiedRequest);
         if ($this->hasFulltext !== false) {
             self::enforceFunctionScoring($copiedRequest);
         }
@@ -52,28 +51,28 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
         }
         $this->hasFulltext = true;
 
-        $this->request->setValueByPath('query.filtered.query.bool.must', '');
-        $this->request->setValueByPath('query.filtered.query.bool.should', '');
+        $this->request->setValueByPath('query.filtered.query.bool.must', []);
+        $this->request->setValueByPath('query.filtered.query.bool.should', []);
         $this->request->setValueByPath('query.filtered.query.bool.minimum_should_match', 1);
-//        $this->request->appendAtPath('query.filtered.query.bool.should', [
-//            [
-//                'query_string' => [
-//                    'fields' => [
-//                        'title^10',
-//                        '__composerVendor^5',
-//                        '__maintainers.name^5',
-//                        '__maintainers.tag^8',
-//                        'description^2',
-//                        'lastVersion.keywords.name^10',
-//                        'lastVersion.keywords.tag^12',
-//                        '__fulltext.*'
-//                    ],
-//                    'query' => str_replace('/', '\\/', $searchWord),
-//                    'default_operator' => 'AND',
-//                    'use_dis_max' => true
-//                ]
-//            ]
-//        ]);
+        $this->request->appendAtPath('query.filtered.query.bool.should', [
+            [
+                'query_string' => [
+                    'fields' => [
+                        'title^10',
+                        '__composerVendor^5',
+                        '__maintainers.name^5',
+                        '__maintainers.tag^8',
+                        'description^2',
+                        'lastVersion.keywords.name^10',
+                        'lastVersion.keywords.tag^12',
+                        '__fulltext.*'
+                    ],
+                    'query' => str_replace('/', '\\/', $searchWord),
+                    'default_operator' => 'AND',
+                    'use_dis_max' => true
+                ]
+            ]
+        ]);
 
         return $this;
     }
@@ -82,7 +81,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
      * return void
      * @param QueryInterface $request
      */
-    protected static function skipAbandonnedPackages(QueryInterface $request)
+    protected static function skipAbandonedPackages(QueryInterface $request)
     {
         $request->appendAtPath('query.filtered.filter.bool.must_not', [
             'exists' => [
@@ -97,7 +96,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
      */
     protected static function enforceFunctionScoring(QueryInterface $request)
     {
-        $request->setByPath('query',
+        $request->setValueByPath('query',
             [
                 'function_score' => [
                     'functions' => [
@@ -149,5 +148,4 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
                 ]
             ]);
     }
-
 }
