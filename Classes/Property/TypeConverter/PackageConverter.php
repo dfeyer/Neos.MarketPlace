@@ -484,8 +484,6 @@ class PackageConverter extends AbstractTypeConverter
                     'shasum' => $version->getDist()->getShasum(),
                 ]);
             }
-
-            $this->handleAbandonedPackageOrVersion($package, $node);
         }
     }
 
