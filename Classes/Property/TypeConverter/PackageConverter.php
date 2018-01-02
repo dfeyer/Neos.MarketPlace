@@ -1,5 +1,4 @@
 <?php
-
 namespace Neos\MarketPlace\Property\TypeConverter;
 
 /*
