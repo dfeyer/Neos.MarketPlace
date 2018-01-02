@@ -96,12 +96,11 @@ class PackageConverter extends AbstractTypeConverter
     /**
      * Converts $source to a node
      *
-     * @param string|integer|array $source the string to be converted to a \DateTime object
-     * @param string $targetType must be "DateTime"
+     * @param string|integer|array $source the string to be converted
+     * @param string $targetType
      * @param array $convertedChildProperties not used currently
      * @param PropertyMappingConfigurationInterface $configuration
      * @return NodeInterface
-     * @throws TypeConverterException
      */
     public function convertFrom($source, $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null)
     {
@@ -146,14 +145,15 @@ class PackageConverter extends AbstractTypeConverter
      * @param PackageNode $packageNode
      * @return boolean
      */
-    protected function packageRequireUpdate(Package $package, PackageNode $packageNode) {
+    protected function packageRequireUpdate(Package $package, PackageNode $packageNode)
+    {
         $lastActivities = [];
         /** @var Package\Version $version */
         foreach ($package->getVersions() as $version) {
-			$time = $version->getTime();
-			if ($time === null) {
-				continue;
-			}
+            $time = $version->getTime();
+            if ($time === null) {
+                continue;
+            }
             $time = \DateTime::createFromFormat(\DateTime::ISO8601, $time);
             $lastActivities[$time->getTimestamp()] = $time;
         }
@@ -188,7 +188,7 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function handleGithubMetrics(Package $package, NodeInterface $node)
     {
-        if (isset($package->abandoned) && $package->abandoned === true) {
+        if ($package->isAbandoned()) {
             $this->resetGithubMetrics($node);
         } else {
             $repository = $package->getRepository();
@@ -274,8 +274,8 @@ class PackageConverter extends AbstractTypeConverter
             '#<a[^>]*><\s*/\s*a>#msi' => '',
             '#<article[^>]*>(.*)<\s*/\s*article>#msi' => '$1',
             '#<div class="announce[^>]*>(.*)<\s*/\s*div>$#msi' => '$1',
-            '/href="(?!https?:\/\/)(?!data:)(?!#)/' => 'href="'.$domain,
-            '/src="(?!https?:\/\/)(?!data:)(?!#)/' => 'src="'.$domain
+            '/href="(?!https?:\/\/)(?!data:)(?!#)/' => 'href="' . $domain,
+            '/src="(?!https?:\/\/)(?!data:)(?!#)/' => 'src="' . $domain
         ];
         return trim(preg_replace(array_keys($r), array_values($r), $content));
     }
@@ -300,13 +300,11 @@ class PackageConverter extends AbstractTypeConverter
      */
     protected function handleAbandonedPackageOrVersion(Package $package, NodeInterface $node)
     {
-        if (isset($package->abandoned) && trim($package->abandoned) !== '') {
-            if (trim($node->getProperty('abandoned')) === '') {
-                $node->setProperty('abandoned', $package->abandoned);
-                $this->emitPackageAbandoned($node);
-            } else {
-                $node->setProperty('abandoned', $package->abandoned);
-            }
+        if (trim($node->getProperty('abandoned')) === '' && $package->isAbandoned()) {
+            $node->setProperty('abandoned', (string)$package->isAbandoned());
+            $this->emitPackageAbandoned($node);
+        } else {
+            $node->setProperty('abandoned', (string)$package->isAbandoned());
         }
     }
 
@@ -586,7 +584,7 @@ class PackageConverter extends AbstractTypeConverter
      * @return Storage
      * @throws InvalidPropertyMappingConfigurationException
      */
-    protected function getStorage(PropertyMappingConfigurationInterface $configuration = null)
+    protected function getStorage(PropertyMappingConfigurationInterface $configuration = null): Storage
     {
         if ($configuration === null) {
             throw new InvalidPropertyMappingConfigurationException('Missing property configuration', 1457516367);
@@ -627,7 +625,7 @@ class PackageConverter extends AbstractTypeConverter
 
     /**
      * @param array $value
-     * @return string
+     * @return string|null
      */
     protected function arrayToJsonCaster($value)
     {
