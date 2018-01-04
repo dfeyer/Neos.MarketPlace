@@ -1,4 +1,5 @@
 <?php
+
 namespace Neos\MarketPlace\Command;
 
 /*
@@ -11,6 +12,7 @@ namespace Neos\MarketPlace\Command;
  * source code.
  */
 
+use Neos\Flow\Persistence\Doctrine\PersistenceManager;
 use Neos\MarketPlace\Domain\Model\LogAction;
 use Neos\MarketPlace\Domain\Model\Packages;
 use Neos\MarketPlace\Domain\Model\Storage;
@@ -47,6 +49,12 @@ class MarketPlaceCommandController extends CommandController
     protected $logger;
 
     /**
+     * @var PersistenceManager
+     * @Flow\Inject
+     */
+    protected $persistenceManager;
+
+    /**
      * Sync packages from Packagist
      *
      * @param string $package Sync only the given package
@@ -68,11 +76,17 @@ class MarketPlaceCommandController extends CommandController
             $this->outputLine('Synchronize with Packagist ...');
             $this->outputLine('------------------------------');
             $storage = new Storage();
+
             $process = function (Package $package) use ($storage, &$count, $force) {
                 $count++;
                 $this->outputLine(sprintf('  %d/ %s (%s)', $count, $package->getName(), $package->getTime()));
                 $this->importer->process($package, $storage, $force);
+
+                if ($count % 10 === 0) {
+                    $this->persistenceManager->persistAll();
+                }
             };
+
             if ($package === null) {
                 $this->logger->log(sprintf('action=%s', LogAction::FULL_SYNC_STARTED), LOG_INFO);
                 $packages = new Packages();
@@ -92,8 +106,8 @@ class MarketPlaceCommandController extends CommandController
                 $this->cleanupVendors($storage);
                 $this->logger->log(sprintf('action=%s duration=%f', LogAction::FULL_SYNC_FINISHED, $elapsedTime()), LOG_INFO);
 
-				$this->outputLine();
-				$this->outputLine(sprintf('%d package(s) imported with success', $this->importer->getProcessedPackagesCount()));
+                $this->outputLine();
+                $this->outputLine(sprintf('%d package(s) imported with success', $this->importer->getProcessedPackagesCount()));
             } else {
                 $packageKey = $package;
                 $this->logger->log(sprintf('action=%s package=%s', LogAction::SINGLE_PACKAGE_SYNC_STARTED, $package), LOG_INFO);
@@ -108,12 +122,12 @@ class MarketPlaceCommandController extends CommandController
                     $hasError = true;
                 }
 
-				$this->outputLine();
+                $this->outputLine();
                 if ($hasError) {
-					$this->outputLine(sprintf('Package "%s" import failed', $packageKey));
-				} else {
-					$this->outputLine(sprintf('Package "%s" imported with success', $packageKey));
-				}
+                    $this->outputLine(sprintf('Package "%s" import failed', $packageKey));
+                } else {
+                    $this->outputLine(sprintf('Package "%s" imported with success', $packageKey));
+                }
             }
 
             if ($hasError) {
