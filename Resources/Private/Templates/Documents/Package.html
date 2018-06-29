@@ -18,11 +18,7 @@
 <body>
 <f:section name="body">
     <f:render partial="SiteHeader" arguments="{_all}" />
-    <f:render partial="KeyVisual" arguments="{
-		contents: content.keyVisual,
-		isKeyVisualContentsInverted: isKeyVisualContentsInverted,
-		keyVisualImage: keyVisualImage
-	}" />
+    {content.keyVisual -> f:format.raw()}
 
     <nav>
         {parts.breadcrumb -> f:format.raw()}
