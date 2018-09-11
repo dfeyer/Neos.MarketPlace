@@ -10,6 +10,7 @@ Neos:
       neos-framework: neos-framework
       neos-build: neos-build
       neos-boilerplate: neos-boilerplate
+      neos-carbon: neos-carbon
     vendorMapping:
       neos: true
       flowpack: true
