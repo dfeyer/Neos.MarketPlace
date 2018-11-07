@@ -1,0 +1,17 @@
+prototype(Neos.MarketPlace:Vendor) {
+    attributes = Neos.Fusion:Attributes {
+        class = 'market-block'
+    }
+
+    main = Neos.Neos:ContentCollection {
+        nodePath = 'main'
+    }
+
+    packages = Neos.Fusion:Collection {
+        collection = ${q(node).children('[instanceof Neos.MarketPlace:Package]')}
+        itemName = 'node'
+        itemRenderer = Neos.MarketPlace:PackageSearchResult
+    }
+
+    @process.contentElementWrapping >
+}

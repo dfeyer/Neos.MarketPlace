@@ -1,16 +1,5 @@
-namespace: TypoScript=Neos.Fusion
-namespace: Neos=Neos.Neos
-namespace: MarketPlace=Neos.MarketPlace
 
 include: Documents/**/*
 include: NodeTypes/**/*
 include: Query/**/*
-include: TypoScriptObjects/**/*
-
-root {
-    neosMarketPlaceDocument {
-        type = ${q(node).property('_nodeType') + '.Document'}
-        condition = ${q(node).is('[instanceof Neos.MarketPlace:Document]')}
-        renderPath >
-    }
-}
+include: FusionObjects/**/*

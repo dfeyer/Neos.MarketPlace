@@ -1,7 +1,0 @@
-prototype(Neos.MarketPlace:RepositoryStorage.Document) < prototype(Neos.MarketPlace:DefaultPage) {
-    body {
-        content {
-            main = Neos.MarketPlace:Search
-        }
-    }
-}

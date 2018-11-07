@@ -1,3 +1,0 @@
-prototype(Neos.MarketPlace:VersionsQuery) < prototype(TypoScript:Value) {
-    value = ${q(documentNode).find('versions').children('[instanceof Neos.MarketPlace:Version]').sort('versionNormalized').get()}
-}
