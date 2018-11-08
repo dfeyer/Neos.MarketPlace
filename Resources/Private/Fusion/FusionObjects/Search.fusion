@@ -9,7 +9,7 @@ root {
     }
 }
 
-prototype(Neos.MarketPlace:RepositoryStorage.Document) {
+prototype(Neos.MarketPlace:RepositoryStorage) {
     @cache {
         entryIdentifier {
             searchQuery = ${MarketCaching.queryCacheKey(request.arguments.search)}
