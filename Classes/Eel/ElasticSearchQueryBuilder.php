@@ -43,7 +43,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
      * @param string $searchWord
      * @return $this
      */
-    public function fulltext($searchWord)
+    public function fulltext($searchWord, array $options = [])
     {
         $searchWord = trim($searchWord);
         if ($searchWord === '') {
