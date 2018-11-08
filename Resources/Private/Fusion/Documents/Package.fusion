@@ -12,7 +12,7 @@ prototype(Neos.MarketPlace:Package) < prototype(Neos.MarketPlace:DefaultPage) {
         }
 
         content {
-            main = Neos.MarketPlace:Package
+            main = Neos.MarketPlace:PackageRenderer
         }
     }
 }

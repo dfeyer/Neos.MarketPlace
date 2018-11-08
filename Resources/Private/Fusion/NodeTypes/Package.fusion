@@ -1,4 +1,6 @@
-prototype(Neos.MarketPlace:Package) {
+prototype(Neos.MarketPlace:PackageRenderer) < prototype(Neos.Neos:Content) {
+    templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Package.html'
+
     vendor = Neos.MarketPlace:ClosestVendorQuery
     @context.vendor = ${this.vendor}
 

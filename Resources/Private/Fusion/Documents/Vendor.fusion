@@ -9,7 +9,7 @@ prototype(Neos.MarketPlace:Vendor) < prototype(Neos.MarketPlace:DefaultPage) {
                 search = Neos.MarketPlace:Search {
                     showResult = ${false}
                 }
-                vendor = Neos.MarketPlace:Vendor
+                vendor = Neos.MarketPlace:VendorRenderer
             }
         }
     }
