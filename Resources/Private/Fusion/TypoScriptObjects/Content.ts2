@@ -1,4 +1,0 @@
-prototype(Neos.MarketPlace:Content) >
-prototype(Neos.MarketPlace:Content) < prototype(TypoScript:Template) {
-    attributes = TypoScript:Attributes
-}

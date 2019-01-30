@@ -13,6 +13,7 @@ namespace Neos\MarketPlace\Eel;
 
 use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Driver\QueryInterface;
 use Flowpack\ElasticSearch\ContentRepositoryAdaptor\Eel;
+use Neos\ContentRepository\Search\Search\QueryBuilderInterface;
 
 /**
  * ElasticSearchQueryBuilder
@@ -26,6 +27,7 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
 
     /**
      * @return QueryInterface
+     * @throws \Flowpack\ElasticSearch\ContentRepositoryAdaptor\Exception\QueryBuildingException
      */
     public function getRequest()
     {
@@ -41,7 +43,9 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
 
     /**
      * @param string $searchWord
-     * @return $this
+     * @param array $options Options to configure the query_string, see https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-query-string-query.html
+     * @return QueryBuilderInterface
+     * @throws \Flowpack\ElasticSearch\ContentRepositoryAdaptor\Exception\QueryBuildingException
      */
     public function fulltext($searchWord, array $options = [])
     {
@@ -78,10 +82,11 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
     }
 
     /**
-     * return void
      * @param QueryInterface $request
+     * @return void
+     * @throws \Flowpack\ElasticSearch\ContentRepositoryAdaptor\Exception\QueryBuildingException
      */
-    protected static function skipAbandonedPackages(QueryInterface $request)
+    protected static function skipAbandonedPackages(QueryInterface $request): void
     {
         $request->appendAtPath('query.filtered.filter.bool.must_not', [
             'exists' => [
@@ -92,9 +97,9 @@ class ElasticSearchQueryBuilder extends Eel\ElasticSearchQueryBuilder
 
     /**
      * @param QueryInterface $request
-     * @return QueryInterface
+     * @return void
      */
-    protected static function enforceFunctionScoring(QueryInterface $request)
+    protected static function enforceFunctionScoring(QueryInterface $request): void
     {
         $request->setValueByPath('query',
             [

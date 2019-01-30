@@ -1,5 +1,5 @@
 {namespace neos=Neos\Neos\ViewHelpers}
-{namespace ts=Neos\Fusion\ViewHelpers}
+{namespace fusion=Neos\Fusion\ViewHelpers}
 {namespace search=Neos\ContentRepository\Search\ViewHelpers}
 
 <div{attributes -> f:format.raw()}>
@@ -10,7 +10,7 @@
         <div class="search-results__metrics">
             {f:translate(id: 'searchShowingResults', package: 'Flowpack.SearchPlugin', arguments: '{0: results.accessibleCount, 1: totalSearchResults}')}
         </div>
-        <ts:render path="searchResultRenderer" context="{searchResults: results}" />
+        <fusion:render path="searchResultRenderer" context="{searchResults: results}" />
     </search:widget.paginate>
 </f:if>
 </div>

@@ -1,3 +1,0 @@
-prototype(Neos.MarketPlace:ClosestVendorQuery) < prototype(TypoScript:Value) {
-    value = ${q(node).closest('[instanceof Neos.MarketPlace:Vendor]').get(0)}
-}

@@ -1,0 +1,18 @@
+prototype(Neos.MarketPlace:Package) < prototype(Neos.MarketPlace:DefaultPage) {
+    body {
+        templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Package.html'
+        partialRootPath = 'resource://Neos.NeosIo/Private/Templates/Page/Partials'
+
+        parts {
+            sectionTitle >
+            subMenu = Neos.MarketPlace:Package.SubMenu
+            form = Neos.MarketPlace:Search {
+                showResult = ${false}
+            }
+        }
+
+        content {
+            main = Neos.MarketPlace:PackageRenderer
+        }
+    }
+}
