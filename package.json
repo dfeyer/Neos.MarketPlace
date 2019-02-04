@@ -1,7 +1,7 @@
 {
   "name": "neos-marketplace",
   "version": "0.0.1",
-  "description": "Neos.io site package",
+  "description": "Neos.io marketplace package",
   "author": "Neos Team",
   "scripts": {
     "build:scripts": "browserify -t [ babelify ] -p browserify-derequire Resources/Private/JavaScript/index.js > Resources/Public/JavaScript/Bundle.min.js",
@@ -10,8 +10,8 @@
     "postbuild:sass": "postcss --use autoprefixer --autoprefixer.browsers 'last 4 versions' Resources/Public/Styles/*.css -d Resources/Public/Styles/",
     "build": "npm run build:scripts && npm run build:sass && npm run fix:amd",
     "minify:scripts": "uglifyjs Resources/Public/JavaScript/Bundle.min.js -m -c -o Resources/Public/JavaScript/Bundle.min.js",
-    "minify:styles": "uglifycss Resources/Public/Styles/Main.css > Resources/Public/Styles/Main.css",
-    "minify": "npm run minify:scritpts && npm run minify:styles",
+    "minify:styles": "uglifycss --output Resources/Public/Styles/Main.css Resources/Public/Styles/Main.css",
+    "minify": "npm run minify:scripts && npm run minify:styles",
     "lint:scripts": "eslint --parser babel-eslint Resources/Private/JavaScript/**",
     "lint": "npm run lint:scripts",
     "watch:scripts": "watchify -v -t [ babelify ] Resources/Private/JavaScript/index.js -o Resources/Public/JavaScript/Bundle.min.js",
@@ -43,6 +43,7 @@
     "@reduct/assembler": "^2.0.4",
     "@reduct/component": "^4.1.2",
     "@reduct/nitpick": "^3.1.0",
+    "babel-polyfill": "^6.5.0",
     "dom-add-class": "^0.1.7",
     "hash-change": "^0.1.0",
     "lodash.debounce": "^4.0.6",
