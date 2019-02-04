@@ -9,8 +9,8 @@
     "build:sass": "node-sass Resources/Private/Scss/ -o Resources/Public/Styles/",
     "postbuild:sass": "postcss --use autoprefixer --autoprefixer.browsers 'last 4 versions' Resources/Public/Styles/*.css -d Resources/Public/Styles/",
     "build": "npm run build:scripts && npm run build:sass && npm run fix:amd",
-    "minify:scripts": "uglify -s Resources/Public/JavaScript/Bundle.min.js -o Resources/Public/JavaScript/Bundle.min.js",
-    "minify:styles": "uglify -s Resources/Public/Styles/Main.css -o Resources/Public/Styles/Main.css -c",
+    "minify:scripts": "uglifyjs Resources/Public/JavaScript/Bundle.min.js -m -c -o Resources/Public/JavaScript/Bundle.min.js",
+    "minify:styles": "uglifycss Resources/Public/Styles/Main.css > Resources/Public/Styles/Main.css",
     "minify": "npm run minify:scritpts && npm run minify:styles",
     "lint:scripts": "eslint --parser babel-eslint Resources/Private/JavaScript/**",
     "lint": "npm run lint:scripts",
@@ -33,9 +33,10 @@
     "eslint-plugin-babel": "^3.2.0",
     "eslint-plugin-react": "^5.1.1",
     "find-and-replace-cli": "^0.1.1",
-    "node-sass": "^3.7.0",
+    "node-sass": "^4.11.0",
     "postcss-cli": "^2.5.2",
-    "uglify": "^0.1.5",
+    "uglifycss": "^0.0.29",
+    "uglify-js": "^3.4.9",
     "watchify": "^3.7.0"
   },
   "dependencies": {
