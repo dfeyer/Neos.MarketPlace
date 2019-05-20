@@ -1,7 +1,6 @@
 prototype(Neos.MarketPlace:Package) < prototype(Neos.MarketPlace:DefaultPage) {
     body {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/Documents/Package.html'
-        partialRootPath = 'resource://Neos.NeosIo/Private/Templates/Page/Partials'
 
         parts {
             sectionTitle >

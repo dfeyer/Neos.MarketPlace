@@ -16,7 +16,8 @@
 </head>
 <body>
 <f:section name="body">
-    <f:render partial="SiteHeader" arguments="{_all}" />
+    {parts.siteHeader -> f:format.raw()}
+
     {content.keyVisual -> f:format.raw()}
 
     <nav>
@@ -37,8 +38,7 @@
             </main>
         </div>
     </div>
-
-    <f:render partial="SiteFooter.html" arguments="{_all}" />
+    {parts.footer -> f:format.raw()}
 </f:section>
 </body>
 </html>
