@@ -52,6 +52,7 @@ prototype(Neos.MarketPlace:Search) < prototype(Flowpack.SearchPlugin:Search) {
     showResult = ${true}
 
     searchQuery = ${this.query}
+    totalSearchResults = ${this.query.execute().count()}
 
     prototype(Flowpack.SearchPlugin:Search.Form) {
         templatePath = 'resource://Neos.MarketPlace/Private/Templates/NodeTypes/Search.Form.html'
