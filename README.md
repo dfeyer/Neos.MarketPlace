@@ -13,7 +13,7 @@ Features
 
 - [x] Import / Update packages and versions from Packagist
 - [x] Import / Update maintainers from Packagist
-- [x] Handle abandonned packages
+- [x] Handle abandoned packages
 - [x] Basic integration with ElasticSearch
 - [x] Listing of packages
 - [x] Vendor detail page
